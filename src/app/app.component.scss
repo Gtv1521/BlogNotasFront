@@ -1,0 +1,47 @@
+@use '../app/styles/variables' as variante;
+
+// main {
+//     background-color: variante.$FondoBackground;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+
+//     .nav {
+//         position: fixed;
+//         top: 0;
+//         display: flex;
+//         padding: 20px;
+//         justify-content: space-around;
+//         background-color: variante.$navigation;
+//         width: 100%;
+
+//         & .items {
+//             display: flex;
+//             flex-wrap: wrap;
+//             gap: 20px;
+//             justify-content: center;
+//             align-items: center;
+
+//             & .item {
+//                 list-style: none !important;
+//                 transition: background-color 0.3s ease;
+//                 height: auto;
+//                 color: variante.$principal;
+//                 font-weight: 800;
+
+//                 white-space: nowrap;
+//                 text-overflow: ellipsis;
+//                 overflow: hidden;
+
+//                 overflow-wrap: normal;
+//                 word-wrap: break-word;
+
+//                 &:hover {
+//                     color: variante.$secundario;
+//                 }
+//             }
+//         }
+//     }
+
+// }

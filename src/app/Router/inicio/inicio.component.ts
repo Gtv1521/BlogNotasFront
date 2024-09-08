@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../../components/footer/footer.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-inicio',
   standalone: true,
   imports: [FooterComponent, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './inicio.component.html',
+  styleUrl: './inicio.component.scss'
 })
+export class InicioComponent {
 
-export class AppComponent {
-  title = 'BlogNotas';
 }

@@ -1,0 +1,92 @@
+@use '../../styles/variables' as variante;
+
+.colicion {
+    width: 100%;
+    height: 100%;
+
+    .parcial {
+        width: 50%;
+        margin: auto;
+        padding-top: 40px;
+    }
+
+    & h1 {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    & .formulario {
+        width: 100%;
+        margin: auto;
+        padding: 70px 15px 50px 15px;
+        display: block;
+        flex-direction: row;
+        border-radius: 25px;
+        color: variante.$principal;
+        background-color: variante.$FondoUno;
+
+        & .name {
+            display: block;
+            flex-direction: row;
+            width: 70%;
+            margin: 10px auto 20px auto;
+
+            & .label {
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            & .item {
+                margin-bottom: 10px;
+                width: 100%;
+                z-index: 2;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        & .enviar {
+            text-align: center;
+
+            & .a {
+                padding: 5px 15px;
+                border-radius: 4px;
+                border: none;
+                color: variante.$cuarto;
+                background-color: variante.$tercero;
+            }
+        }
+    }
+}
+
+.resetPass {
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+
+    & a {
+        color: variante.$secundario;
+        text-decoration: none;
+
+        &:hover {
+            border-bottom: 1px solid variante.$secundario;
+        }
+    }
+}
+
+.active {
+    animation: mueve 2S forwards;
+}
+
+@keyframes mueve {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
