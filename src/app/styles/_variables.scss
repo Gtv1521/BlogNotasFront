@@ -1,0 +1,31 @@
+
+// estilos oscuros
+$FondoBackground: rgba(255, 255, 255, 0.986); 
+$navigation: rgb(54, 50, 50);
+$FondoUno: rgba(82, 1, 1, 0.952);
+
+
+// colores de letras 
+$principal: rgba(167, 166, 166, 0.9); 
+$secundario: rgb(255, 255, 255); 
+$tercero: rgb(197, 189, 189);
+$cuarto: rgba(12, 11, 11, 0.911);
+
+
+input {
+    background-color: transparent; // Elimina el color de fondo
+    border-color: transparent; // Elimina el color del borde
+    color: $secundario; // Elimina el color del texto y hereda del contenedor
+    outline: none; // Elimina el color del outline al enfocar
+    border-bottom: 2px solid $secundario;
+
+    &:focus {
+        outline: none; // Asegúrate de que no tenga outline al enfocarse
+        box-shadow: none; // Elimina cualquier sombra al enfocar
+    }
+
+    // &::placeholder {
+    //     color: inherit; // Elimina el color del placeholder y hereda el color del texto
+    // }
+}
+

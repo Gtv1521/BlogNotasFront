@@ -1,0 +1,35 @@
+<div class="colicion">
+    <div class="parcial">
+        <h1>MyBloggg</h1>
+        <form class="formulario" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="name">
+                <label class="item label {{upLabelUser ? 'active' : ''}}" (click)="mueveLabelUser()"
+                    for="username">UserName:</label>
+                <input class="item" formControlName="username" type="text" id="username">
+                @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+                <div class="dsd">asas</div>
+                }
+            </div>
+            <div class="name">
+                <label class="item label {{upLabelPass ? 'active' : '' }}" (click)="mueveLabelPass()"
+                    for="password">Password:</label>
+                <input class="item" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                    id="password">
+                @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+                <div class="dsd">no hay contraseña</div>
+                }
+            </div>
+            <div class="name">
+                <input type="checkbox" (click)="togglePasswordVisibility()" name="Mostrar" id="">
+                <label for="Mostrar"> {{ showPassword ? 'Ocultar' : 'Mostrar'}} Contraseña</label>
+            </div>
+            <div class="resetPass">
+                <a href="#">Recuperar Contraseña</a>
+            </div>
+            <div class="enviar">
+                <button class="a" type="submit" [disabled]="userForm.invalid">Enviar</button>
+                <!-- <input type="submit" [disabled]="userForm.valid" value="Enviar"> -->
+            </div>
+        </form>
+    </div>
+</div>
