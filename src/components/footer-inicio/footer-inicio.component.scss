@@ -1,0 +1,44 @@
+@use '../../styles/variables' as var;
+
+.container {
+  width: 100% !important;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  & .container-row {
+    width: 45% !important;
+    margin: auto;
+    justify-content: space-evenly;
+    display: flex;
+
+    & .session {
+      padding: 0.7rem 6rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 10px;
+      border: 2px solid var.$tercero;
+      background: var.$primero;
+      text-decoration: none !important;
+
+      &:hover {
+        background-color: var.$negro-opaco;
+        color: var.$primero;
+        border: 2px solid var.$primero;
+      }
+    }
+
+    a.active {
+      background-color: var.$tercero;
+      color: var.$tercero;
+      border: 2px solid var.$primero;
+    }
+  }
+}
+
+.activebutton {
+  background-color: red;
+}

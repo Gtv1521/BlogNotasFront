@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+input {
+    background-color: transparent; // Elimina el color de fondo
+    border-color: transparent; // Elimina el color del borde
+    color: white; // Elimina el color del texto y hereda del contenedor
+    outline: none; // Elimina el color del outline al enfocar
+    border-bottom: 2px solid white;
+
+    &:focus {
+        outline: none; 
+        box-shadow: none; 
+    }
+}
