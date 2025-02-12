@@ -74,7 +74,11 @@
 
         <!-- Recuperar contraseña -->
         <div class="link-restart">
-          <a class="session" routerLink="/home/reset" routerLinkActive="activebutton">
+          <a
+            class="session"
+            [routerLink]="['/home/reset']"
+            routerLinkActive="router-link-active"
+          >
             ¿Olvidé su contraseña?
           </a>
         </div>
@@ -85,6 +89,11 @@
             Iniciar sesión
           </button>
         </div>
+
+        <!-- Loadin -->
+        @if (loading) {
+          <div class="alert">Loading...</div>
+        }
       </form>
     </div>
   </div>

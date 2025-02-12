@@ -1,12 +1,14 @@
 import { CommonModule, NgIf } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { RouterLink, RouterLinkActive } from '@angular/router'
+import { Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { UsersService } from '../../services/users.service'
+import { IResponseLogin, IUser, IUserlogin } from '../../interfaces/IUser'
 
 @Component({
   selector: 'app-login',
@@ -16,23 +18,47 @@ import { RouterLink, RouterLinkActive } from '@angular/router'
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  userForm: FormGroup
-
   // Estados de la application
   togglepassword: boolean = false
+  loading: boolean = false
+  data: IResponseLogin | undefined
 
-  constructor(private fb: FormBuilder) {
-    this.userForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    })
-  }
+  private _fb = inject(FormBuilder)
+  private _service = inject(UsersService)
+
+  constructor(private _router: Router) {}
+
+  userForm = this._fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+  })
 
   CambiarPass() {
     this.togglepassword = !this.togglepassword
   }
 
   onSubmit() {
-    console.log(this.userForm.value)
+    if (this.userForm.valid) {
+      this.loading = true
+      const valoresFormulario = this.userForm.value
+
+      const User: IUserlogin = {
+        Email: valoresFormulario.email!,
+        Password: valoresFormulario.password!,
+      }
+
+      this._service.login(User).subscribe({
+        next: (response) => {
+          this.data = response
+          this.loading = false
+          localStorage.setItem('token', response.token)
+          console.log(response)
+          this._router.navigate(['/dashboard'])
+        },
+        error: (error) => {
+          console.log(error.message)
+        },
+      })
+    }
   }
 }

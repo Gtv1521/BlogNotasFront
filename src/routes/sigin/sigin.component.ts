@@ -13,7 +13,6 @@ import {
   templateUrl: './sigin.component.html',
   styleUrl: './sigin.component.scss',
 })
-
 export class SiginComponent {
   UsuarioForm: FormGroup
   // estados del formulario

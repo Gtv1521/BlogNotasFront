@@ -13,16 +13,42 @@
             formControlName="correo"
             placeholder="Ingrese su correo electrónico"
           />
-          <div class="" *ngIf="Correo.get('correo')?.invalid && Correo.get('correo')?.touched">
-            <small class="alert" *ngIf="Correo.get('correo')?.errors?.['required']">Este campo es obligatorio.</small>
-            <small class="alert" *ngIf="Correo.get('correo')?.errors?.['email']">El correo no se encuentra registrado.</small>
-          </div>
+         
+          @if (Correo.get('correo')?.invalid && Correo.get('correo')?.touched) {
+          <small
+            class="alert"
+            *ngIf="Correo.get('correo')?.errors?.['required']"
+          >
+            Este campo es obligatorio.
+          </small>
+          <small class="alert" *ngIf="Correo.get('correo')?.errors?.['email']">
+            El correo no se encuentra registrado.
+          </small>
+          }
         </div>
 
         <!-- Boton para enviar formulario -->
         <div class="btn-submit">
           <button type="submit" class="btn btn-primary">Restablecer</button>
         </div>
+
+        <!-- Loadin -->
+        @if (loading) {
+        <i class="fa-solid fa-user"></i>
+        <div class="alert">Loading ...</div>
+        }
+
+        <!-- Link para volver a la página de inicio -->
+        @if (respuesta) {
+        <div class="alert-success">
+          <app-alert
+            [title]="title"
+            [salida]="salida"
+            [message]="message"
+          />
+        </div>
+        }
+
       </form>
     </div>
   </div>
