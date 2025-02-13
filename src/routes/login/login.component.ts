@@ -56,11 +56,10 @@ export class LoginComponent {
 
       this._service.login(User).subscribe({
         next: (response) => {
-          this.data = response
           this.loading = false
+          this.data = response
           localStorage.setItem('token', response.token)
-          console.log(response)
-          this._router.navigate(['/dashboard'])
+          this._router.navigate(['/dashboard', this.data?.id])
         },
         error: (error) => {
           this.loading = false

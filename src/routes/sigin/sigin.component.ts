@@ -40,6 +40,10 @@ export class SiginComponent {
     },
   )
 
+  CerrarAlert() {
+    this.errorStatus = false
+  }
+
   compararCampos(campo1: string, campo2: string) {
     return (formGroup: AbstractControl) => {
       const control1 = formGroup.get(campo1)
@@ -75,9 +79,8 @@ export class SiginComponent {
         next: (response) => {
           this.loading = false
           this.data = response
-          console.log(response)
           localStorage.setItem('token', response.token)
-          this._router.navigate(['/dashboard'])
+          this._router.navigate(['/dashboard', this.data?.id])
         },
         error: (error) => {
           this.loading = false

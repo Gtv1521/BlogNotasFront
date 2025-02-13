@@ -152,6 +152,17 @@
             Crear usuario
           </button>
         </div>
+
+        <!-- Loadin -->
+        @if (loading) {
+          <div class="carger">Loading...</div>
+        }
+
+        @if (errorStatus) {
+          <div class="alert-danger" (click)="CerrarAlert()">
+            {{ errors?.error.message }}
+          </div>
+        }
       </form>
     </div>
   </div>
