@@ -27,20 +27,20 @@
               class="alert"
               *ngIf="UsuarioForm.get('name')?.errors?.['required']"
             >
-              El email es requerido
+              El nombre es requerido
             </small>
             <small
               class="alert"
               *ngIf="UsuarioForm.get('name')?.errors?.['minlength']"
             >
-              El minimo de caracteres es 8
+              Es minimo de caracteres es 8
             </small>
           </div>
         </div>
 
         <!-- Email -->
         <div class="form-group">
-          <label for="email">Correo electrónico:</label>
+          <label for="email">Email:</label>
           <input
             type="email"
             class="form-control"
@@ -84,10 +84,16 @@
               UsuarioForm.get('password')?.invalid
             "
           >
-            <small class="alert" *ngIf="UsuarioForm.get('password')?.errors?.['required']">
+            <small
+              class="alert"
+              *ngIf="UsuarioForm.get('password')?.errors?.['required']"
+            >
               La contraseña es requerido
             </small>
-            <small class="alert" *ngIf="UsuarioForm.get('password')?.errors?.['minlength']">
+            <small
+              class="alert"
+              *ngIf="UsuarioForm.get('password')?.errors?.['minlength']"
+            >
               El minimo de caracteres es 8
             </small>
           </div>
@@ -103,18 +109,24 @@
             formControlName="confirmPassword"
           />
           <div
-          *ngIf="
-            UsuarioForm.get('confirmPassword')?.touched &&
-            UsuarioForm.get('confirmPassword')?.invalid
-          "
-        >
-          <small class="alert" *ngIf="UsuarioForm.get('confirmPassword')?.errors?.['required']">
-            La confirmacion de contraseña es requerido
-          </small>
-          <small class="alert" *ngIf="UsuarioForm.get('confirmPassword')?.errors?.['minlength']">
-            El minimo de caracteres es 8
-          </small>
-        </div>
+            *ngIf="
+              UsuarioForm.get('confirmPassword')?.touched &&
+              UsuarioForm.get('confirmPassword')?.invalid
+            "
+          >
+            <small
+              class="alert"
+              *ngIf="UsuarioForm.get('confirmPassword')?.errors?.['requered']"
+            >
+              El minimo de caracteres es 8
+            </small>
+            <div
+              class="alert"
+              *ngIf="UsuarioForm.get('confirmPassword')?.errors?.['mismatch']"
+            >
+              Las contraseñas no coinciden.
+            </div>
+          </div>
         </div>
 
         <!-- Muestra la contraseña -->
@@ -140,6 +152,17 @@
             Crear usuario
           </button>
         </div>
+
+        <!-- Loadin -->
+        @if (loading) {
+          <div class="carger">Loading...</div>
+        }
+
+        @if (errorStatus) {
+          <div class="alert-danger" (click)="CerrarAlert()">
+            {{ errors?.error.message }}
+          </div>
+        }
       </form>
     </div>
   </div>

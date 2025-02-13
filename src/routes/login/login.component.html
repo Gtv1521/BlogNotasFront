@@ -4,7 +4,7 @@
       <h1 class="title">Iniciar sesión</h1>
       <form class="formulario" [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="email">Correo electrónico:</label>
+          <label for="email">Email:</label>
           <input
             type="email"
             class="form-control"
@@ -92,7 +92,13 @@
 
         <!-- Loadin -->
         @if (loading) {
-          <div class="alert">Loading...</div>
+          <div class="carger">Loading...</div>
+        }
+
+        @if (statusError) {
+          <div class="alert-danger" (click)="CerrarAlert()">
+            {{ errors?.error.message }}
+          </div>
         }
       </form>
     </div>

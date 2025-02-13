@@ -47,6 +47,13 @@
           input {
             width: 100%;
           }
+
+          input {
+            color: var.$cuarto;
+            font-weight: 600;
+
+            text-align: center;
+          }
         }
 
         & .btn-submit {
