@@ -3,10 +3,11 @@ import { HomeComponent } from './../routes/home/home.component';
 import { LoginComponent } from './../routes/login/login.component';
 import { SiginComponent } from './../routes/sigin/sigin.component';
 import { ResetComponent } from '../routes/reset/reset.component';
+import { DashboardComponent } from '../routes/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -16,5 +17,6 @@ export const routes: Routes = [
       { path: 'reset', component: ResetComponent },
     ],
   },
-  { path: '**', redirectTo: 'home/login' }, 
+  { path: 'dashboard', component: DashboardComponent},
+  { path: '**', redirectTo: '/home/login' }, 
 ]

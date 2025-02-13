@@ -1,0 +1,11 @@
+@use '../styles/variables' as var;
+
+.button-success {
+    padding: 15px 25px;
+    background-color: var.$tercero;
+    color: var.$primero;
+    border-radius: 10px;
+    border: 1px solid var.$primero;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
