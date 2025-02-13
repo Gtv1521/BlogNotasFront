@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { UsersService } from '../../services/users.service'
 import { IResponseLogin, IUser, IUserlogin } from '../../interfaces/IUser'
+import { ApiResponse } from '../../interfaces/apiResponse'
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,8 @@ export class LoginComponent {
   // Estados de la application
   togglepassword: boolean = false
   loading: boolean = false
+  errors: any = {}
+  statusError: boolean = false
   data: IResponseLogin | undefined
 
   private _fb = inject(FormBuilder)
@@ -35,6 +38,10 @@ export class LoginComponent {
 
   CambiarPass() {
     this.togglepassword = !this.togglepassword
+  }
+
+  CerrarAlert() {
+    this.statusError = false
   }
 
   onSubmit() {
@@ -56,7 +63,9 @@ export class LoginComponent {
           this._router.navigate(['/dashboard'])
         },
         error: (error) => {
-          console.log(error.message)
+          this.loading = false
+          this.errors = error
+          this.statusError = true
         },
       })
     }

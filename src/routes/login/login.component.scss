@@ -50,6 +50,8 @@
 
           input {
             text-align: center;
+            color: var.$cuarto;
+            font-weight: 600;
           }
         }
         
@@ -90,11 +92,33 @@
     }
   }
 }
+
+.carger {
+  width: 30%;
+  margin: 10px auto 0 auto;
+  text-align: center;
+  color: var.$tercero;
+  font-weight: 500;
+  font-style: italic;
+}
 .alert {
   font-size: 10px;
   font-style: italic;
   font-weight: 600;
   color: var.$tercero;
+}
+
+.alert-danger {
+  width: 80%;
+  margin: 10px auto;
+  background-color: var.$negro-modal;
+  text-align: center;
+  padding: 15px 10px ;
+  color: var.$tercero;
+  border-radius: 15px;
+  font-style: italic;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 // Responsive
