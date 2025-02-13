@@ -1,6 +1,6 @@
 export interface IUser extends IUserlogin {
-  id: number
-  name: string
+  Id: number
+  Name: string
 }
 
 export interface IUserlogin {
@@ -8,8 +8,15 @@ export interface IUserlogin {
   Password: string
 }
 
-export interface IResponseLogin extends IUser {
-  email: 'string'
-  message: 'string'
-  token: 'string'
+export interface IResponseLogin {
+  id: number
+  name: string
+  email: string
+  message: string
+  token: string
+}
+
+export interface ISignin extends IUserlogin {
+  Name: string
+  Role: string
 }

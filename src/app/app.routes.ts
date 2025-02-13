@@ -17,6 +17,6 @@ export const routes: Routes = [
       { path: 'reset', component: ResetComponent },
     ],
   },
-  { path: 'dashboard', component: DashboardComponent},
+  { path: 'dashboard/:id', component: DashboardComponent},
   { path: '**', redirectTo: '/home/login' }, 
 ]
