@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="container-row">
+    <div class="container-column">
+      <h1 class="title">Restablecer constraseña</h1>
+      <form class="formulario" [formGroup]="Correo" (ngSubmit)="onSubmit()">
+        <!-- Correo -->
+        <div class="form-group">
+          <label for="email">Correo electrónico:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="correo"
+            placeholder="Ingrese su correo electrónico"
+          />
+         
+          @if (Correo.get('correo')?.invalid && Correo.get('correo')?.touched) {
+          <small
+            class="alert"
+            *ngIf="Correo.get('correo')?.errors?.['required']"
+          >
+            Este campo es obligatorio.
+          </small>
+          <small class="alert" *ngIf="Correo.get('correo')?.errors?.['email']">
+            El correo no se encuentra registrado.
+          </small>
+          }
+        </div>
+
+        <!-- Boton para enviar formulario -->
+        <div class="btn-submit">
+          <button type="submit" class="btn btn-primary">Restablecer</button>
+        </div>
+
+        <!-- Loadin -->
+        @if (loading) {
+        <i class="fa-solid fa-user"></i>
+        <div class="alert">Loading ...</div>
+        }
+
+        <!-- Link para volver a la página de inicio -->
+        @if (respuesta) {
+        <div class="alert-success">
+          <app-alert
+            [title]="title"
+            [salida]="salida"
+            [message]="message"
+          />
+        </div>
+        }
+
+      </form>
+    </div>
+  </div>
+</div>

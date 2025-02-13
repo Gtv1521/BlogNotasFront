@@ -1,0 +1,123 @@
+@use '../../styles/variables' as var;
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .container-row {
+    width: 60%;
+    min-height: 85%;
+    height: auto;
+    margin: auto;
+    background-color: var.$negro-opaco;
+    box-shadow: 10px 10px 10px;
+
+    & .container-fluid {
+      width: 100%;
+      margin-top: 12%;
+
+      & .title {
+        font-size: 2rem;
+        width: 40%;
+        margin: auto;
+        color: var.$primero;
+        text-align: center;
+        border-bottom: 1px solid var.$primero;
+      }
+
+      & .formulario {
+        margin: 10px auto;
+        width: 70%;
+        font-size: 1rem;
+        border-radius: 15px;
+        background-color: var.$segundo;
+        border: 1px solid var.$primero;
+        color: var.$primero;
+        align-items: center;
+        padding: 35px 0;
+
+        & .form-group {
+          width: 60%;
+          margin: 15px auto 2px auto;
+
+          & label,
+          input {
+            width: 100%;
+          }
+
+          input {
+            text-align: center;
+          }
+        }
+        
+        & .form-check {
+          margin-top: 8px;
+          width: 100%;
+          text-align: center;
+        }
+
+        & .link-restart {
+          width: 100%;
+          margin: 20px 0;
+          text-align: center;
+
+          & a {
+            color: var.$primero;
+            text-decoration: none;
+
+            &:hover {
+              color: var.$tercero;
+            }
+          }
+        }
+
+        & .btn-submit {
+          margin-top: 10px;
+          text-align: center;
+
+          & button {
+            padding: 5px 15px;
+            background-color: var.$tercero;
+            color: var.$primero;
+            border-radius: 10px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
+.alert {
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 600;
+  color: var.$tercero;
+}
+
+// Responsive
+@media (650px <= width <= 1366px) {
+  .form-group {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  input {
+    font-weight: 600;
+    font-style: oblique;
+    color: var.$cuarto;
+    border-bottom: 1px solid var.$primero;
+  }
+
+  .form-check {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .link-restart {
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
