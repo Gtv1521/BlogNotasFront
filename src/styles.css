@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+input {
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+  outline: none;
+  border-bottom: 2px solid white;
+}
+input:focus {
+  outline: none;
+  box-shadow: none;
+}/*# sourceMappingURL=styles.css.map */
