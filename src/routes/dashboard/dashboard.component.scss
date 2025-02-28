@@ -3,6 +3,113 @@
 .container {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.568)),
+  background: linear-gradient(rgba(0, 0, 0, 0.689), rgba(0, 0, 0, 0.787)),
     var.$image-font;
+
+  & .space {
+    width: 100%;
+    height: 5%;
+    background-color: var.$negro-modal;
+    display: flex;
+    text-align: center;
+    justify-content: end;
+    align-items: center;
+
+    & button {
+      margin-right: 20px;
+      padding: 2px 5px;
+    }
+  }
+
+  & .header {
+    width: 100%;
+    height: 15%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+
+    & .contenido {
+      width: 99%;
+      height: 90%;
+      background-color: var.$primeroDifuminado;
+      border-radius: 15px;
+
+      & .title {
+        font-size: 2.7rem;
+      }
+
+      & .request {
+        width: 40%;
+        margin: 5px auto;
+        display: flex;
+        justify-content: space-around;
+        padding: 5px;
+        
+        & .search {
+          width: 85%;
+          text-align: center;
+          color: var.$primero;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+
+        & button {
+          padding: 1px 25px;
+          border-radius: 9px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  & .container-fluid {
+    width: 100%;
+    height: 75vh;
+    display: flex;
+
+    & .books {
+      width: 20%;
+    }
+
+    & .notes {
+      width: 75%;
+      background-color: green;
+    }
+
+    & .profile {
+      width: 5%;
+      background-color: red;
+    }
+  }
+}
+
+@media (450px <=width <=1366px) {
+
+  .header {
+
+    & .contenido {
+
+      & .title {
+        font-size: 1.6rem !important;
+      }
+
+      & .request {
+
+        & .search {
+          width: 79% !important;
+          text-align: center;
+          color: var.$primero;
+          font-size: 12px !important;
+          border-bottom: 0.8px solid var.$primero;
+        }
+
+        & button {
+          padding: 1px 20px !important;
+          font-size: 12px !important;
+          border-radius: 4px !important;
+        }
+      }
+    }
+  }
 }

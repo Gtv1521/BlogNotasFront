@@ -1,0 +1,46 @@
+@use '../../../styles/variables' as var;
+
+.container {
+    width: 96%;
+    margin: auto;
+    background-color: var.$negro-modal;
+    border-radius: 15px;
+    color: var.$primero;
+
+    & .title {
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    & .list-books {
+        display: block;
+        width: 99%;
+        margin: 5px auto 20px auto;
+        padding: 20px 1px 10px 1px;
+        text-align: center;
+        list-style: none;
+        background-color: red;
+
+        & .item {
+            padding: 19px;
+            color: var.$tercero;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var.$tercero;
+                color: var.$primero;
+            }
+        }
+    }
+}
+
+@media (450px <= width <= 1366px ){
+    .title {
+        font-size: 1.1rem !important;
+    }
+    .item {
+        font-size: 0.8rem !important;
+        padding: 10px 19px !important;
+    }
+}

@@ -1,3 +1,36 @@
 <div class="container">
-  <app-loader />
+  @if (loader) {
+  <app-loader /> // Carga slider antes de iniciar la pagina
+  }
+  @else {
+  <section class="space">
+    <button>on / off</button>
+  </section>
+  <header class="header">
+    <div class="contenido">
+      <h1 class="title">My Bloog</h1>
+      <div class="request">
+        <input class="search" type="text" name="" id="">
+        <button>Busca</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- cuerpo del programa  -->
+  <main class="container-fluid">
+    <section class="books">
+      <!-- espacio para las libretas -->
+      <app-books /> <!-- componente que tre los libros -->
+    </section>
+    <section class="notes">
+      <!-- Espacio para las notas por libreta -->
+      <h3>Notes</h3>
+    </section>
+    <section class="profile">
+      <!-- Espacio creado para los datos del usuario -->
+      <h3>Profile</h3>
+    </section>
+  </main>
+  <section class="space"></section>
+  }
 </div>

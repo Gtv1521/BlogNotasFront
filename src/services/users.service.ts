@@ -57,4 +57,8 @@ export class UsersService {
       })
     )
   }
+
+  requestUser(id: string): Observable<any>{
+    return this._http.get<any>(`${this.apiUrl}/Usuario/user/${id}`)
+  }
 }
