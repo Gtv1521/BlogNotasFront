@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-alert',
+  standalone: true,
   imports: [],
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.scss',
