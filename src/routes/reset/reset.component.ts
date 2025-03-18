@@ -7,6 +7,7 @@ import { ApiResponse } from '../../interfaces/apiResponse'
 
 @Component({
   selector: 'app-reset',
+  standalone: true,
   imports: [NgIf, ReactiveFormsModule, AlertComponent],
   templateUrl: './reset.component.html',
   styleUrl: './reset.component.scss',

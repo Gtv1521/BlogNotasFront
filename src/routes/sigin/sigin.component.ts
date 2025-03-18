@@ -12,6 +12,7 @@ import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-sigin',
+  standalone: true,
   imports: [NgIf, ReactiveFormsModule],
   templateUrl: './sigin.component.html',
   styleUrl: './sigin.component.scss',

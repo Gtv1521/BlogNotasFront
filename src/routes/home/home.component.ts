@@ -4,6 +4,7 @@ import { FooterInicioComponent } from "../../components/footer-inicio/footer-ini
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [RouterOutlet, FooterInicioComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   frontend:
     build: .
@@ -10,3 +10,4 @@ services:
     environment:
       - NODE_ENV=development
     command: npm start
+    container_name: MyBloog
