@@ -3,89 +3,9 @@
 .container {
   width: 100%;
   height: 100vh;
-<<<<<<< Updated upstream
-  background: linear-gradient(rgba(0, 0, 0, 0.689), rgba(0, 0, 0, 0.787)),
-    var.$image-font;
-
-  & .space {
-    width: 100%;
-    height: 5%;
-    background-color: var.$negro-modal;
-    display: flex;
-    text-align: center;
-    justify-content: end;
-    align-items: center;
-
-    & button {
-      margin-right: 20px;
-      padding: 2px 5px;
-    }
-  }
-
-  & .header {
-    width: 100%;
-    height: 15%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: flex;
-
-    & .contenido {
-      width: 99%;
-      height: 90%;
-      background-color: var.$primeroDifuminado;
-      border-radius: 15px;
-
-      & .title {
-        font-size: 2.7rem;
-      }
-
-      & .request {
-        width: 40%;
-        margin: 5px auto;
-        display: flex;
-        justify-content: space-around;
-        padding: 5px;
-        
-        & .search {
-          width: 85%;
-          text-align: center;
-          color: var.$primero;
-          font-size: 1.5rem;
-          cursor: pointer;
-        }
-
-        & button {
-          padding: 1px 25px;
-          border-radius: 9px;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-
-  & .container-fluid {
-    width: 100%;
-    height: 75vh;
-    display: flex;
-
-    & .books {
-      width: 20%;
-    }
-
-    & .notes {
-      width: 75%;
-      background-color: green;
-    }
-
-    & .profile {
-      width: 5%;
-      background-color: red;
-    }
-=======
   background: var.$fondo-oscuro;
   color: var.$primero;
-  
+
   .navbar {
     width: 100%;
     height: 70px;
@@ -98,32 +18,57 @@
   width: 100%;
   display: flex;
 
-
   .books {
     width: 20%;
     height: 90vh;
+    display: block;
+
+    .contents {
+      margin: auto;
+      width: 96%;
+      text-align: center;
+      background-color: var.$negro-opaco;
+      font-weight: 600;
+
+      .new {
+        height: 8vh;
+        line-height: 8vh;
+        background-color: var.$negro-opaco;
+
+        &:hover {
+          background-color: var.$sexto;
+        }
+      }
+
+      .settings {
+        height: 5vh;
+        line-height: 5.2vh;
+        background: var.$negro-opaco;
+        border: 1px solid var.$primero;
+
+        &:hover {
+          background-color: var.$sexto;
+          border: 1px solid var.$primero;
+        }
+      }
+    }
   }
 
   .notes {
     width: 80%;
     height: 90vh;
     background-color: var.$negro-opaco;
->>>>>>> Stashed changes
   }
 }
 
 @media (450px <=width <=1366px) {
-
   .header {
-
     & .contenido {
-
       & .title {
         font-size: 1.6rem !important;
       }
 
       & .request {
-
         & .search {
           width: 79% !important;
           text-align: center;
