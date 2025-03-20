@@ -1,0 +1,58 @@
+@use "../../../styles/variables" as var;
+
+.container {
+  width: 96%;
+  height: 85%;
+  margin: auto;
+  background-color: var.$negro-modal;
+  color: var.$primero;
+
+  & .container-fluid {
+    & .title {
+      width: 100%;
+      height: 40px;
+
+      & h4 {
+        width: 50%;
+        margin: auto;
+        border-bottom: 1px solid var.$primero;
+        text-align: center;
+        line-height: 40px;
+      }
+    }
+  }
+
+  & .list-books {
+    display: block;
+    width: 99%;
+    margin: 5px auto 20px auto;
+    padding: 20px 1px 10px 1px;
+    text-align: center;
+    list-style: none;
+    overflow-y: scroll;
+    max-height: 70vh;
+
+    & .item {
+      padding: 19px;
+      color: var.$tercero;
+      border: 1px solid transparent;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var.$sexto;
+        color: var.$primero;
+        border: 1px solid var.$primero;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+@media (450px <=width <=1366px) {
+  .item{
+    padding: 16px !important;
+    font-size: 12px !important;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .container-row {
+  width: 60%;
+  min-height: 85%;
+  height: auto;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 10px;
+}
+.container .container-row .container-column {
+  width: 100%;
+  margin-top: 12%;
+}
+.container .container-row .container-column .title {
+  font-size: 2rem;
+  width: 40%;
+  margin: auto;
+  color: rgb(255, 247, 247);
+  text-align: center;
+  border-bottom: 1px solid rgb(255, 247, 247);
+}
+.container .container-row .container-column .formulario {
+  margin: 10px auto;
+  width: 70%;
+  font-size: 1rem;
+  border-radius: 15px;
+  background-color: rgba(82, 1, 1, 0.952);
+  border: 1px solid rgb(255, 247, 247);
+  color: rgb(255, 247, 247);
+  align-items: center;
+  padding: 35px 0;
+}
+.container .container-row .container-column .formulario .form-group {
+  width: 60%;
+  margin: 15px auto 2px auto;
+}
+.container .container-row .container-column .formulario .form-group label,
+.container .container-row .container-column .formulario .form-group input {
+  width: 100%;
+}
+.container .container-row .container-column .formulario .form-group input {
+  color: rgba(135, 154, 196, 0.877);
+  font-weight: 600;
+  text-align: center;
+}
+.container .container-row .container-column .formulario .btn-submit {
+  margin-top: 10px;
+  text-align: center;
+}
+.container .container-row .container-column .formulario .btn-submit button {
+  padding: 5px 15px;
+  background-color: rgba(72, 116, 240, 0.877);
+  color: rgb(255, 247, 247);
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.alert {
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 600;
+  color: rgba(72, 116, 240, 0.877);
+}/*# sourceMappingURL=reset.component.css.map */
