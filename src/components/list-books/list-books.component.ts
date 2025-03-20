@@ -1,3 +1,4 @@
+
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { NotesService } from '../../services/dashboard/notes.service';
 import { INotes } from '../../interfaces/INotes';
@@ -47,5 +48,4 @@ export class ListBooksComponent {
       })
     }
   }
-
 }
