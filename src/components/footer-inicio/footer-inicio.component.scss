@@ -40,5 +40,6 @@
 }
 
 .activebutton {
-  background-color: red;
+  background-color: var.$tercero !important;
+  color: var.$primero !important;
 }

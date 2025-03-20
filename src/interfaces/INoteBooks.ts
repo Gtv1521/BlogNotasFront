@@ -1,5 +1,5 @@
 export interface INotebooks {
-    IdLibreta: string,
-    Nombre: string,
-    IdUser: string
+    idLibreta: string,
+    nombre: string,
+    idUser: string
 }

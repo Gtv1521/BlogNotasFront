@@ -32,11 +32,25 @@
 
       .new {
         height: 8vh;
-        line-height: 8vh;
+        line-height: 7.5vh;
+        margin-bottom: 3px;
         background-color: var.$negro-opaco;
+        border: 1px solid var.$tercero;
 
         &:hover {
           background-color: var.$sexto;
+        }
+
+        & .caja {
+          margin: auto;
+          display: flex;
+          width: 40%;
+          justify-content: space-evenly;
+
+          & fa-icon {
+            color: var.$tercero;
+            font-weight: 700;
+          }
         }
       }
 
@@ -50,6 +64,18 @@
           background-color: var.$sexto;
           border: 1px solid var.$primero;
         }
+
+        & .caja {
+          margin: auto;
+          display: flex;
+          width: 40%;
+          justify-content: space-evenly;
+
+          & fa-icon {
+            font-weight: 700;
+            color: var.$tercero;
+          }
+        }
       }
     }
   }
@@ -62,27 +88,19 @@
 }
 
 @media (450px <=width <=1366px) {
-  .header {
-    & .contenido {
-      & .title {
-        font-size: 1.6rem !important;
-      }
+  .books {
+    height: 87vh !important;
+  }
 
-      & .request {
-        & .search {
-          width: 79% !important;
-          text-align: center;
-          color: var.$primero;
-          font-size: 12px !important;
-          border-bottom: 0.8px solid var.$primero;
-        }
+  .new {
+    font-size: 12px !important;
+  }
 
-        & button {
-          padding: 1px 20px !important;
-          font-size: 12px !important;
-          border-radius: 4px !important;
-        }
-      }
-    }
+  .settings {
+    font-size: 12px !important;
+  }
+
+  .notes {
+    height: 87.5vh !important;
   }
 }

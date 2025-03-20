@@ -1,5 +1,5 @@
 export interface INotes {
-    id: string,
+    idNote: string,
     Title: string,
     Contenido: string,
     IdUser: string,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { environment } from '../Environment/Environment'
 import { HttpClient } from '@angular/common/http'
 import { map, Observable } from 'rxjs'
-import { IResponseLogin, ISignin, IUser, IUserlogin } from '../interfaces/IUser'
+import { IResponseLogin, ISignin, IUserlogin } from '../interfaces/IUser'
 
 @Injectable({
   providedIn: 'root',

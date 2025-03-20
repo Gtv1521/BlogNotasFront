@@ -1,11 +1,19 @@
 <div class="container">
-    <!-- title -->
-    <div class="title">
-        <h4>Notebooks</h4>
-    </div>
+  <!-- title -->
+  <div class="title">
+    <h4>List Notes</h4>
+  </div>
 
-    <!-- List of listbooks -->
-    <div class="notebooks">
-        
-    </div>
+  <!-- List of listbooks -->
+  <div class="notebooks">
+    <ul>
+      @for (item of datos; track $index) {
+      <li>
+        {{ item.title }}
+        {{ item.contenido}}
+      </li>
+
+      }
+    </ul>
+  </div>
 </div>

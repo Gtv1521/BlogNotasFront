@@ -1,0 +1,13 @@
+@use '../../../styles/variables' as var;
+
+.container {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    .cantidad{
+        color: var.$primero;
+        font-weight: 500;
+    }
+}

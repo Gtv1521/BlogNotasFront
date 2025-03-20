@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,4 +11,10 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 })
 export class NewNotebookComponent {
   faCircleXmark = faCircleXmark
+
+  @Output() toggleModal = new EventEmitter<boolean>();
+
+  cierraModal(): void {
+      this.toggleModal.emit(false) 
+  }
 }
