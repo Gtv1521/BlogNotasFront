@@ -3,15 +3,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-new-notebook',
+  selector: 'app-settings',
   standalone: true,
   imports: [FontAwesomeModule],
-  templateUrl: './new-notebook.component.html',
-  styleUrl: './new-notebook.component.scss'
+  templateUrl: './settings.component.html',
+  styleUrl: './settings.component.scss'
 })
-export class NewNotebookComponent {
+export class SettingsComponent {
   faCircleXmark = faCircleXmark
 
-  @Output() toggleModal = new EventEmitter<boolean>();
-
+    @Output() settings = new EventEmitter<boolean>()
 }
