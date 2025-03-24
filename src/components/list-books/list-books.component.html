@@ -14,8 +14,7 @@
     <ul>
       @for (item of datos; track $index) {
       <li>
-        {{ item.title }}
-        {{ item.contenido }}
+        <app-note [title]="item.title"  [contenido]="item.contenido" />
       </li>
 
       }

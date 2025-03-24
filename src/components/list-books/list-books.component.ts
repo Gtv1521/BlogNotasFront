@@ -1,13 +1,13 @@
 
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { NotesService } from '../../services/dashboard/notes.service';
-import { INotes } from '../../interfaces/INotes';
 import { LoaderComponent } from '../loader/loader.component';
+import { NoteComponent } from '../Dasboard/notes/note.component';
 
 @Component({
   selector: 'app-list-books',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, NoteComponent],
   templateUrl: './list-books.component.html',
   styleUrl: './list-books.component.scss'
 })
