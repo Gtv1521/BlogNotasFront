@@ -6,14 +6,19 @@
 
   <!-- List of listbooks -->
   <div class="notebooks">
+    @if (loader) {
+    <app-loader />
+    } @else if (datos.length === 0) {
+    <div class="notfound">No hay notas en esta libreta</div>
+    }@else {
     <ul>
       @for (item of datos; track $index) {
       <li>
-        {{ item.title }}
-        {{ item.contenido}}
+        <app-note [title]="item.title"  [contenido]="item.contenido" />
       </li>
 
       }
     </ul>
+    }
   </div>
 </div>

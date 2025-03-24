@@ -10,7 +10,9 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
+  // iconos
   faCircleXmark = faCircleXmark
 
-    @Output() settings = new EventEmitter<boolean>()
+  // props
+  @Output() settings = new EventEmitter<boolean>()
 }

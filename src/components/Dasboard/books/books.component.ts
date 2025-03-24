@@ -31,13 +31,16 @@ export class BooksComponent {
 
   // carga los datos las libreyas
   loadNoteBooks(): any {
+
+    this.data = []
+    this.errors = []
+    
     if (this.id) {
       this.service.loadBooks(this.id, 1).subscribe({
         next: (response) => {
           this.data = response
           this.loader = false
-          let id: string = this.data.shift().idLibreta
-          this.getLibreta.emit(id)
+          this.getLibreta.emit(this.data[0]?.idLibreta)
         },
         error: (err) => {
           this.errors = err

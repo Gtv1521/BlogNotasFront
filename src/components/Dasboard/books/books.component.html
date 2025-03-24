@@ -6,9 +6,10 @@
 
     <ul class="list-books">
       @for (item of data; track item.idLibreta) {
-      <li class="item"><app-target [nombre]="item.nombre" /></li>
+      <li class="item" (click)="getLibreta.emit(item.idLibreta)">
+        <app-target [nombre]="item.nombre" />
+      </li>
       }
     </ul>
   </div>
 </div>
-
