@@ -32,18 +32,15 @@ export class ListBooksComponent {
 
   // obtiene notas  de cada libreta 
   getNotes(): void {
-    console.log(this.idLibreta)
     if (this.idLibreta && typeof this.idLibreta === 'string') {
       this.service.loadNotes(this.idLibreta).subscribe({
         next: (response) => {
           this.datos = response
           this.loader = false
-          console.log(this.datos)
         },
         error: (err) => {
           this.errors = err
           this.loader = false
-          console.log(err)
         }
       })
     }
