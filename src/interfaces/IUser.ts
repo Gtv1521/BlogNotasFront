@@ -9,7 +9,7 @@ export interface IUserlogin {
 }
 
 export interface IResponseLogin {
-  id: number
+  id: string
   name: string
   email: string
   message: string

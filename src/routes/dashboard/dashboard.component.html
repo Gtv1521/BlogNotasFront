@@ -2,24 +2,22 @@
   @if (loader) {
   <app-loader /> } @else if(loader == false) {
   <div class="navbar">
-    <div class="title">
-      <h3>My Bloog</h3>
-    </div>
+    <app-title />
   </div>
 
   <div class="container-fluid">
     <div class="books">
-      <app-books [id]="id" (getLibreta)="getLibreta($event)" />
+      <app-books (getLibreta)="getLibreta($event)" />
       <div class="contents">
-        <div class="new">
-          <div class="caja" (click)="toggleModal(true)">
-            <fa-icon [icon]="faPlus"></fa-icon>
+        <div class="new" (click)="toggleModal(true)">
+          <div class="caja">
+            <fa-icon [icon]="faPlus" />
             <p>Nuevo</p>
           </div>
         </div>
-        <div class="settings">
+        <div class="settings" (click)="settings(true)">
           <div class="caja">
-            <fa-icon [icon]="faGears"></fa-icon>
+            <fa-icon [icon]="faGears" />
             <p>Settings</p>
           </div>
         </div>
@@ -29,9 +27,19 @@
     <div class="notes">
       <app-list-books [idLibreta]="idlibreta"/>
     </div>
+    
+    <div class="new_note" (click)="newNote()">
+      <fa-icon [icon]="faSquarePlus" />
+    </div>
   </div>
   }
 </div>
-@if (modal) {
+@if (modalNewNote) {
 <app-new-notebook (toggleModal)="toggleModal($event)" />
+}
+@if (modalSettings) {
+  <app-settings (settings)="settings($event)" />
+}
+@if (exit) {
+  <app-logout />
 }

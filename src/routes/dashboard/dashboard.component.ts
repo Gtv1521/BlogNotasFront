@@ -1,26 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGears, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
+import { faGears, faPlus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { switchMap, timer } from 'rxjs';
 import { NewNotebookComponent } from '../../components/Flotantes/new-notebook/new-notebook.component';
+import { SettingsComponent } from '../../components/Flotantes/settings/settings.component';
+import { TitleComponent } from "../../components/Dasboard/title/title.component";
+import { AuthService } from '../../services/utils/Auth/auth.service';
+import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent],
+  imports: [SettingsComponent, LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent, TitleComponent, LogoutComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   // estados 
-  id: string | null = ""
+  private id: string | null = null;
   idlibreta: string = ""
   loader: boolean = true
-  modal: boolean = false
+  modalNewNote: boolean = false
+  modalSettings: boolean = false
+  exit: boolean = false
+
 
   // Estados - menejo de datos
   datos: any = []
@@ -29,17 +36,28 @@ export class DashboardComponent {
   // Llamado iconos
   faGears = faGears
   faPlus = faPlus
+  faSquarePlus = faSquarePlus
 
-  constructor(
-    private service: UsersService,
-    private route: ActivatedRoute
-  ) { }
+  // inyeccion de dependencias
+  private service = inject(UsersService)
+  private route = inject(ActivatedRoute)
+  private router = inject(Router)
+  private auth = inject(AuthService)
 
 
   // se lanzan los requisitos para iniciar la app 
   ngOnInit(): void {
 
-    // ver session 
+    //  Session
+    if (this.auth.getToken() === null) {
+      this.loader = false
+      this.exit = true
+      timer(2000).pipe(
+
+      ).subscribe(() => {
+        this.router.navigate(['/login'])
+      });
+    }
 
     // consukta de usuario 
     this.getIdUrl()
@@ -72,8 +90,8 @@ export class DashboardComponent {
   }
 
   // activa el modal new notebooks
-  toggleModal(stado: boolean): void {
-    this.modal = stado
+  toggleModal(estado: boolean): void {
+    this.modalNewNote = estado
   }
 
   // obtener idLibreta
@@ -81,5 +99,21 @@ export class DashboardComponent {
     this.idlibreta = id
   }
 
+  // settings
+  settings(estado: boolean): void {
+    this.modalSettings = estado
+  }
 
+  // cambia de ruta y crea una nueva nota
+  newNote(): void {
+    this.router.navigate(['/new_note'])
+  }
+
+  getUserId(): string | null {
+    return this.id
+  }
+
+  logout(): void {
+    this.exit = true
+  }
 }

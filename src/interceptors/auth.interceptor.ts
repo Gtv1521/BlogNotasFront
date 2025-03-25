@@ -6,11 +6,15 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AuthService } from '../services/utils/Auth/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
+  private auth = inject(AuthService)
+
 
   intercept(
     req: HttpRequest<any>,
@@ -29,9 +33,10 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
+
   private addTokenToRequest(req: HttpRequest<any>): HttpRequest<any> {
     // Obtén el token de localStorage
-    const token = localStorage.getItem('token');
+    const token = this.auth.getToken()
     
     // Si existe el token, clona la petición y añade el header
     if (token) {

@@ -1,15 +1,14 @@
-import { CommonModule, NgIf } from '@angular/common'
+import { NgIf } from '@angular/common'
 import { Component, inject } from '@angular/core'
 import {
   FormBuilder,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
 import { Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { UsersService } from '../../services/users.service'
-import { IResponseLogin, IUser, IUserlogin } from '../../interfaces/IUser'
-import { ApiResponse } from '../../interfaces/apiResponse'
+import { IResponseLogin, IUserlogin } from '../../interfaces/IUser'
+import { AuthService } from '../../services/utils/Auth/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -26,24 +25,29 @@ export class LoginComponent {
   statusError: boolean = false
   data: IResponseLogin | undefined
 
-  private _fb = inject(FormBuilder)
-  private _service = inject(UsersService)
+  // valores del constructor
+  private fb = inject(FormBuilder)
+  private service = inject(UsersService)
+  private auth = inject(AuthService)
+  private router = inject(Router)
 
-  constructor(private _router: Router) {}
-
-  userForm = this._fb.group({
+  //  declaracion de valisacion de formulario
+  userForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   })
 
+  // muestra la constraseñ
   CambiarPass() {
     this.togglepassword = !this.togglepassword
   }
 
+  // cierra alerta 
   CerrarAlert() {
     this.statusError = false
   }
 
+  //  hace inicio de session de usuario
   onSubmit() {
     if (this.userForm.valid) {
       this.loading = true
@@ -54,12 +58,12 @@ export class LoginComponent {
         Password: valoresFormulario.password!,
       }
 
-      this._service.login(User).subscribe({
+      this.service.login(User).subscribe({
         next: (response) => {
           this.loading = false
           this.data = response
-          localStorage.setItem('token', response.token)
-          this._router.navigate(['/dashboard', this.data?.id])
+          this.auth.setAuth(response.id, response.token) /* se hace inicio de session por medio de variables */
+          this.router.navigate(['/dashboard']) /* se arranca la session en el dashboard */
         },
         error: (error) => {
           this.loading = false
