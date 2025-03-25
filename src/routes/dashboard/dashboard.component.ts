@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
@@ -9,10 +9,13 @@ import { UsersService } from '../../services/users.service';
 import { switchMap, timer } from 'rxjs';
 import { NewNotebookComponent } from '../../components/Flotantes/new-notebook/new-notebook.component';
 import { SettingsComponent } from '../../components/Flotantes/settings/settings.component';
+import { TitleComponent } from "../../components/Dasboard/title/title.component";
+import { AuthService } from '../../services/utils/Auth/auth.service';
+import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SettingsComponent, LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent],
+  imports: [SettingsComponent, LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent, TitleComponent, LogoutComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -23,6 +26,8 @@ export class DashboardComponent {
   loader: boolean = true
   modalNewNote: boolean = false
   modalSettings: boolean = false
+  exit: boolean = false
+
 
   // Estados - menejo de datos
   datos: any = []
@@ -33,17 +38,26 @@ export class DashboardComponent {
   faPlus = faPlus
   faSquarePlus = faSquarePlus
 
-  constructor(
-    private service: UsersService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+  // inyeccion de dependencias
+  private service = inject(UsersService)
+  private route = inject(ActivatedRoute)
+  private router = inject(Router)
+  private auth = inject(AuthService)
 
 
   // se lanzan los requisitos para iniciar la app 
   ngOnInit(): void {
 
-    // ver session 
+    //  Session
+    if (this.auth.getToken() === null) {
+      this.loader = false
+      this.exit = true
+      timer(2000).pipe(
+
+      ).subscribe(() => {
+        this.router.navigate(['/login'])
+      });
+    }
 
     // consukta de usuario 
     this.getIdUrl()
@@ -97,5 +111,9 @@ export class DashboardComponent {
 
   getUserId(): string | null {
     return this.id
+  }
+
+  logout(): void {
+    this.exit = true
   }
 }

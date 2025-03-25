@@ -8,10 +8,16 @@ export class AuthService {
   private userId: string | null = null;
   private tokenUser: string | null = null;
 
+  constructor(){
+    this.tokenUser = localStorage.getItem('token');
+    this.userId = localStorage.getItem('id');
+  }
 
   // inicia los datos de session 
   setAuth(id: string, token: string): void {
-    this.userId = id;
+    localStorage.setItem('token', token);
+    localStorage.setItem('id', id );
+    this.userId = id
     this.tokenUser = token
   }
 

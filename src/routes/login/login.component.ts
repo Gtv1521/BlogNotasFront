@@ -62,7 +62,7 @@ export class LoginComponent {
         next: (response) => {
           this.loading = false
           this.data = response
-          this.auth.setAuth(response.id, response.token) /* se haci inicio de session por medio de variables */
+          this.auth.setAuth(response.id, response.token) /* se hace inicio de session por medio de variables */
           this.router.navigate(['/dashboard']) /* se arranca la session en el dashboard */
         },
         error: (error) => {
