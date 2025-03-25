@@ -84,8 +84,22 @@
     width: 80%;
     height: 90vh;
     background-color: var.$negro-opaco;
+
+  }
+
+  .new_note {
+    position: absolute;
+    bottom: 3%;
+    right: 1%;
+    font-size: 40px;
+
+    &:hover {
+      color: var.$cuarto;
+    }
   }
 }
+
+
 
 @media (450px <=width <=1366px) {
   .books {

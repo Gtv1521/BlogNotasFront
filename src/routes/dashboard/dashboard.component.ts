@@ -3,24 +3,26 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGears, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
+import { faGears, faPlus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { switchMap, timer } from 'rxjs';
 import { NewNotebookComponent } from '../../components/Flotantes/new-notebook/new-notebook.component';
+import { SettingsComponent } from '../../components/Flotantes/settings/settings.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent],
+  imports: [SettingsComponent, LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   // estados 
-  id: string | null = ""
+  private id: string | null = null;
   idlibreta: string = ""
   loader: boolean = true
-  modal: boolean = false
+  modalNewNote: boolean = false
+  modalSettings: boolean = false
 
   // Estados - menejo de datos
   datos: any = []
@@ -29,10 +31,12 @@ export class DashboardComponent {
   // Llamado iconos
   faGears = faGears
   faPlus = faPlus
+  faSquarePlus = faSquarePlus
 
   constructor(
     private service: UsersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
 
@@ -72,8 +76,8 @@ export class DashboardComponent {
   }
 
   // activa el modal new notebooks
-  toggleModal(stado: boolean): void {
-    this.modal = stado
+  toggleModal(estado: boolean): void {
+    this.modalNewNote = estado
   }
 
   // obtener idLibreta
@@ -81,5 +85,17 @@ export class DashboardComponent {
     this.idlibreta = id
   }
 
+  // settings
+  settings(estado: boolean): void {
+    this.modalSettings = estado
+  }
 
+  // cambia de ruta y crea una nueva nota
+  newNote(): void {
+    this.router.navigate(['/new_note'])
+  }
+
+  getUserId(): string | null {
+    return this.id
+  }
 }
