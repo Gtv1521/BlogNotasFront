@@ -18,6 +18,9 @@ export class BooksComponent {
   loader: boolean = true;
   modal: boolean = false;
 
+  isActive: boolean = false
+  selectItem: string | null = null
+
   // datas
   data: any = [];
   errors: any = [];
@@ -39,6 +42,7 @@ export class BooksComponent {
         this.data = response
         this.loader = false
         this.getLibreta.emit(this.data[0]?.idLibreta)
+        this.onNoteSelected(this.data[0]?.idLibreta)
       },
       error: (err) => {
         this.errors = err
@@ -46,4 +50,13 @@ export class BooksComponent {
       },
     })
   }
+
+  // activa componente en uso 
+  onNoteSelected(id: string): void {
+    if (this.selectItem !== id) {
+      this.selectItem = this.selectItem === id ? null : id;
+      this.getLibreta.emit(id)
+    }
+  }
+
 }

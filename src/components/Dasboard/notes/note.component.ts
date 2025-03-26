@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-note',
@@ -9,9 +9,13 @@ import { Component, Input } from '@angular/core';
 })
 export class NoteComponent {
 
-  @Input() title!: string
-  @Input() contenido!: string
+  @Input() card: any;
+  @Input() isActive!: boolean
+  @Output() noteSelected = new EventEmitter<void>();
 
+  select: boolean = false
 
+  verifica(): void {
+    this.noteSelected.emit()
+  }
 }
- 

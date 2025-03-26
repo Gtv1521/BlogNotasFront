@@ -8,6 +8,8 @@
   color: var.$primero;
 
   & .container-fluid {
+    height: 100%;
+
     & .title {
       width: 100%;
       height: 40px;
@@ -30,6 +32,8 @@
     text-align: center;
     list-style: none;
     overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     max-height: 70vh;
 
     & .item {
@@ -49,8 +53,11 @@
   }
 }
 
-@media (450px <=width <=1366px) {
-  .item{
+@media (450px <= width <= 1366px) {
+.list-books {
+  height: 89%;
+}
+  .item {
     padding: 16px !important;
     font-size: 12px !important;
     font-weight: 500;

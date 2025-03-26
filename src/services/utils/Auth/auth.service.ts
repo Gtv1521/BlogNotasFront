@@ -35,5 +35,7 @@ export class AuthService {
   clearUserId(): void {
     this.userId = null;
     this.tokenUser = null
+    localStorage.removeItem('id')
+    localStorage.removeItem('token')
   }
 }

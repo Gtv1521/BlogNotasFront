@@ -14,6 +14,8 @@ import { NoteComponent } from '../Dasboard/notes/note.component';
 export class ListBooksComponent {
   // estados  de carga
   loader: boolean = false
+  isActive: boolean = false
+  selectedNoteId: string | null = null;
 
   // estados de datos
   datos: any = []
@@ -49,5 +51,10 @@ export class ListBooksComponent {
         }
       })
     }
+  }
+
+  // Verificar si una tarjeta está seleccionada
+  onNoteSelected(noteId: string): void {
+    this.selectedNoteId = this.selectedNoteId === noteId ? null : noteId;
   }
 }

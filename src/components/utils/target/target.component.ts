@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { INotes } from '../../../interfaces/INotes';
+import { INotebooks } from '../../../interfaces/INoteBooks';
 
 @Component({
   selector: 'app-target',
@@ -9,6 +11,12 @@ import { Component, Input } from '@angular/core';
 })
 export class TargetComponent {
 
-@Input() nombre!: string 
+@Input() item!: INotebooks
+@Input() isActive = false
+@Output() noteSelected = new EventEmitter<void>()
 
+// activa este 
+handleActive(): void {
+  this.noteSelected.emit();
+}
 }

@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container" (click)="verifica()" [class.selected]="isActive">
   <div class="container-fluid">
     <!-- contenido de las notas -->
     <div class="title">
       <h4>
-        {{ title }}
+        {{ card.title }}
       </h4>
     </div>
     <div class="content">
-      {{ contenido }}
+      {{ card.contenido }}
     </div>
   </div>
 </div>

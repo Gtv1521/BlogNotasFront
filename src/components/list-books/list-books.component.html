@@ -12,11 +12,14 @@
     <div class="notfound">No hay notas en esta libreta</div>
     }@else {
     <ul>
-      @for (item of datos; track $index) {
+      @for (item of datos; track item.idNote) {
       <li>
-        <app-note [title]="item.title"  [contenido]="item.contenido" />
+        <app-note
+          [card]="item"
+          [isActive]="selectedNoteId === item.idNote"
+          (noteSelected)="onNoteSelected(item.idNote)"
+        />
       </li>
-
       }
     </ul>
     }
