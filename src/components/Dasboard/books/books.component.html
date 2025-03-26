@@ -6,11 +6,12 @@
 
     <ul class="list-books">
       @for (item of data; track item.idLibreta) {
-      <li
-        class="item"
-        (click)="selectAtive(true, item.idLibreta)"
-      >
-        <app-target [nombre]="item.nombre" />
+      <li>
+        <app-target
+          [item]="item"
+          [isActive]="selectItem === item.idLibreta"
+          (noteSelected)="onNoteSelected(item.idLibreta)"
+        />
       </li>
       }
     </ul>

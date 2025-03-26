@@ -25,6 +25,10 @@
   }
 }
 
+.selected {
+  background-color: red !important;
+}
+
 @media (300px <= width <= 1366px) {
 
   .container {

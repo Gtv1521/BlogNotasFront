@@ -3,3 +3,8 @@ export interface INotebooks {
     nombre: string,
     idUser: string
 }
+
+export interface INewNotebooks {
+    nameBook: string,
+    idAuthor: string
+}

@@ -78,16 +78,17 @@ export class SiginComponent {
       }
       this._service.signin(User).subscribe({
         next: (response) => {
-          this.loading = false
           this.data = response
           localStorage.setItem('token', response.token)
-          this._router.navigate(['/dashboard', this.data?.id])
+          
+          this.loading = false
+          this._router.navigate(['/dashboard'])
+
         },
         error: (error) => {
           this.loading = false
           this.errorStatus = true
           this.errors = error
-          console.log(error)
         },
       })
     }

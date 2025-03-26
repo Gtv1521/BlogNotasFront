@@ -1,5 +1,5 @@
 export interface INotes {
-    idNote: string,
+    _id: string,
     Title: string,
     Contenido: string,
     IdUser: string,
@@ -7,3 +7,10 @@ export interface INotes {
     FechaCreacion: string,
     FechaUpdate: string
 }
+
+export interface INewNote {
+    title: string,
+    contenido: string,
+    idUser: string,
+    idLibreta: string
+} 
