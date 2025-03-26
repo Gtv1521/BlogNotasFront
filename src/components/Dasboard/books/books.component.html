@@ -6,7 +6,10 @@
 
     <ul class="list-books">
       @for (item of data; track item.idLibreta) {
-      <li class="item" (click)="getLibreta.emit(item.idLibreta)">
+      <li
+        class="item"
+        (click)="selectAtive(true, item.idLibreta)"
+      >
         <app-target [nombre]="item.nombre" />
       </li>
       }

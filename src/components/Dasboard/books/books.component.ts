@@ -17,6 +17,7 @@ export class BooksComponent {
   // estados
   loader: boolean = true;
   modal: boolean = false;
+  select: boolean = false; 
 
   // datas
   data: any = [];
@@ -45,5 +46,10 @@ export class BooksComponent {
         this.loader = false
       },
     })
+  }
+
+  selectAtive(estado: boolean, id: string): void {
+    this.select = estado
+    this.getLibreta.emit(id)
   }
 }
