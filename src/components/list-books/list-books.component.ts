@@ -1,8 +1,10 @@
 
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { NotesService } from '../../services/dashboard/notes.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { NoteComponent } from '../Dasboard/notes/note.component';
+import { INotes } from '../../interfaces/INotes';
+import { NoteDataComponent } from '../Dasboard/note-data/note-data.component';
 
 @Component({
   selector: 'app-list-books',
@@ -16,6 +18,9 @@ export class ListBooksComponent {
   loader: boolean = false
   isActive: boolean = false
   selectedNoteId: string | null = null;
+  note: boolean = false
+  title: string = ''
+  contenido: string = ''
 
   // estados de datos
   datos: any = []
@@ -23,6 +28,7 @@ export class ListBooksComponent {
 
   // entradas de otros componentes
   @Input() idLibreta!: string
+  @Output() dataNota = new EventEmitter<any>()
 
   // arrancar los datos del componente
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,7 +60,16 @@ export class ListBooksComponent {
   }
 
   // Verificar si una tarjeta está seleccionada
-  onNoteSelected(noteId: string): void {
-    this.selectedNoteId = this.selectedNoteId === noteId ? null : noteId;
+  // onNoteSelected(noteId: string): void {
+  //   this.selectedNoteId = this.selectedNoteId === noteId ? null : noteId;
+  // }
+
+  // abre una nota nueva
+  dataNote(data: any, estado: boolean): void {
+    this.dataNota.emit({...data, estado})
+  }
+
+  cerrarNewNote(estado: boolean): void {
+    this.note = estado
   }
 }

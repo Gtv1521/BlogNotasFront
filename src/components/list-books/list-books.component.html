@@ -16,8 +16,8 @@
       <li>
         <app-note
           [card]="item"
+          (note)="dataNote(item, true)"
           [isActive]="selectedNoteId === item.idNote"
-          (noteSelected)="onNoteSelected(item.idNote)"
         />
       </li>
       }

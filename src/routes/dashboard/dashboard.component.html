@@ -25,10 +25,10 @@
     </div>
 
     <div class="notes">
-      <app-list-books [idLibreta]="idlibreta"/>
+      <app-list-books (dataNota)="openNote($event)" [idLibreta]="idlibreta" />
     </div>
-    
-    <div class="new_note" (click)="newNote()">
+
+    <div class="new_note" (click)="cerrarNewNote(true)">
       <fa-icon [icon]="faSquarePlus" />
     </div>
   </div>
@@ -36,15 +36,14 @@
 </div>
 @if (modalNewNote) {
 <app-new-notebook (toggleModal)="toggleModal($event)" />
-}
-
-@if (note) {
-  <app-note-data [title]="title" [contenido]="contenido"/>
-}
-
-@if (modalSettings) {
-  <app-settings (settings)="settings($event)" />
-}
-@if (exit) {
-  <app-logout />
+} @if (note) {
+<app-note-data
+  (cerrarNewNote)="cerrarNewNote($event)"
+  [title]="title"
+  [contenido]="contenido"
+/>
+} @if (modalSettings) {
+<app-settings (settings)="settings($event)" />
+} @if (exit) {
+<app-logout />
 }

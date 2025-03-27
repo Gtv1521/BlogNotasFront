@@ -1,5 +1,5 @@
-import { Component, inject, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faChevronLeft, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,6 +19,7 @@ export class NoteDataComponent {
   // valores de entrada 
   @Input() title!: string
   @Input() contenido!: string
+  @Output() cerrarNewNote = new EventEmitter<boolean>()
 
   private fb = inject(FormBuilder) 
 
