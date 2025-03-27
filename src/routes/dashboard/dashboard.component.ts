@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
@@ -13,6 +13,7 @@ import { AuthService } from '../../services/utils/Auth/auth.service';
 import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
 import { NewNoteComponent } from "../new-note/new-note.component";
 import { NoteDataComponent } from "../../components/Dasboard/note-data/note-data.component";
+import { CacheService } from '../../services/utils/cache/cache.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -28,9 +29,9 @@ export class DashboardComponent {
   modalNewNote: boolean = false
   modalSettings: boolean = false
   exit: boolean = false
-  note: boolean = true
-  title: string = 'Nueva Nota'
-  contenido: string = 'Aqui es donde puedes escribir lo que piensas'
+  note: boolean = false
+  title: string = ''
+  contenido: string = ''
 
   // Estados - menejo de datos
   datos: any = []
@@ -44,10 +45,12 @@ export class DashboardComponent {
   // inyeccion de dependencias
   private router = inject(Router)
   private auth = inject(AuthService)
+  private cache = inject(CacheService)
 
 
   // se lanzan los requisitos para iniciar la app 
   ngOnInit(): void {
+    this.cache.clearAll()
     timer(3000).pipe().subscribe(() => {
       this.loader = false
     })
@@ -76,11 +79,6 @@ export class DashboardComponent {
     this.modalSettings = estado
   }
 
-  // cambia de ruta y crea una nueva nota
-  newNote(): void {
-    this.router.navigate(['/new_note'])
-  }
-
   // trae el id de usuario
   getUserId(): string | null {
     return this.id
@@ -90,5 +88,18 @@ export class DashboardComponent {
   logout(): void {
     this.loader = false
     this.exit = true
+  }
+
+  cerrarNewNote(estado: boolean): void {
+    this.title = 'Nueva nota'
+    this.contenido = 'Aqui puedes escribir ...'
+    this.note = estado
+  }
+
+  // manda mensage para 
+  openNote(data: any):void {
+    this.title = data.title
+    this.contenido = data.contenido
+    this.note = data.estado
   }
 }
