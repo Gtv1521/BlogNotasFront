@@ -11,10 +11,12 @@ import { SettingsComponent } from '../../components/Flotantes/settings/settings.
 import { TitleComponent } from "../../components/Dasboard/title/title.component";
 import { AuthService } from '../../services/utils/Auth/auth.service';
 import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
+import { NewNoteComponent } from "../new-note/new-note.component";
+import { NoteDataComponent } from "../../components/Dasboard/note-data/note-data.component";
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SettingsComponent, LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent, TitleComponent, LogoutComponent],
+  imports: [SettingsComponent, LoaderComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent, TitleComponent, LogoutComponent, NewNoteComponent, NoteDataComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -26,7 +28,9 @@ export class DashboardComponent {
   modalNewNote: boolean = false
   modalSettings: boolean = false
   exit: boolean = false
-
+  note: boolean = true
+  title: string = 'Nueva Nota'
+  contenido: string = 'Aqui es donde puedes escribir lo que piensas'
 
   // Estados - menejo de datos
   datos: any = []
