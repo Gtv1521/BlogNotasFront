@@ -14,6 +14,8 @@ import { LogoutComponent } from "../../components/Dasboard/logout/logout.compone
 import { NewNoteComponent } from "../new-note/new-note.component";
 import { NoteDataComponent } from "../../components/Dasboard/note-data/note-data.component";
 import { CacheService } from '../../services/utils/cache/cache.service';
+import { INotes } from '../../interfaces/INotes';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -30,8 +32,7 @@ export class DashboardComponent {
   modalSettings: boolean = false
   exit: boolean = false
   note: boolean = false
-  title: string = ''
-  contenido: string = ''
+  noteData!: INotes
 
   // Estados - menejo de datos
   datos: any = []
@@ -91,15 +92,23 @@ export class DashboardComponent {
   }
 
   cerrarNewNote(estado: boolean): void {
-    this.title = 'Nueva nota'
-    this.contenido = 'Aqui puedes escribir ...'
     this.note = estado
+    this.noteData = {
+      contenido: "Aqui puedes agregar tu nota ...",
+      fechaCreacion: null,
+      fechaUpdate: null,
+      idLibreta: this.idlibreta,
+      idNote: null,
+      idUser: null,
+      title: "New note"
+    }
   }
 
-  // manda mensage para 
-  openNote(data: any):void {
-    this.title = data.title
-    this.contenido = data.contenido
+  // manda mensage para abrir una nota
+  openNote(data: any): void {
+    this.noteData = {
+      ...data
+    }
     this.note = data.estado
   }
 }

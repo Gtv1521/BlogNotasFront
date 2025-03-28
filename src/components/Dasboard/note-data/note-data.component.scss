@@ -59,7 +59,8 @@
     .content {
       width: 95%;
       margin: auto !important;
-      height: 77%;
+      height: 70vh;
+
 
       .area {
         width: 100%;
@@ -82,6 +83,26 @@
         &:active {
           border-color: transparent;
         }
+      }
+    }
+
+    .info {
+      margin-top: 15px !important;
+      width: 95%;
+      height: 10vh;
+      margin: auto;
+      background-color: var.$sexto;
+      text-align: center;
+      padding: 20px 10px;
+      // display: none;
+
+      .contain {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        color: var.$cuarto;
+        font-weight: 600;
+        justify-content: space-between;
       }
     }
   }
