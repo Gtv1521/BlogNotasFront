@@ -19,8 +19,6 @@ export class ListBooksComponent {
   isActive: boolean = false
   selectedNoteId: string | null = null;
   note: boolean = false
-  title: string = ''
-  contenido: string = ''
 
   // estados de datos
   datos: any = []
@@ -69,6 +67,7 @@ export class ListBooksComponent {
     this.dataNota.emit({...data, estado})
   }
 
+  // cierra el componente noyas 
   cerrarNewNote(estado: boolean): void {
     this.note = estado
   }

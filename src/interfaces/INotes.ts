@@ -1,11 +1,11 @@
 export interface INotes {
-    _id: string,
-    Title: string,
-    Contenido: string,
-    IdUser: string,
-    IdLibreta: string,
-    FechaCreacion: string,
-    FechaUpdate: string
+    idNote: string | null,
+    title: string,
+    contenido: string,
+    idUser: string | null,
+    idLibreta: string,
+    fechaCreacion: string | null,
+    fechaUpdate: string | null
 }
 
 export interface INewNote {

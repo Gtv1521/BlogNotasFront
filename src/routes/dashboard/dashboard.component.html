@@ -37,11 +37,7 @@
 @if (modalNewNote) {
 <app-new-notebook (toggleModal)="toggleModal($event)" />
 } @if (note) {
-<app-note-data
-  (cerrarNewNote)="cerrarNewNote($event)"
-  [title]="title"
-  [contenido]="contenido"
-/>
+<app-note-data [datos]="noteData" (cerrarNewNote)="cerrarNewNote($event)" />
 } @if (modalSettings) {
 <app-settings (settings)="settings($event)" />
 } @if (exit) {
