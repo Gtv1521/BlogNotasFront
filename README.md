@@ -23,7 +23,7 @@ Aplicación web para gestionar notas personales con sistema de autenticación y 
 - **Deploy**: Vercel
 
 ## Donde Visitarla
-Url: https://blog-notas-front.vercel.app/home/login
+Url: https://blog-notas-front.vercel.app
 
 ## Cómo Empezar 🚀
 ```bash
