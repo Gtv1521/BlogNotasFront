@@ -16,7 +16,7 @@ Aplicación web para gestionar notas personales con sistema de autenticación y 
 - **🌙 Modo oscuro**: Diseño adaptable a tu preferencia
 
 ## Tecnologías Clave 🛠️
-- **Frontend**: Angular 17 + TypeScript
+- **Frontend**: Angular 19 + TypeScript
 - **Autenticación**: Jwt .Net Core
 - **Base de datos**: MongoDb Atlas
 - **UI**: Angular Material + Sass
