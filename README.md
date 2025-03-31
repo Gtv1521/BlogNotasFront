@@ -22,7 +22,7 @@ Aplicación web para gestionar notas personales con sistema de autenticación y 
 - **UI**: Angular Material + Sass
 - **Deploy**: Vercel
 
-## Donce Visitarla
+## Donde Visitarla
 Url: https://folio-8k2juteko-gtv1521s-projects.vercel.app/home
 
 ## Cómo Empezar 🚀
