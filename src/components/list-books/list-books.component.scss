@@ -26,9 +26,17 @@
     ul {
       width: 99%;
       height: 100%;
-      margin: auto;
+      // margin: auto;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
       list-style: none;
+      grid-auto-rows: 1fr;
+      align-items: stretch;
+      overflow-y: scroll;
+      scrollbar-width: none;
     }
   }
 }

@@ -32,7 +32,7 @@ export class DashboardComponent {
   modalSettings: boolean = false
   exit: boolean = false
   note: boolean = false
-  noteData!: INotes
+  noteData: any = []
 
   // Estados - menejo de datos
   datos: any = []
@@ -92,23 +92,15 @@ export class DashboardComponent {
   }
 
   cerrarNewNote(estado: boolean): void {
+    this.noteData = []
+    this.noteData = { idLibreta: this.idlibreta, idNote: null }
     this.note = estado
-    this.noteData = {
-      contenido: "Aqui puedes agregar tu nota ...",
-      fechaCreacion: null,
-      fechaUpdate: null,
-      idLibreta: this.idlibreta,
-      idNote: null,
-      idUser: null,
-      title: "New note"
-    }
   }
 
   // manda mensage para abrir una nota
   openNote(data: any): void {
-    this.noteData = {
-      ...data
-    }
+    this.noteData = []
+    this.noteData = { idlibreta: data.idLibreta, idNote: data.idNote }
     this.note = data.estado
   }
 }

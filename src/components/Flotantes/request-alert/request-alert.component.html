@@ -1,14 +1,14 @@
 <div class="container">
   <div class="container-fluid">
-    <div class="icono">
+    <div class="icono" (click)="closeAlert.emit(false)">
         <fa-icon [icon]="faCircleXmark"></fa-icon>
     </div>
     <div class="request">
       {{ Request }}
     </div>
     <div class="responses">
-      <div class="btn ok" (click)="respuesta(true)">Yes</div>
-      <div class="btn not" (click)="respuesta(false)">Not</div>
+      <div class="btn" (click)="respuesta(true)">Yes</div>
+      <div class="btn" (click)="respuesta(false)">Not</div>
     </div>
   </div>
 </div>

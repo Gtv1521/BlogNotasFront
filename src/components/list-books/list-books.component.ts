@@ -44,7 +44,7 @@ export class ListBooksComponent {
     this.errors = []
 
     if (this.idLibreta && typeof this.idLibreta === 'string') {
-      this.service.loadNotes(this.idLibreta).subscribe({
+      this.service.notes$.subscribe({
         next: (response) => {
           this.datos = response
           this.loader = false
@@ -54,6 +54,8 @@ export class ListBooksComponent {
           this.loader = false
         }
       })
+
+      this.service.loadNotes(this.idLibreta);
     }
   }
 

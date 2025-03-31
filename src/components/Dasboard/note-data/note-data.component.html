@@ -5,7 +5,7 @@
         <div class="icono" (click)="volver()">
           <fa-icon [icon]="faChevronLeft" />
         </div>
-        <div class="icono">
+        <div class="icono" (click)="save(data.idNote)">
           <fa-icon [icon]="faCheck" />
         </div>
       </div>
@@ -15,6 +15,7 @@
         </div>
       </div>
     </div>
+    @if (loader) { loader... }@else {
     <form [formGroup]="dataForm">
       <div class="title">
         <textarea class="title-area" formControlName="title"></textarea>
@@ -23,28 +24,31 @@
         <textarea class="area" formControlName="contenido"> </textarea>
       </div>
     </form>
-      <div class="info">
-        <h3>Modified</h3>
-        <div class="contain">
-          <div class="created">
-            <label for=""
-              >Created:
-              {{
-                datos.fechaCreacion === null ? hoy : datos.fechaCreacion
-              }}</label
-            >
-          </div>
-          <div class="update">
-            <label for=""
-              >Update:
-              {{ datos.fechaUpdate === null ? "none" : datos.fechaUpdate }}
-            </label>
-          </div>
+    <div class="info">
+      <h3>Modified</h3>
+      <div class="contain">
+        <div class="created">
+          <label for=""
+            >Created:
+            {{ data.fechaCreacion === null ? hoy : data.fechaCreacion }}</label
+          >
+        </div>
+        <div class="update">
+          <label for=""
+            >Update:
+            {{ data.fechaUpdate === null ? "none" : data.fechaUpdate }}
+          </label>
         </div>
       </div>
+    </div>
+    }
   </div>
 </div>
 
 @if (alert) {
-  <app-request-alert [Request]="Request" (Response)="requestResponse($event)" />
+<app-request-alert
+  [Request]="Request"
+  (closeAlert)="closeAlert($event)"
+  (Response)="requestResponse($event)"
+/>
 }
