@@ -17,6 +17,7 @@ export class RequestAlertComponent {
   // valores de entrada
   @Input() Request: string = ''
   @Output() Response = new EventEmitter<boolean>()
+  @Output() closeAlert = new EventEmitter<boolean>()
 
   // funcion de salida
   respuesta(res: boolean): void {

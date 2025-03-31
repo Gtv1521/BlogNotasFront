@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NotesService } from '../../../services/dashboard/notes.service';
 import { TargetComponent } from "../../utils/target/target.component";
+import { NotebooksService } from '../../../services/dashboard/notebooks.service';
 
 @Component({
   selector: 'app-books',
@@ -25,7 +26,7 @@ export class BooksComponent {
   data: any = [];
   errors: any = [];
 
-  private service = inject(NotesService)
+  private service = inject(NotebooksService)
 
   ngOnInit(): any {
     this.loadNoteBooks()
@@ -37,7 +38,7 @@ export class BooksComponent {
     this.data = []
     this.errors = []
 
-    this.service.loadBooks(1).subscribe({
+    this.service.showNoteBook(1).subscribe({
       next: (response) => {
         this.data = response
         this.loader = false

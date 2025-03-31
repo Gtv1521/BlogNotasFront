@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { INotebooks } from '../../interfaces/INoteBooks';
 import { INewNote } from '../../interfaces/INotes';
 import { CacheService } from '../utils/cache/cache.service';
+import { AuthService } from '../utils/Auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +14,24 @@ export class NotebooksService {
 
   // se exponen los componentes inyectados 
   private apiUrl = environment.apiUrl
-
+  private userId: string | null = ''
   constructor(
     private http: HttpClient,
-    private cache: CacheService
-  ) { }
+    private cache: CacheService,
+    private auth: AuthService
+  ) {
+    this.userId = this.auth.getUserId()
+  }
 
   // Muestra los datos de las libretas por pagina y usuario
-  showNoteBook(pagina: number, idUser: string): Observable<INotebooks> {
-    const cacheKey = `libretas_${idUser}_${pagina}`;
-    const request = this.http.get<INotebooks>(`${this.apiUrl}/Libreta/view_books/${idUser}/${pagina}`);
+  showNoteBook(pagina: number): Observable<INotebooks> {
+    const cacheKey = `libretas_${this.userId}`;
+    const request = this.http.get<INotebooks>(`${this.apiUrl}/Libreta/view_books/${this.userId}/${pagina}`);
     return this.cache.get(cacheKey, request);
   }
 
   // crea una nueva libreta
-  createNoteBook(data: INewNote): Observable<INewNote>{ 
+  createNoteBook(data: INewNote): Observable<INewNote> {
     return this.http.post<any>(`${this.apiUrl}/Libreta/create_book`, data)
   }
 }

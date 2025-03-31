@@ -16,27 +16,63 @@
     height: 15vh;
     background-color: var.$sexto;
     color: var.$primero;
+    border-radius: 15px;
 
     .icono {
       width: 98%;
+      height: 40px;
       margin: auto;
       text-align: end !important;
+      padding: 7px 5px 0 0 !important;
+
+      fa-icon {
+        font-size: 25px;
+      }
     }
     .request {
-        padding-top: 20px;
+      padding-top: 15px;
       text-align: center;
     }
 
     .responses {
       padding: 20px;
-      margin-top: 5px;
+      margin-top: 2px;
       display: flex;
       justify-content: space-around;
       font-weight: 700;
 
       .btn:hover {
-        color: var.$cuarto ;
+        color: var.$cuarto;
+        cursor: pointer;
       }
     }
+  }
+}
+
+@media (300px <= width <= 1366px) {
+
+  .container-fluid {
+    height: 18vh !important;
+  }
+
+  .request {
+    padding-top: 0% !important;
+    margin-top: 0 !important;
+    margin-bottom: 4px !important;
+  }
+
+  fa-icon {
+    font-size: 20px !important;
+  }
+
+  .icono {
+    height: 35px !important;
+  }
+
+  .responses {
+    width: 75%;
+    margin: auto;
+    justify-content: space-between !important;
+    padding-top: 15px !important;
   }
 }
