@@ -1,0 +1,23 @@
+<div class="container">
+  <!-- title -->
+  <div class="title">
+    <h4>List Notes</h4>
+  </div>
+
+  <!-- List of listbooks -->
+  <div class="notebooks">
+    @if (loading$ | async) {
+    <app-loader-spinner />
+    }@else if((notas$|async)?.length !== 0) {
+    <ul>
+      @for (item of notas$ | async; track item.idNote) {
+      <li>
+        <app-note [card]="item" (note)="dataNote(item, true)" [isActive]="selectedNoteId === item.idNote" />
+      </li>
+      }
+    </ul>
+    } @else if ((errores$ | async)?.length !== 0) {
+    <div class="notfound">No hay notas en esta libreta</div>
+    }
+  </div>
+</div>

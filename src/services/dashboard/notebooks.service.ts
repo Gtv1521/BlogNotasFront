@@ -25,8 +25,11 @@ export class NotebooksService {
 
   // Muestra los datos de las libretas por pagina y usuario
   showNoteBook(pagina: number): Observable<INotebooks> {
+
+    console.log(this.userId)
     const cacheKey = `libretas_${this.userId}`;
     const request = this.http.get<INotebooks>(`${this.apiUrl}/Libreta/view_books/${this.userId}/${pagina}`);
+   console.log(request);
     return this.cache.get(cacheKey, request);
   }
 

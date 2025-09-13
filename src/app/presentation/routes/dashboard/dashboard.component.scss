@@ -1,0 +1,119 @@
+@use "../../../../styles/variables" as var;
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background: var.$fondo-oscuro;
+  color: var.$primero;
+
+  .navbar {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  display: flex;
+
+  .books {
+    width: 20%;
+    height: 90vh;
+    display: block;
+
+    .contents {
+      margin: auto;
+      width: 96%;
+      text-align: center;
+      background-color: var.$negro-opaco;
+      font-weight: 600;
+
+      .new {
+        height: 8vh;
+        line-height: 7.5vh;
+        margin-bottom: 3px;
+        background-color: var.$negro-opaco;
+        border: 1px solid var.$tercero;
+
+        &:hover {
+          background-color: var.$sexto;
+        }
+
+        & .caja {
+          margin: auto;
+          display: flex;
+          width: 40%;
+          justify-content: space-evenly;
+
+          & fa-icon {
+            color: var.$tercero;
+            font-weight: 700;
+          }
+        }
+      }
+
+      .settings {
+        height: 5vh;
+        line-height: 5.2vh;
+        background: var.$negro-opaco;
+        border: 1px solid var.$primero;
+
+        &:hover {
+          background-color: var.$sexto;
+          border: 1px solid var.$primero;
+        }
+
+        & .caja {
+          margin: auto;
+          display: flex;
+          width: 40%;
+          justify-content: space-evenly;
+
+          & fa-icon {
+            font-weight: 700;
+            color: var.$tercero;
+          }
+        }
+      }
+    }
+  }
+
+  .notes {
+    width: 80%;
+    height: 90vh;
+    background-color: var.$negro-opaco;
+
+  }
+
+  .new_note {
+    position: absolute;
+    bottom: 3%;
+    right: 1%;
+    font-size: 40px;
+
+    &:hover {
+      color: var.$cuarto;
+    }
+  }
+}
+
+
+
+@media (450px <=width <=1366px) {
+  .books {
+    height: 87vh !important;
+  }
+
+  .new {
+    font-size: 12px !important;
+  }
+
+  .settings {
+    font-size: 12px !important;
+  }
+
+  .notes {
+    height: 87.5vh !important;
+  }
+}

@@ -1,0 +1,24 @@
+<!-- muestra las libretas del usuario -->
+<div class="container">
+  <div class="container-fluid">
+    <div class="title">
+      <h4>NoteBooks</h4>
+    </div>
+    @if (loader) {
+    <div>loading ...</div>
+    }
+
+    @if (!loader && data.length === 0) {
+    No hay libretas
+    }@else if(data.length !== 0) {
+    <ul class="list-books">
+      @for (item of data; track item.id) {
+      <li>
+        <app-target [item]='item' [isActive]="selectItem === item.id"
+          (noteSelected)="onNoteSelected(item.id)" />
+      </li>
+      }
+    </ul>
+    }
+  </div>
+</div>

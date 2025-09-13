@@ -1,0 +1,47 @@
+@use "../../../../../styles/variables" as var;
+
+.container {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var.$modal-font;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid var.$modal-font;
+  
+  &:hover {
+    border: 1px solid var.$primero;
+  }
+
+  .container-fliud {
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: 700;
+    
+    .cantidad {
+      color: var.$primero;
+      font-weight: 500;
+    }
+  }
+
+}
+
+.selected {
+    border: 1px solid var.$primero;
+  background-color: var.$septimo !important;
+}
+
+@media (450px <= width <= 1366px) { 
+    .container {
+        height: 60px !important;
+
+        .container-fliud {
+            font-size: 13px;
+        }
+    }
+
+}

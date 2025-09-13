@@ -1,0 +1,61 @@
+<div class="container">
+  @if (loader) { <app-loader /> } @else if(loader == false) {
+  <!-- titulo -->
+  <div class="navbar">
+    <app-title />
+  </div>
+
+  <div class="container-fluid">
+    <div class="books">
+
+      <!-- lista de libretas -->
+      <app-books (getLibreta)="getLibreta($event)" />
+
+      <div class="contents">
+        <!-- boton nueva libreta -->
+        <div class="new" (click)="toggleModal(true)">
+          <div class="caja">
+            <fa-icon [icon]="faPlus" />
+            <p>Nuevo</p>
+          </div>
+        </div>
+
+        <!-- boton configuraciones -->
+        <div class="settings" (click)="settings(true)">
+          <div class="caja">
+            <fa-icon [icon]="faGears" />
+            <p>Settings</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de las notas de la libreta cargada -->
+    <div class="notes">
+      <app-list-books (dataNota)="openNote($event)" [idLibreta]="idlibreta" />
+    </div>
+
+    <!-- boton para agregar una nota a la libreta abierta -->
+    <div class="new_note" (click)="cerrarNewNote(true)">
+      <fa-icon [icon]="faSquarePlus" />
+    </div>
+  </div>
+  }
+</div>
+@if (modalNewNote) {
+
+<!-- enlace a una nueva libreta -->
+<app-new-notebook (toggleModal)="toggleModal($event)" />
+} @if (note) {
+
+<!-- agrega una nota la libreta abierta -->
+<app-note-data [datos]="noteData" (cerrarNewNote)="cerrarNewNote($event)" />
+} @if (modalSettings) {
+
+<!-- abre las configuraciones -->
+<app-settings (settings)="settings($event)" />
+} @if (exit) {
+
+<!-- cierra sesion -->
+<app-logout />
+}

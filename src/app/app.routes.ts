@@ -1,10 +1,10 @@
-import { Routes } from '@angular/router'
-import { HomeComponent } from './../routes/home/home.component';
-import { LoginComponent } from './../routes/login/login.component';
-import { SiginComponent } from './../routes/sigin/sigin.component';
-import { ResetComponent } from '../routes/reset/reset.component';
-import { DashboardComponent } from '../routes/dashboard/dashboard.component';
-import { NewNoteComponent } from '../routes/new-note/new-note.component';
+import { Routes } from "@angular/router";
+import { DashboardComponent } from "./presentation/routes/dashboard/dashboard.component";
+import { HomeComponent } from "./presentation/routes/home/home.component";
+import { LoginComponent } from "./presentation/routes/login/login.component";
+import { NewNoteComponent } from "./presentation/routes/new-note/new-note.component";
+import { ResetComponent } from "./presentation/routes/reset/reset.component";
+import { SiginComponent } from "./presentation/routes/sigin/sigin.component";
 
 
 export const routes: Routes = [

@@ -1,0 +1,160 @@
+@use "../../../../../styles/variables" as var;
+
+.container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 0%;
+  z-index: inherit;
+  background-color: var.$modal-font;
+
+  .container-fluid {
+    width: 70%;
+    height: 98%;
+    margin: auto;
+    background-color: var.$negro-modal;
+    color: var.$primero;
+
+    .actions {
+      display: flex;
+      width: 95%;
+      margin: auto;
+      height: 40px;
+      line-height: 40px;
+      justify-content: space-between;
+      padding: auto 20px;
+
+      .icons {
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        width: 100px;
+        text-align: start;
+      }
+    }
+
+    .title {
+      width: 95%;
+      margin: 0 auto 6px auto;
+
+      .title-area {
+        font-size: 25px;
+        height: 70px;
+        line-height: 70px;
+        font-weight: 700;
+        width: 100%;
+        background-color: var.$font-note;
+        text-align: center;
+        border: none;
+        color: var.$primero;
+        resize: none;
+        cursor: pointer;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .content {
+      width: 95%;
+      margin: auto !important;
+      height: 70vh;
+
+      .area {
+        width: 100%;
+        height: 100%;
+        color: var.$primero;
+        background-color: var.$font-note;
+        padding: 20px;
+        font-size: 16px;
+        border: none !important;
+        resize: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+
+        &:hover {
+          border-color: transparent;
+        }
+        &:focus {
+          border-color: transparent;
+          outline: none;
+        }
+        &:active {
+          border-color: transparent;
+        }
+      }
+    }
+
+    .info {
+      margin-top: 15px !important;
+      width: 95%;
+      height: 10vh;
+      margin: auto;
+      background-color: var.$sexto;
+      text-align: center;
+      padding: 20px 10px;
+
+      .contain {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        color: var.$cuarto;
+        font-weight: 600;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+
+
+.icono {
+  margin-left: 15px;
+
+  fa-icon {
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    color: var.$tercero;
+    scale: 1.6;
+  }
+}
+
+@media (300px <= width <= 1366px) {
+
+  .title-area {
+    font-size: 18px !important;
+  }
+
+  .content {
+    height: 61vh !important;
+    margin: auto !important;
+
+    .area {
+      font-size: 13px !important;
+    }
+  }
+
+  .info {
+    margin-top: 3px !important;
+    margin: 0px auto !important;
+    padding: 10px;
+
+    h3 {
+      font-size: 13px !important;
+    }
+    .contain {
+      font-size: 13px !important;
+    }
+  }
+}
+
+
