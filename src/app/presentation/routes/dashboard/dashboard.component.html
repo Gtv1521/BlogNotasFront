@@ -6,25 +6,35 @@
   </div>
 
   <div class="container-fluid">
-    <div class="books">
-
+    <div class="books {{menuActive ? 'ocultar' : ''}}">
       <!-- lista de libretas -->
-      <app-books (getLibreta)="getLibreta($event)" />
+       <div class="libretas">
+         <app-books (getLibreta)="getLibreta($event)" />
+       </div>
 
       <div class="contents">
         <!-- boton nueva libreta -->
-        <div class="new" (click)="toggleModal(true)">
-          <div class="caja">
-            <fa-icon [icon]="faPlus" />
-            <p>Nuevo</p>
-          </div>
+        <div class="show" (click)="toggleMenu(menuActive)">
+          @if (menuActive) {
+            <fa-icon [icon]="faChevronUp" />
+          }@else {
+            <fa-icon [icon]="faChevronDown" />
+          }
         </div>
+        <div class="options">
+          <div class="new" (click)="toggleModal(true)">
+            <div class="caja">
+              <fa-icon [icon]="faPlus" />
+              <p>Nuevo</p>
+            </div>
+          </div>
 
-        <!-- boton configuraciones -->
-        <div class="settings" (click)="settings(true)">
-          <div class="caja">
-            <fa-icon [icon]="faGears" />
-            <p>Settings</p>
+          <!-- boton configuraciones -->
+          <div class="settings" (click)="settings(true)">
+            <div class="caja">
+              <fa-icon [icon]="faGears" />
+              <p>Settings</p>
+            </div>
           </div>
         </div>
       </div>

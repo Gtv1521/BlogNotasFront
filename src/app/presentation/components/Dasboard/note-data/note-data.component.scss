@@ -17,6 +17,15 @@
     background-color: var.$negro-modal;
     color: var.$primero;
 
+  .loader{
+    height: 99%;
+    width: 99%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
     .actions {
       display: flex;
       width: 95%;

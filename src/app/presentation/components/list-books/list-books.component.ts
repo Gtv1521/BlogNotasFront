@@ -30,6 +30,7 @@ export class ListBooksComponent {
   // inyeccion de dependencias
   private service = inject(NotesUseCase)
 
+  //  estados del caso de uso 
   notas$ = this.service.notas$;
   errores$ = this.service.errors$;
   loading$ = this.service.loading$;
@@ -45,16 +46,10 @@ export class ListBooksComponent {
 
   // obtiene notas  de cada libreta 
   getNotes(id: string): void {
-
     if (this.idLibreta && typeof this.idLibreta === 'string') {
       this.service.allNotesByBook(id);
     }
   }
-
-  // Verificar si una tarjeta está seleccionada
-  // onNoteSelected(noteId: string): void {
-  //   this.selectedNoteId = this.selectedNoteId === noteId ? null : noteId;
-  // }
 
   // abre una nota nueva
   dataNote(data: any, estado: boolean): void {
@@ -64,9 +59,5 @@ export class ListBooksComponent {
   // cierra el componente notas 
   cerrarNewNote(estado: boolean): void {
     this.note = estado
-  }
-
-  reload(): void {
-    this.getNotes(this.idLibreta);
   }
 }

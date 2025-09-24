@@ -5,11 +5,12 @@ import { faCircleXmark, faLessThanEqual } from '@fortawesome/free-solid-svg-icon
 import { bookInput } from '../../../../aplication/inputs/book.input';
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
+import { LoadSaveComponent } from "../load-save/load-save.component";
 
 @Component({
   selector: 'app-new-notebook',
   standalone: true,
-  imports: [FontAwesomeModule, ɵInternalFormsSharedModule, ReactiveFormsModule],
+  imports: [FontAwesomeModule, ɵInternalFormsSharedModule, ReactiveFormsModule, LoadSaveComponent],
   templateUrl: './new-notebook.component.html',
   styleUrl: './new-notebook.component.scss'
 })
@@ -21,6 +22,8 @@ export class NewNotebookComponent {
   loadig: boolean = false;
   data: string = '';
   error: string = '';
+
+  doneSave: boolean = false;
 
   // estados del padre
   @Output() toggleModal = new EventEmitter<boolean>();
@@ -39,6 +42,7 @@ export class NewNotebookComponent {
 
   onSubmit(): void {
     if (this.formulario.valid) {
+      this.doneSave = true;
       this.loadig = true;
       const DataValues = this.formulario.value;
 
@@ -47,19 +51,25 @@ export class NewNotebookComponent {
         name: `${DataValues.name}`
       }
 
-      console.log(insert)
       this.book.insert(insert).subscribe({
         next: (res) => {
           this.data = res;
           this.loadig = false;
+          this.closeNotification();
+          this.book.loadAll(`${this.auth.getUserId()}`, 1); // se refrescan las notas 
         },
         error: (err) => {
           this.error = err;
           this.loadig = false;
         }
-
       })
-
     }
+  }
+
+  closeNotification(): void {
+    setTimeout(() => {
+      this.doneSave = false;
+      this.toggleModal.emit(false);
+    }, 600);
   }
 }

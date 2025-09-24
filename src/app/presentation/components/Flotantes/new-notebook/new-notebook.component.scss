@@ -13,7 +13,7 @@
 
   .container-fluid {
     width: 60%;
-    height: 30%;
+    height: 90%;
     background-color: var.$negro-modal;
     color: var.$primero;
     border-radius: 20px;
@@ -44,17 +44,19 @@
       }
     }
 
+    // contendor formulario
     .content {
-      margin: auto;
+      margin: 6% auto 0 auto;
       width: 50%;
-      height: 50%;
-      border: 1px solid var.$primero;
+      height: 30%;
+      padding: 30px 10px;
+      background-color: var.$sexto;
       border-radius: 15px;
       text-align: center;
 
       .group {
-        width: 80%;
-        margin: 20px;
+        width: 100%;
+        margin: 20px auto;
       }
 
       .btn {
@@ -66,8 +68,25 @@
       }
 
       input {
+        margin: 30px auto;
+        padding: 8px;
+        width: 90%;
+        font-size: 1.2rem;
+        font-weight: 800;
         text-align: center;
       }
+    }
+
+    // informacion
+    .information {
+      width: 70%;
+      margin: 10% auto;
+      display: flex;
+      padding: 50px 20px;
+      border-radius: 20px;
+      justify-content: space-around;
+      background-color: var.$septimo;
+      font-weight: 600;
     }
   }
 }

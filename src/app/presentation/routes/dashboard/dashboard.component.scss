@@ -5,6 +5,7 @@
   height: 100vh;
   background: var.$fondo-oscuro;
   color: var.$primero;
+  overflow: hidden;
 
   .navbar {
     width: 100%;
@@ -13,66 +14,125 @@
   }
 }
 
+
 .container-fluid {
-  width: 100%;
+  width: 99%;
   display: flex;
+  margin: auto;
+  justify-content: space-around;
 
   .books {
-    width: 20%;
+    width: 19%;
     height: 90vh;
-    display: block;
 
+    // libretas
+    .libretas {
+      width: 100%;
+      height: 82%;
+      transition: height 0.3s;
+    }
+
+    // opciones
     .contents {
       margin: auto;
-      width: 96%;
+      width: 100%;
+      height: 17%;
       text-align: center;
-      background-color: var.$negro-opaco;
       font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      background-color: var.$negro-opaco;
 
-      .new {
-        height: 8vh;
-        line-height: 7.5vh;
-        margin-bottom: 3px;
+
+      .show {
         background-color: var.$negro-opaco;
-        border: 1px solid var.$tercero;
+        flex: 0 0 20px;
 
         &:hover {
-          background-color: var.$sexto;
-        }
-
-        & .caja {
-          margin: auto;
-          display: flex;
-          width: 40%;
-          justify-content: space-evenly;
-
-          & fa-icon {
-            color: var.$tercero;
-            font-weight: 700;
-          }
+          background-color: var.$cuarto;
         }
       }
 
-      .settings {
-        height: 5vh;
-        line-height: 5.2vh;
-        background: var.$negro-opaco;
-        border: 1px solid var.$primero;
+      .options {
+        flex: 5;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
 
-        &:hover {
-          background-color: var.$sexto;
-          border: 1px solid var.$primero;
+        &>* {
+          transition:
+            max-height 3s ease,
+            height 3s ease
+          ;
         }
 
-        & .caja {
-          margin: auto;
+        .new {
           display: flex;
-          width: 40%;
-          justify-content: space-evenly;
+          justify-content: center;
+          align-items: center;
+          flex: 1;
+          margin-bottom: 3px;
+          border: 1px solid var.$tercero;
 
-          & fa-icon {
-            font-weight: 700;
-            color: var.$tercero;
+          &:hover {
+            background-color: var.$sexto;
+          }
+
+          & .caja {
+            margin: auto;
+            width: 40%;
+            display: flex;
+            justify-content: space-evenly;
+
+            & fa-icon {
+              color: var.$tercero;
+              font-weight: 700;
+            }
+          }
+        }
+
+        .settings {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex: 1;
+          background: var.$negro-opaco;
+          border: 1px solid var.$primero;
+
+          &:hover {
+            background-color: var.$sexto;
+            border: 1px solid var.$primero;
+          }
+
+          & .caja {
+            margin: auto;
+            display: flex;
+            width: 40%;
+            justify-content: space-evenly;
+
+            & fa-icon {
+              font-weight: 700;
+              color: var.$tercero;
+            }
+          }
+        }
+      }
+    }
+
+    &.ocultar {
+      .libretas {
+        height: 97%; // ocupa todo
+        transition: height 0.3s;
+      }
+
+      .contents {
+        height: 0;
+
+        .options {
+          &>* {
+            height: 0;
+            max-height: 0;
+            transition: height 0.2s;
           }
         }
       }

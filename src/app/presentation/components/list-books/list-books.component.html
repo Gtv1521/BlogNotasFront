@@ -7,8 +7,11 @@
   <!-- List of listbooks -->
   <div class="notebooks">
     @if (loading$ | async) {
-    <app-loader-spinner />
+    <div class="loader">
+      <app-loader-spinner />
+    </div>
     }@else if((notas$|async)?.length !== 0) {
+    <!-- contenedor de las notas -->
     <ul>
       @for (item of notas$ | async; track item.idNote) {
       <li>

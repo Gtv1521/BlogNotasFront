@@ -1,20 +1,20 @@
 import { Component, EventEmitter, inject, Inject, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCheck, faChevronLeft, faEllipsis, faRotateRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronLeft, faEllipsis, faL, faRotateRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { RequestAlertComponent } from "../../Flotantes/request-alert/request-alert.component";
 import { NoteEntity } from '../../../../domain/models/note.model';
 import { NotesUseCase } from '../../../../aplication/use-cases/notes.use-case';
 import { noteInput } from '../../../../aplication/inputs/note,input';
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { DatePipe } from '@angular/common';
-import { LoaderComponent } from "../../loader/loader-point/loader.component";
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
+import { LoadSaveComponent } from "../../Flotantes/load-save/load-save.component";
 
 @Component({
   selector: 'app-note-data',
   standalone: true,
-  imports: [DatePipe, FontAwesomeModule, ReactiveFormsModule, RequestAlertComponent, LoaderSpinnerComponent],
+  imports: [DatePipe, FontAwesomeModule, ReactiveFormsModule, RequestAlertComponent, LoaderSpinnerComponent, LoadSaveComponent],
   templateUrl: './note-data.component.html',
   styleUrl: './note-data.component.scss'
 })
@@ -30,34 +30,38 @@ export class NoteDataComponent {
 
   // estados de datos
   // dataForm!: FormGroup
-  hoy: Date = new Date()
-  alert: boolean = false
-  loader: boolean = true
-  saveLoader: boolean = false
+  hoy: Date = new Date();
+  alert: boolean = false;
+  loader: boolean = true;
+  saveLoader: boolean = false;
+  doneSave: boolean = false;
   data: NoteEntity | null = null; // recibe datos de actualizacion 
-  errors: any = ''
-  responses: string | boolean = false
-  Request: string = 'Quiere guardar antes de salir ?'
+  errors: any = '';
+  responses: string | boolean = false;
+  Request: string = 'Quiere guardar antes de salir ?';
 
   // valores de entrada 
-  @Input() datos: any
-  @Output() cerrarNewNote = new EventEmitter<boolean>()
+  @Input() datos: any;
+  @Output() cerrarNewNote = new EventEmitter<boolean>();
 
+  // Entradas en el constructor
   private fb = inject(FormBuilder);
   private service = inject(NotesUseCase);
   private auth = inject(AuthService);
 
+  //  agrupa los inputs del formulario 
   dataForm = this.fb.group({
     title: [''],
     contenido: ['']
   });
 
-  // icializa las variables del formulario
+  // inicializa las variables del formulario
   ngOnInit(): void {
     this.loader = true;
     this.getNote();
   }
 
+  // Llama los datos para 
   getNote(): void {
     if (this.datos.idNote !== null) {
       this.service.load(this.datos.idNote).subscribe({
@@ -72,8 +76,9 @@ export class NoteDataComponent {
         }
       })
     } else {
+      //  Este es el inicio de una nota vacia 
       this.data = {
-        title: 'New note',
+        title: 'Nota nueva',
         contenido: 'Aqui puedes agregar tus pensamientos ...',
         fechaCreacion: this.hoy,
         fechaUpdate: null,
@@ -86,7 +91,7 @@ export class NoteDataComponent {
     }
   }
 
-  // llena campos
+  // llena campos en caso de update
   llenar(): void {
     this.dataForm.patchValue({
       title: this.data?.title,
@@ -94,9 +99,9 @@ export class NoteDataComponent {
     })
 
   }
+
   // cierra la pestaña de editar nota
   volver(): void {
-    this.getNote();
     const valores = this.dataForm.value
 
     if (valores.contenido === this.data?.contenido && valores.title === this.data?.title) {
@@ -109,33 +114,45 @@ export class NoteDataComponent {
   // respuesta del alert
   requestResponse(estado: boolean): void {
     if (estado) {
-      this.save(this.datos)
-      this.cerrarNewNote.emit(false)
-      this.alert = false
+      this.save(this.datos);
+      this.loader = true;
+      this.alert = false; // cierra modal de alerta
+      this.doneSave = true; // carga spiner guarda nota
+      this.closeAlert()// cierra modal nota
     } else {
-      this.alert = false
-      this.cerrarNewNote.emit(false)
+      this.alert = false;
+      this.cerrarNewNote.emit(false); // cierra modal nota
     }
   }
 
   // cierra el alert
-  closeAlert(estado: boolean): void {
-    this.alert = estado
+  closeAlert(): void {
+    setTimeout(() => {
+      this.cerrarNewNote.emit(false);
+    }, 800)
   }
 
   // controla si guarda una nueva nota o si actualiza una ya creada dependiendo
   // de las caracteriscas del modelo
   save(id: string | null | undefined): void {
     if (!id) {
-      this.Submit()
+      this.Submit();
     } else {
-      this.onUpdate()
+      this.onUpdate();
     }
-    console.log(this.datos.idLibreta);
+    this.doneSave = true;
+  }
+
+  // espera para cambiar el estado de guardado
+  spinnerDone(): void {
+    setTimeout(() => {
+      this.doneSave = false;
+    }, 700);
   }
 
   // crea una nueva nota
   Submit(): void {
+    this.loader = true;
     const valores = this.dataForm.value
 
     const dataInsert: noteInput = {
@@ -144,35 +161,41 @@ export class NoteDataComponent {
       content: `${valores.contenido}`,
       title: `${valores.title}`
     }
+
     this.service.createNote(dataInsert).subscribe({
       next: (res) => {
         this.responses = res;
-        this.loader = false;
-        console.log(dataInsert.idBook);
-        this.service.allNotesByBook(dataInsert.idBook);
+        this.loader = false; // termina la carga de la nota nueva
+        this.closeAlert(); // cierra el modulo de notas 
+        this.service.allNotesByBook(dataInsert.idBook); // refresca las notas 
       }, error: (err) => {
         this.errors = err;
       }
     })
-    this.cerrarNewNote.emit(false)
+    setTimeout(() => {
+      this.cerrarNewNote.emit(false)
+    }, 900);
   }
 
   // actualiza datos de una nota
   onUpdate(): void {
+    this.loader = true;
     const valores = this.dataForm.value
 
     const dataUpdate: noteInput = {
-      idBook: this.datos.idLibreta,
+      idBook: `${this.data?.idLibreta}`,
       idUser: `${this.auth.getUserId()}`,
       content: `${valores.contenido}`,
       title: `${valores.title}`
     }
 
-    console.log(dataUpdate);
     this.service.updateNote(dataUpdate, this.datos.idNote).subscribe({
       next: (res) => {
         this.responses = res;
-        this.service.allNotesByBook(dataUpdate.idBook);
+        this.service.allNotesByBook(dataUpdate.idBook); // refresca las notas
+        this.getNote(); // se carga la nota de nuevo
+        this.loader = false;
+        this.spinnerDone(); // cierra el spinner
       },
       error: (err) => {
         this.errors = err;

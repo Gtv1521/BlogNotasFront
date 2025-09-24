@@ -4,7 +4,6 @@ import { NOTES_TOKEN } from "../../infrastructure/tokens/notes.token";
 import { NoteEntity } from "../../domain/models/note.model";
 import { BehaviorSubject, catchError, Observable, of, tap } from "rxjs";
 import { noteInput } from "../inputs/note,input";
-import { NoteDataComponent } from "../../presentation/components/Dasboard/note-data/note-data.component";
 
 @Injectable({ providedIn: 'root' })
 
@@ -23,6 +22,7 @@ export class NotesUseCase {
         @Inject(NOTES_TOKEN) private notes: INote<NoteEntity>
     ) { }
 
+    // Carga una sola nota 
     load(id: string): Observable<NoteEntity> {
         return this.notes.read(id).pipe(
             catchError((err) => {
@@ -31,8 +31,10 @@ export class NotesUseCase {
         );
     }
 
+    // carga todas las notas dee una libreta 
     allNotesByBook(idBook: string): void {
         this.loadingSubject.next(true);
+        this.datosSubject.next([]); // se pone en vacio para cargar elementos
         this.notes.readAllById(idBook, 1).pipe(
             tap(() => this.loadingSubject.next(false)),
             catchError((err) => {
@@ -45,6 +47,7 @@ export class NotesUseCase {
         });
     }
 
+    // crea una nueva nota
     createNote(data: noteInput): Observable<string> {
         const insert: NoteEntity = {
             idNote: null,
@@ -62,7 +65,7 @@ export class NotesUseCase {
         );
     }
 
-
+    //  actualiza contenido de una nota 
     updateNote(data: noteInput, idNote: string): Observable<boolean> {
         const updateNote: NoteEntity = {
             idNote: idNote,
@@ -79,6 +82,13 @@ export class NotesUseCase {
                 throw new Error(err.error.message);
             })
         );
+    }
 
+    // cierra session
+    logout(): void {
+        // se limpian las consultas 
+        this.datosSubject.next([]);
+        this.loadingSubject.next(false);
+        this.errorSubject.next([]);
     }
 }

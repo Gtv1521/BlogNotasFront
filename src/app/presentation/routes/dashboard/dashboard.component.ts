@@ -2,7 +2,7 @@ import { Component, Inject, inject } from '@angular/core';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGears, faPlus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faGears, faPlus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { NewNotebookComponent } from '../../components/Flotantes/new-notebook/new-notebook.component';
@@ -24,27 +24,31 @@ import { LoaderComponent } from "../../components/loader/loader-point/loader.com
 export class DashboardComponent {
   // estados 
   private id: string | null = null;
-  idlibreta: string = ""
-  loader: boolean = true
-  modalNewNote: boolean = false
-  modalSettings: boolean = false
-  exit: boolean = false
-  note: boolean = false
-  noteData: any = []
+  idlibreta: string = "";
+  loader: boolean = true;
+  modalNewNote: boolean = false;
+  modalSettings: boolean = false;
+  menuActive: boolean = false ;
+  exit: boolean = false;
+  note: boolean = false;
+  noteData: any = [];
 
   // Estados - menejo de datos
-  datos: any = []
-  errors: any = []
+  datos: any = [];
+  errors: any = [];
 
   // Llamado iconos
   faGears = faGears
   faPlus = faPlus
   faSquarePlus = faSquarePlus
 
+  faChevronUp = faChevronUp; // flecha arriba
+  faChevronDown = faChevronDown; // flecha abajo
+
   // inyeccion de dependencias
-  private router = inject(Router)
-  private auth = inject(AuthService)
-  private cache = inject(CacheService)
+  private router = inject(Router);
+  private auth = inject(AuthService);
+  private cache = inject(CacheService);
 
 
   // se lanzan los requisitos para iniciar la app 
@@ -68,6 +72,11 @@ export class DashboardComponent {
   // activa el modal new notebooks
   toggleModal(estado: boolean): void {
     this.modalNewNote = estado
+  }
+
+  // oculta o muestra el menu inferior
+  toggleMenu(option: boolean): void {
+    this.menuActive = !option;
   }
 
   // obtener idLibreta

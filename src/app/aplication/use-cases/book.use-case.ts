@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { BOOK_TOKEN } from "../../infrastructure/tokens/books.tokens";
-import { catchError, Observable } from "rxjs";
+import { BehaviorSubject, catchError, Observable, tap } from "rxjs";
 import { BookEntity } from "../../domain/models/noteBooks.model";
 import { bookInput } from "../inputs/book.input";
 import { IBook } from "../../domain/ports/crud.port";
@@ -8,22 +8,35 @@ import { IBook } from "../../domain/ports/crud.port";
 @Injectable({ providedIn: 'root' })
 export class BookUseCase {
 
+
+    private datosSubject = new BehaviorSubject<BookEntity[]>([]);
+    book$ = this.datosSubject.asObservable();
+
+    private loadingSubject = new BehaviorSubject<boolean>(false);
+    loading$ = this.loadingSubject.asObservable();
+
+    private errorSubject = new BehaviorSubject<any>([]);
+    errors$ = this.errorSubject.asObservable();
+
+
     constructor(
         @Inject(BOOK_TOKEN) private book: IBook<BookEntity>,
     ) { }
 
     // lee las libretas de un usuario
-    loadAll(id: string, page: number): Observable<BookEntity[]> {
-        return this.book.readAll(id, page).pipe(
+    loadAll(id: string, page: number): void {
+        this.loadingSubject.next(true);
+        this.datosSubject.next([]);
+        this.book.readAll(id, page).pipe(
+            tap(() => this.loadingSubject.next(false)),
             catchError((err) => {
                 throw new Error(err.error.message)
             })
-        );
+        ).subscribe(res => this.datosSubject.next(res));
     }
 
     insert(input: bookInput): Observable<string> {
 
-        console.log(input)
         // cambia el tipado de input a entity
         const insertar: BookEntity = {
             id: '',
@@ -64,5 +77,13 @@ export class BookUseCase {
                 throw new Error(err.error.message);
             })
         );
+    }
+
+    //  termina session
+    logout(): void {
+        //  se limpian las cosultas 
+        this.datosSubject.next([]);
+        this.loadingSubject.next(false);
+        this.errorSubject.next([]);
     }
 }

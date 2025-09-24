@@ -22,7 +22,9 @@
 
     <!-- muestra datos  -->
     @if (loader) {
-    <app-loader-spinner />
+    <div class="loader">
+      <app-loader-spinner />
+    </div>
     }@else {
     <form [formGroup]="dataForm">
       <div class="title">
@@ -51,5 +53,8 @@
 </div>
 
 @if (alert) {
-<app-request-alert [Request]="Request" (closeAlert)="closeAlert($event)" (Response)="requestResponse($event)" />
+<app-request-alert [Request]="Request" (closeAlert)="closeAlert()" (Response)="requestResponse($event)" />
+}
+@if (doneSave) {
+  <app-load-save [loading]="loader" />
 }

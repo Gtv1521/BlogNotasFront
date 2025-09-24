@@ -3,11 +3,13 @@ import { TargetComponent } from "../../utils/target/target.component";
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
 import { BookEntity } from '../../../../domain/models/noteBooks.model';
+import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [TargetComponent],
+  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
@@ -17,7 +19,7 @@ export class BooksComponent {
   @Output() getLibreta = new EventEmitter<string>();
 
   // estados
-  loader: boolean = true;
+  // loader: boolean = true;
   modal: boolean = false;
 
   isActive: boolean = false
@@ -25,11 +27,15 @@ export class BooksComponent {
   id: string = ''
 
   // datas
-  data: BookEntity[] = [];
-  errors: any = [];
+  // data: BookEntity[] = [];
+  // errors: any = [];
 
   private service = inject(BookUseCase)
   private auth = inject(AuthService)
+
+  books$ = this.service.book$;
+  loading$ = this.service.loading$;
+  error$ = this.service.errors$;
 
   ngOnInit(): any {
     this.id = `${this.auth.getUserId()}`
@@ -39,18 +45,17 @@ export class BooksComponent {
   // carga los datos las libreyas
   loadNoteBooks(): any {
 
-    this.service.loadAll(this.id, 1).subscribe({
-      next: (response) => {
-        this.data = response
-        this.loader = false
-        this.getLibreta.emit(this.data[0].id)
-        this.onNoteSelected(this.data[0].id)
-      },
-      error: (err) => {
-        this.errors = err
-        this.loader = false
-      },
-    })
+    // consulta de todas las libretas
+    this.service.loadAll(this.id, 1)
+
+    // se invoca la primera nota 
+    this.service.book$.subscribe((books) => {
+      if (books && books.length > 0) {
+        const firstBookId = books[0].id;
+        this.getLibreta.emit(firstBookId);
+        this.onNoteSelected(firstBookId);
+      }
+    });
   }
 
   // activa componente en uso 

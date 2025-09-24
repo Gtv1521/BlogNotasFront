@@ -4,18 +4,19 @@
     <div class="title">
       <h4>NoteBooks</h4>
     </div>
-    @if (loader) {
-    <div>loading ...</div>
+    @if (loading$|async) {
+    <div class="loader">
+      <app-loader-spinner />
+    </div>
     }
 
-    @if (!loader && data.length === 0) {
+    @if ((books$ | async)?.length === 0 && !(loading$ |async)) {
     No hay libretas
-    }@else if(data.length !== 0) {
+    }@else if((books$ | async)?.length !== 0) {
     <ul class="list-books">
-      @for (item of data; track item.id) {
+      @for (item of books$ | async; track item.id) {
       <li>
-        <app-target [item]='item' [isActive]="selectItem === item.id"
-          (noteSelected)="onNoteSelected(item.id)" />
+        <app-target [item]='item' [isActive]="selectItem === item.id" (noteSelected)="onNoteSelected(item.id)" />
       </li>
       }
     </ul>

@@ -1,0 +1,15 @@
+<!-- modal para guardado -->
+<div class="modal-done">
+    <div class="container">
+        <div class="action">
+            Guardando
+        </div>
+       @if (loading) {
+        <div class="loader">
+            <app-loader-spinner />
+        </div>
+       }@else {
+        <fa-icon class="done" [icon]="faCircleCheck" />
+       }
+    </div>
+</div>
