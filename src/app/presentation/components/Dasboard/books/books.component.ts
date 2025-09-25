@@ -5,11 +5,13 @@ import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
 import { BookEntity } from '../../../../domain/models/noteBooks.model';
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
 import { AsyncPipe } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe],
+  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe, FontAwesomeModule],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
@@ -25,6 +27,11 @@ export class BooksComponent {
   isActive: boolean = false
   selectItem: string | null = null
   id: string = ''
+
+  // icons
+  faTrash = faTrash; // delete
+  faPenToSquare = faPenToSquare// editar 
+
 
   // datas
   // data: BookEntity[] = [];
@@ -46,7 +53,7 @@ export class BooksComponent {
   loadNoteBooks(): any {
 
     // consulta de todas las libretas
-    this.service.loadAll(this.id, 1)
+    this.service.loadAll(this.id, 1);
 
     // se invoca la primera nota 
     this.service.book$.subscribe((books) => {

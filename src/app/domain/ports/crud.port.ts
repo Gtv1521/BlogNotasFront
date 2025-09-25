@@ -20,4 +20,5 @@ export interface INote<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter'> {
 
 export interface IBook<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter' | 'read'> { 
     readAll(idUser: string, page: number): Observable<Model[]>
+    count(id:string): Observable<number>
 }

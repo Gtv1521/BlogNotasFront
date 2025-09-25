@@ -25,28 +25,36 @@
     <div class="loader">
       <app-loader-spinner />
     </div>
+
     }@else {
-    <form [formGroup]="dataForm">
-      <div class="title">
-        <textarea class="title-area" formControlName="title"></textarea>
-      </div>
-      <div class="content">
-        <textarea class="area" formControlName="contenido"> </textarea>
-      </div>
-    </form>
-    <div class="info">
-      <h3>Modified</h3>
-      <div class="contain">
-        <div class="created">
-          <label for="">Created:
-            {{ data?.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</label>
+
+    <div class="contenido">
+      <form class="form_container" [formGroup]="dataForm">
+        <div class="grupo_nota">
+          <div class="title">
+            <textarea class="title_area" formControlName="title"></textarea>
+          </div>
+          <div class="content">
+              <textarea class="area" formControlName="contenido"> </textarea>
+          </div>
         </div>
-        <div class="update">
-          <label for="">Update:
-            {{ data?.fechaUpdate === null ? "none" : data?.fechaUpdate | date:'dd/MM/yyyy HH:mm'}}
-          </label>
+      </form>
+
+      <div class="info">
+        <h3>Modified</h3>
+        <div class="contain">
+          <div class="created">
+            <label for="">Created:
+              {{ data?.fechaCreacion | date:'EEEE, d MMMM yyyy HH:mm' }}</label>
+          </div>
+          <div class="update">
+            <label for="">Update:
+              {{ data?.fechaUpdate === null ? "none" : data?.fechaUpdate | date:'EEEE, d MMMM yyyy HH:mm'}}
+            </label>
+          </div>
         </div>
       </div>
+
     </div>
     }
   </div>
@@ -56,5 +64,5 @@
 <app-request-alert [Request]="Request" (closeAlert)="closeAlert()" (Response)="requestResponse($event)" />
 }
 @if (doneSave) {
-  <app-load-save [loading]="loader" />
+<app-load-save [loading]="loader" />
 }

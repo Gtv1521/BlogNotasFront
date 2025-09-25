@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Inject, inject, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleXmark, faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { bookInput } from '../../../../aplication/inputs/book.input';
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
 import { LoadSaveComponent } from "../load-save/load-save.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-notebook',
@@ -25,18 +26,16 @@ export class NewNotebookComponent {
 
   doneSave: boolean = false;
 
-  // estados del padre
-  @Output() toggleModal = new EventEmitter<boolean>();
-
   // inyections 
-  private fb = inject(FormBuilder)
-  private auth = inject(AuthService)
-  private book = inject(BookUseCase)
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private book = inject(BookUseCase);
+  private router = inject(Router);
 
   formulario = this.fb.group(
     {
       name: ['', [Validators.required]],
-    }
+    }     
   )
 
 
@@ -54,6 +53,7 @@ export class NewNotebookComponent {
       this.book.insert(insert).subscribe({
         next: (res) => {
           this.data = res;
+          console.log(res);
           this.loadig = false;
           this.closeNotification();
           this.book.loadAll(`${this.auth.getUserId()}`, 1); // se refrescan las notas 
@@ -69,7 +69,11 @@ export class NewNotebookComponent {
   closeNotification(): void {
     setTimeout(() => {
       this.doneSave = false;
-      this.toggleModal.emit(false);
+      this.goHome()
     }, 600);
+  }
+
+  goHome(): void {
+    this.router.navigate(['/home']);
   }
 }

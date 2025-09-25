@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Inject, Input, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faChevronLeft, faEllipsis, faL, faRotateRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,8 @@ import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { DatePipe } from '@angular/common';
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
 import { LoadSaveComponent } from "../../Flotantes/load-save/load-save.component";
+import { Router } from '@angular/router';
+import { NoteDataService } from '../../../services/note.data.service';
 
 @Component({
   selector: 'app-note-data',
@@ -28,8 +30,11 @@ export class NoteDataComponent {
   faSpinner = faSpinner // spinner
   faRotateRight = faRotateRight
 
+  //  estados de entrada
+  idNota!: string | null;
+  idLibreta!: string;
+
   // estados de datos
-  // dataForm!: FormGroup
   hoy: Date = new Date();
   alert: boolean = false;
   loader: boolean = true;
@@ -40,14 +45,12 @@ export class NoteDataComponent {
   responses: string | boolean = false;
   Request: string = 'Quiere guardar antes de salir ?';
 
-  // valores de entrada 
-  @Input() datos: any;
-  @Output() cerrarNewNote = new EventEmitter<boolean>();
-
   // Entradas en el constructor
   private fb = inject(FormBuilder);
+  private router = inject(Router);
   private service = inject(NotesUseCase);
   private auth = inject(AuthService);
+  private noteService = inject(NoteDataService);
 
   //  agrupa los inputs del formulario 
   dataForm = this.fb.group({
@@ -58,13 +61,22 @@ export class NoteDataComponent {
   // inicializa las variables del formulario
   ngOnInit(): void {
     this.loader = true;
+    this.getDataNote();
     this.getNote();
+    this.idLibreta;
+  }
+
+  // llama los datos de la ruta
+  getDataNote(): void {
+    const response = this.noteService.getNote();
+    this.idNota = response.idNota;
+    this.idLibreta = response.idLibreta;
   }
 
   // Llama los datos para 
   getNote(): void {
-    if (this.datos.idNote !== null) {
-      this.service.load(this.datos.idNote).subscribe({
+    if (this.idNota !== null) {
+      this.service.load(`${this.idNota}`).subscribe({
         next: (res) => {
           this.data = res;
           this.loader = false;
@@ -82,7 +94,7 @@ export class NoteDataComponent {
         contenido: 'Aqui puedes agregar tus pensamientos ...',
         fechaCreacion: this.hoy,
         fechaUpdate: null,
-        idLibreta: this.datos.idLibreta,
+        idLibreta: this.idLibreta,
         idNote: null,
         idUser: ''
       }
@@ -105,7 +117,7 @@ export class NoteDataComponent {
     const valores = this.dataForm.value
 
     if (valores.contenido === this.data?.contenido && valores.title === this.data?.title) {
-      this.cerrarNewNote.emit(false)
+      this.goHome();
     } else {
       this.alert = true
     }
@@ -114,22 +126,26 @@ export class NoteDataComponent {
   // respuesta del alert
   requestResponse(estado: boolean): void {
     if (estado) {
-      this.save(this.datos);
+      this.save(this.idNota);
       this.loader = true;
       this.alert = false; // cierra modal de alerta
       this.doneSave = true; // carga spiner guarda nota
       this.closeAlert()// cierra modal nota
     } else {
       this.alert = false;
-      this.cerrarNewNote.emit(false); // cierra modal nota
+      this.goHome(); // cierra modal nota
     }
   }
 
   // cierra el alert
   closeAlert(): void {
     setTimeout(() => {
-      this.cerrarNewNote.emit(false);
+      this.goHome()
     }, 800)
+  }
+  // salida al home
+  goHome(): void {
+    this.router.navigate(['/home'])
   }
 
   // controla si guarda una nueva nota o si actualiza una ya creada dependiendo
@@ -156,11 +172,12 @@ export class NoteDataComponent {
     const valores = this.dataForm.value
 
     const dataInsert: noteInput = {
-      idBook: this.datos.idLibreta,
+      idBook: this.idLibreta,
       idUser: `${this.auth.getUserId()}`,
       content: `${valores.contenido}`,
       title: `${valores.title}`
     }
+    console.log(dataInsert);
 
     this.service.createNote(dataInsert).subscribe({
       next: (res) => {
@@ -173,7 +190,7 @@ export class NoteDataComponent {
       }
     })
     setTimeout(() => {
-      this.cerrarNewNote.emit(false)
+      this.goHome();
     }, 900);
   }
 
@@ -189,9 +206,10 @@ export class NoteDataComponent {
       title: `${valores.title}`
     }
 
-    this.service.updateNote(dataUpdate, this.datos.idNote).subscribe({
+    this.service.updateNote(dataUpdate, `${this.idNota}`).subscribe({
       next: (res) => {
         this.responses = res;
+        console.log(res)
         this.service.allNotesByBook(dataUpdate.idBook); // refresca las notas
         this.getNote(); // se carga la nota de nuevo
         this.loader = false;

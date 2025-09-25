@@ -1,5 +1,5 @@
 <div class="container">
-  @if (loader) { <app-loader /> } @else if(loader == false) {
+  <!-- @if (loader) { <app-loader /> } @else if(loader == false) { -->
   <!-- titulo -->
   <div class="navbar">
     <app-title />
@@ -8,21 +8,22 @@
   <div class="container-fluid">
     <div class="books {{menuActive ? 'ocultar' : ''}}">
       <!-- lista de libretas -->
-       <div class="libretas">
-         <app-books (getLibreta)="getLibreta($event)" />
-       </div>
+      <div class="libretas">
+        <app-books (getLibreta)="getLibreta($event)" />
+      </div>
 
       <div class="contents">
         <!-- boton nueva libreta -->
         <div class="show" (click)="toggleMenu(menuActive)">
           @if (menuActive) {
-            <fa-icon [icon]="faChevronUp" />
+          <fa-icon [icon]="faChevronUp" />
           }@else {
-            <fa-icon [icon]="faChevronDown" />
+          <fa-icon [icon]="faChevronDown" />
           }
         </div>
         <div class="options">
-          <div class="new" (click)="toggleModal(true)">
+          <!-- Boton para nueva libreta -->
+          <div class="new" (click)="goNewBook()">
             <div class="caja">
               <fa-icon [icon]="faPlus" />
               <p>Nuevo</p>
@@ -30,7 +31,7 @@
           </div>
 
           <!-- boton configuraciones -->
-          <div class="settings" (click)="settings(true)">
+          <div class="settings" (click)="goSetting()">
             <div class="caja">
               <fa-icon [icon]="faGears" />
               <p>Settings</p>
@@ -46,26 +47,14 @@
     </div>
 
     <!-- boton para agregar una nota a la libreta abierta -->
-    <div class="new_note" (click)="cerrarNewNote(true)">
+    <div class="new_note" (click)="goNewNote()">
       <fa-icon [icon]="faSquarePlus" />
     </div>
   </div>
-  }
+  <!-- } -->
 </div>
-@if (modalNewNote) {
-
-<!-- enlace a una nueva libreta -->
-<app-new-notebook (toggleModal)="toggleModal($event)" />
-} @if (note) {
-
-<!-- agrega una nota la libreta abierta -->
-<app-note-data [datos]="noteData" (cerrarNewNote)="cerrarNewNote($event)" />
-} @if (modalSettings) {
-
-<!-- abre las configuraciones -->
-<app-settings (settings)="settings($event)" />
-} @if (exit) {
 
 <!-- cierra sesion -->
+@if (exit) {
 <app-logout />
 }

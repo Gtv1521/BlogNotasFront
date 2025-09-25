@@ -6,7 +6,8 @@ export class bookMapper {
         return {
             id: dto.idLibreta,
             idUser: dto.idUser,
-            nameBook: dto.nombre
+            nameBook: dto.nombre,
+            notesCount: dto.notesCount
         }
     } 
 
@@ -14,7 +15,8 @@ export class bookMapper {
         return {
             idLibreta: dto.id,
             idUser: dto.idUser,
-            nombre: dto.nameBook
+            nombre: dto.nameBook,
+            notesCount: dto.notesCount
         }
     }
 }

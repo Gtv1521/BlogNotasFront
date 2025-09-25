@@ -4,6 +4,22 @@
     <div class="title">
       <h4>NoteBooks</h4>
     </div>
+
+    <!-- acciones de las notas -->
+    <div class="actions">
+      <div class="panel delete">
+        <fa-icon [icon]="faTrash" />
+      </div>
+      <div class="panel edit">
+        <fa-icon [icon]="faPenToSquare" />
+      </div>
+      <div class="panel pagina">
+        <section class="cambio">< </section>
+        <section> 1 </section>
+        <section class="cambio"> ></section>
+      </div>
+    </div>
+
     @if (loading$|async) {
     <div class="loader">
       <app-loader-spinner />

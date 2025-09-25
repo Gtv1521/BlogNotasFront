@@ -10,11 +10,15 @@ import { bookMapper } from "../../aplication/mappers/book,map";
 @Injectable({ providedIn: 'root' })
 export class booksHttpAdapter implements IBook<BookEntity> {
     private Url = `${environment.apiUrl}/Libreta`
-    private prueba = `${envDev.prueba}/Libreta`
+    
     constructor(
         private http: HttpClient,
         private maper: bookMapper
     ) { }
+    
+    count(id: string): Observable<number> {
+        return this.http.get<number>(`${this.Url}/notes_count/${id}`);    
+    }
 
     // Trae todas las libretas de un usuario en el numero de la pagina 
     readAll(idUser: string, page: number): Observable<BookEntity[]> {

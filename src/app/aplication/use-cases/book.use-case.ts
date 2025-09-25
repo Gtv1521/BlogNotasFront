@@ -35,13 +35,24 @@ export class BookUseCase {
         ).subscribe(res => this.datosSubject.next(res));
     }
 
+    // cuenta el numero de notas en la libreta
+    count(id: string): Observable<number>{
+        return this.book.count(id).pipe(
+            catchError((err) => {
+                throw new Error(err.error.message);
+            })
+        );
+    } 
+
+    // crea una nueva libreta
     insert(input: bookInput): Observable<string> {
 
         // cambia el tipado de input a entity
         const insertar: BookEntity = {
             id: '',
             nameBook: input.name,
-            idUser: input.idUser
+            idUser: input.idUser,
+            notesCount: 0
         }
 
         // pasa la libreta nueva al adapter
@@ -59,7 +70,8 @@ export class BookUseCase {
         const updateBook: BookEntity = {
             id: id,
             idUser: input.idUser,
-            nameBook: input.name
+            nameBook: input.name,
+            notesCount: 0
         }
 
         // actualiza datos en el adapter

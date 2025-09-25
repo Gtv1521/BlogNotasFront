@@ -3,21 +3,18 @@ import { BooksComponent } from '../../components/Dasboard/books/books.component'
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronDown, faChevronUp, faGears, faPlus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { Router, ROUTER_CONFIGURATION } from '@angular/router';
 import { timer } from 'rxjs';
-import { NewNotebookComponent } from '../../components/Flotantes/new-notebook/new-notebook.component';
-import { SettingsComponent } from '../../components/Flotantes/settings/settings.component';
 import { TitleComponent } from "../../components/Dasboard/title/title.component";
 import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
-import { NoteDataComponent } from "../../components/Dasboard/note-data/note-data.component";
 import { CacheService } from '../../../../services/utils/cache/cache.service';
 import { AuthService } from '../../../../services/utils/Auth/auth.service';
-import { LoaderComponent } from "../../components/loader/loader-point/loader.component";
+import { NoteDataService } from '../../services/note.data.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SettingsComponent, BooksComponent, ListBooksComponent, FontAwesomeModule, NewNotebookComponent, TitleComponent, LogoutComponent, NoteDataComponent, LoaderComponent],
+  imports: [BooksComponent, ListBooksComponent, FontAwesomeModule, TitleComponent, LogoutComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -28,7 +25,7 @@ export class DashboardComponent {
   loader: boolean = true;
   modalNewNote: boolean = false;
   modalSettings: boolean = false;
-  menuActive: boolean = false ;
+  menuActive: boolean = false;
   exit: boolean = false;
   note: boolean = false;
   noteData: any = [];
@@ -49,6 +46,7 @@ export class DashboardComponent {
   private router = inject(Router);
   private auth = inject(AuthService);
   private cache = inject(CacheService);
+  private noteService = inject(NoteDataService);
 
 
   // se lanzan los requisitos para iniciar la app 
@@ -69,10 +67,10 @@ export class DashboardComponent {
     this.id = this.auth.getUserId();
   }
 
-  // activa el modal new notebooks
-  toggleModal(estado: boolean): void {
-    this.modalNewNote = estado
-  }
+  // // activa el modal new notebooks
+  // toggleModal(estado: boolean): void {
+  //   this.modalNewNote = estado
+  // }
 
   // oculta o muestra el menu inferior
   toggleMenu(option: boolean): void {
@@ -84,10 +82,10 @@ export class DashboardComponent {
     this.idlibreta = id
   }
 
-  // settings
-  settings(estado: boolean): void {
-    this.modalSettings = estado
-  }
+  // // settings
+  // settings(estado: boolean): void {
+  //   this.modalSettings = estado
+  // }
 
   // trae el id de usuario
   getUserId(): string | null {
@@ -100,16 +98,33 @@ export class DashboardComponent {
     this.exit = true
   }
 
-  cerrarNewNote(estado: boolean): void {
-    this.noteData = []
-    this.noteData = { idLibreta: this.idlibreta, idNote: null }
-    this.note = estado
+  //  abre panel de configuraciones
+  goSetting(): void {
+    this.router.navigate(['/settings']); // te envia a configuraciones
   }
+
+  // abre note nueva
+  goNewNote(): void {
+    this.router.navigate(['/new_note']);
+    this.noteService.setNote({ idLibreta: this.idlibreta, idNota: null });
+  }
+
+  // nueva libreta
+  goNewBook(): void {
+    this.router.navigate(['/new_book'])
+  }
+
+  // cerrarNewNote(estado: boolean): void {
+  //   this.noteData = []
+  //   this.noteData = { idLibreta: this.idlibreta, idNote: null }
+  //   this.note = estado
+  // }
 
   // manda mensage para abrir una nota
   openNote(data: any): void {
-    this.noteData = []
-    this.noteData = { idlibreta: data.idLibreta, idNote: data.idNote }
-    this.note = data.estado
+    this.router.navigate([`/note/${data.idNote}`]);
+    this.noteService.setNote({ idLibreta: data.idLibreta, idNota: data.idNote });
   }
+
+
 }
