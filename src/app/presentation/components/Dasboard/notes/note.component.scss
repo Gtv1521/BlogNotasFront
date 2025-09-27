@@ -1,5 +1,22 @@
 @use "../../../../../styles/variables" as var;
 
+.delete {
+  background-color: rgba(255, 0, 0, 0.593) !important;
+}
+
+.delete_icon {
+  position: relative;
+  left: 10px;
+  top: 10px;
+  width: 15px;
+  height: 15px;
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
 .container {
   width: 200px;
   height: 260px;
@@ -7,21 +24,28 @@
   background-color: var.$sexto;
 
   border-radius: 15px;
-  padding: 20px 15px 15px 15px;
   margin: 10px;
+
+  .container-fluid {
+    padding: 20px 15px 15px 15px;
+  }
 
   &:hover {
     background-color: var.$primeroDifuminado;
     animation: shake 0.4s ease-in-out 1;
   }
+
   .title {
     height: 15%;
+    text-align: center;
     color: var.$primero;
     font-size: 0.9rem;
     margin-bottom: 12px;
   }
 
   .content {
+    height: 83%;
+    padding-bottom: 2%;
     text-align: justify;
     font-size: 11.8px;
     max-width: 100%;
@@ -40,26 +64,41 @@
 
 // animations 
 @keyframes shake {
-  0%   { transform: translateX(0); }
-  25%  { transform: translateX(-5px); }
-  50%  { transform: translateX(5px); }
-  75%  { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
-@media (300px <= width <= 1366px) {
+@media (300px <=width <=1366px) {
 
   .container {
     width: 150px;
     height: 200px;
     padding: 9px;
 
-    .title{
+    .title {
       font-size: 0.8rem;
     }
 
     .content {
       font-size: 11px;
+      -webkit-line-clamp: 10;
     }
 
   }

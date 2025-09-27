@@ -105,6 +105,7 @@
             .area {
               height: 100%;
               width: 100%;
+              text-align: justify;
               color: var.$primero;
               font-size: 16px;
               background-color: transparent;
@@ -112,6 +113,8 @@
               border: none !important;
               resize: none;
               cursor: pointer;
+              // word-break: break-all;
+              // hyphens: auto;
               -webkit-tap-highlight-color: transparent;
 
               &:hover {

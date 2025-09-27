@@ -2,28 +2,127 @@
 
 .container {
   width: 100%;
-  height: 90%;
-  min-height: auto;
-  max-width: auto;
-  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2%;
 
+  // titulo 
   .title {
-    height: 8%;
-    line-height: 40px;
-    text-align: center;
+    height: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     h4 {
+      text-align: center;
       margin: auto;
       width: 30%;
       border-bottom: 1px solid var.$primero;
     }
   }
 
+  // acciones
+  .panel_actions {
+    width: 95%;
+    height: 5%;
+    padding: 0 30px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
+    .actions {
+      width: 94%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .panel_delete {
+        width: 20%;
+        display: flex;
+        padding: 0 20px;
+
+        .cant_delete_note {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: var.$cuarto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var.$primero;
+          margin: 0 15px 0 5px;
+          
+        }
+      }
+      .panel_buscar {
+        width: 80%;
+
+
+        .search_notes {
+          width: 80%;
+          height: 30px;
+          text-align: center;
+          background-color: var.$primeroDifuminado;
+          border: none;
+          border-radius: 5px;
+          padding-left: 10px;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .panel_pages {
+      width: 6%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: space-around;
+
+      .page {
+        width: 30%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        text-align: center;
+      }
+
+      &>div {
+        width: 25%;
+
+        button {
+          width: 100%;
+          border: none;
+          border-radius: 5px;
+          font-weight: 900;
+          font-size: 1.2rem;
+          background-color: transparent;
+          color: var.$primero;
+          cursor: pointer;
+
+          &:hover {
+            background-color: var.$primeroDifuminado;
+            color: var.$primero;
+          }
+        }
+      }
+    }
+
+  }
+
+  .active {
+    color: red;
+  }
+
+  // caja de notas
   .notebooks {
     width: 100%;
-    height: 100%;
-    
-    .loader{
+    height: 88%;
+    text-align: center;
+
+    .loader {
       height: 100%;
       display: flex;
       justify-content: center;

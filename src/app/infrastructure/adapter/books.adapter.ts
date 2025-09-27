@@ -17,7 +17,7 @@ export class booksHttpAdapter implements IBook<BookEntity> {
     ) { }
     
     count(id: string): Observable<number> {
-        return this.http.get<number>(`${this.Url}/notes_count/${id}`);    
+        return this.http.get<number>(`${this.Url}/books_count/${id}`);    
     }
 
     // Trae todas las libretas de un usuario en el numero de la pagina 

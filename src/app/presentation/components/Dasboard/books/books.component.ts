@@ -2,11 +2,10 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { TargetComponent } from "../../utils/target/target.component";
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
-import { BookEntity } from '../../../../domain/models/noteBooks.model';
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
 import { AsyncPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-books',
@@ -21,21 +20,19 @@ export class BooksComponent {
   @Output() getLibreta = new EventEmitter<string>();
 
   // estados
-  // loader: boolean = true;
   modal: boolean = false;
 
   isActive: boolean = false
   selectItem: string | null = null
   id: string = ''
+  quantity: number = 0 // cantidad de libretas
+  pagina: number = 1 // pagina actual
 
   // icons
   faTrash = faTrash; // delete
   faPenToSquare = faPenToSquare// editar 
-
-
-  // datas
-  // data: BookEntity[] = [];
-  // errors: any = [];
+  faChevronLeft = faChevronLeft // regresar
+  fachevronRight = faChevronRight // avanzar
 
   private service = inject(BookUseCase)
   private auth = inject(AuthService)
@@ -53,7 +50,15 @@ export class BooksComponent {
   loadNoteBooks(): any {
 
     // consulta de todas las libretas
-    this.service.loadAll(this.id, 1);
+    this.service.loadAll(this.id, this.pagina);
+    this.service.count(this.id).subscribe({
+      next: (count) => {
+        this.quantity = Math.ceil(count / 10); // redondea hacia arriba
+      },
+      error: (err) => {
+        console.error('Error al obtener el conteo de libretas:', err);
+      }
+    });
 
     // se invoca la primera nota 
     this.service.book$.subscribe((books) => {
@@ -70,6 +75,14 @@ export class BooksComponent {
     if (this.selectItem !== id) {
       this.selectItem = this.selectItem === id ? null : id;
       this.getLibreta.emit(id)
+    }
+  }
+
+  // cambia de pagina
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.quantity) {
+      this.pagina = page;
+      this.service.loadAll(this.id, this.pagina);
     }
   }
 }

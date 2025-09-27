@@ -1,28 +1,36 @@
-import { Injectable } from "@angular/core";
-import { SafeResourceUrl } from "@angular/platform-browser";
-
-@Injectable({ providedIn: 'root' })
 export class NoteDataService {
-    private data!: initNota;
+  private storageKey = 'noteData';
 
-    setNote(data: initNota){
-        this.data = data;
-    }
+  private data: initNota = {
+    idLibreta: '',
+    idNota: ''
+  };
 
-    getNote(){
-        return this.data;
+  constructor() {
+    const saved = sessionStorage.getItem(this.storageKey);
+    if (saved) {
+      this.data = JSON.parse(saved);
     }
+  }
 
-    clearNote(){
-        this.data.idLibreta = '';
-        this.data.idNota = '';
-    }
+  setNote(data: initNota) {
+    this.data = data;
+    sessionStorage.setItem(this.storageKey, JSON.stringify(data));
+  }
+
+  getNote() {
+    return this.data;
+  }
+
+  clearNote() {
+    this.data = { idLibreta: '', idNota: '' };
+    sessionStorage.removeItem(this.storageKey);
+  }
 }
 
-
 export class initNota {
-    constructor(
-        public idNota: string|null,
-        public idLibreta: string
-    ){}
+  constructor(
+    public idNota: string | null,
+    public idLibreta: string
+  ) {}
 }

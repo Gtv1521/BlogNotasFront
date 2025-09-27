@@ -82,11 +82,6 @@ export class DashboardComponent {
     this.idlibreta = id
   }
 
-  // // settings
-  // settings(estado: boolean): void {
-  //   this.modalSettings = estado
-  // }
-
   // trae el id de usuario
   getUserId(): string | null {
     return this.id
@@ -105,7 +100,7 @@ export class DashboardComponent {
 
   // abre note nueva
   goNewNote(): void {
-    this.router.navigate(['/new_note']);
+    this.router.navigate([`/new_note/${this.idlibreta}`]);
     this.noteService.setNote({ idLibreta: this.idlibreta, idNota: null });
   }
 
@@ -113,12 +108,6 @@ export class DashboardComponent {
   goNewBook(): void {
     this.router.navigate(['/new_book'])
   }
-
-  // cerrarNewNote(estado: boolean): void {
-  //   this.noteData = []
-  //   this.noteData = { idLibreta: this.idlibreta, idNote: null }
-  //   this.note = estado
-  // }
 
   // manda mensage para abrir una nota
   openNote(data: any): void {

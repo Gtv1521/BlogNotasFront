@@ -2,7 +2,6 @@ import { Routes } from "@angular/router";
 import { DashboardComponent } from "./presentation/routes/dashboard/dashboard.component";
 import { HomeComponent } from "./presentation/routes/home/home.component";
 import { LoginComponent } from "./presentation/routes/login/login.component";
-import { NewNoteComponent } from "./presentation/routes/new-note/new-note.component";
 import { ResetComponent } from "./presentation/routes/reset/reset.component";
 import { SiginComponent } from "./presentation/routes/sigin/sigin.component";
 import { SettingsComponent } from "./presentation/components/Flotantes/settings/settings.component";
@@ -26,7 +25,7 @@ export const routes: Routes = [
   { path: 'home', component: DashboardComponent }, // home
   { path: 'settings', component: SettingsComponent }, // configuraciones
   { path: 'new_book', component: NewNotebookComponent }, // nuevo libro
-  { path: 'new_note', component: NoteDataComponent }, // nueva nota
+  { path: 'new_note/:libreta', component: NoteDataComponent }, // nueva nota
   { path: 'note/:id', component: NoteDataComponent }, // abre nota ya creada
-  { path: '**', redirectTo: '/login' }, // defaulr
+  { path: '**', redirectTo: '/login' }, // default
 ]

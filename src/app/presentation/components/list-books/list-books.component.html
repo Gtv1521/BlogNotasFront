@@ -6,15 +6,59 @@
 
   <!-- actions -->
 
-  <div class="action">
-    <div class="panel">delete</div>
-    <div class="panel">update</div>
-    <div class="panel">pagina</div>
+  <div class="panel_actions">
+    <!-- acciones de notas -->
+    <div class="actions">
+      <!-- panel eliminar -->
+      <div title="delete note" class="panel_delete">
+        <div (click)="changeDelete()" class="icono">
+          <fa-icon [class.active]="onDelete" [icon]="faTrash" />
+        </div>
+        @if (onDelete) {
+        <div class="cant_delete_note">
+          <!-- cantidad de notas a eliminar -->
+          <span>{{quantityDelete}}</span>
+        </div>
+        <!-- confirmacion -->
+        <div class="request">
+          <div class="item">
+            Done
+          </div>
+        </div>
+
+        }
+      </div>
+      <!-- panel buscar -->
+      <div title="search note" class="panel_buscar">
+        <input class="search_notes" type="text" placeholder="Search note..." /> <!--(input)="searchNote($event)"-->
+      </div>
+    </div>
+    <!-- paginado -->
+    <div class="panel_pages">
+      <div title="anterior pagina" class="page">
+        @if (pagina !== 1 && quantity !== 0 && !onDelete) {
+        <button (click)="changePage(pagina-1)" class="page-button">
+          <fa-icon [icon]="faChevronLeft" />
+        </button>
+        }
+      </div>
+
+      <div title="pagina" class="page"><b> {{pagina}} </b></div>
+
+      <div title="siguiente pagina" class="page">
+        @if (pagina !== quantity && quantity !== 0 && !onDelete) {
+        <button (click)="changePage(pagina+1)" class="page-button">
+          <fa-icon [icon]="fachevronRight" />
+        </button>
+        }
+      </div>
+
+    </div>
   </div>
 
   <!-- List of listbooks -->
   <div class="notebooks">
-    @if (loading$ | async) {
+    @if (loading$|async) {
     <div class="loader">
       <app-loader-spinner />
     </div>
@@ -23,12 +67,13 @@
     <ul>
       @for (item of notas$ | async; track item.idNote) {
       <li>
-        <app-note [card]="item" (note)="dataNote(item, true)" [isActive]="selectedNoteId === item.idNote" />
+        <app-note [card]="item" (note)="dataNote(item, true, $event)" [deleteOn]="onDelete"
+          [isActive]="selectedNoteId === item.idNote" /> <!--   -->
       </li>
       }
     </ul>
-    } @else if ((errores$ | async)?.length !== 0) {
-    <div class="notfound">No hay notas en esta libreta</div>
+    } @else if ((errores$|async)?.length !== 0) {
+    <div class="notfound"><b>No hay notas en esta libreta</b></div>
     }
   </div>
 </div>

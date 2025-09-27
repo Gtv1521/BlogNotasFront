@@ -12,6 +12,10 @@ export class notesHttpAdapter implements INote<NoteEntity> {
     constructor(
         private http: HttpClient
     ) { }
+    // cuenta la cantidad de notas por libreta  
+    count(id: string): Observable<number> {
+        return this.http.get<number>(`${this.Url}/count_notes/${id}`);
+    }
 
     // lee toadas la notas por el id de la libreta
     readAllById(id: string, page: number): Observable<NoteEntity[]> {

@@ -7,16 +7,25 @@
 
     <!-- acciones de las notas -->
     <div class="actions">
-      <div class="panel delete">
+      <div title="delete book" class="panel delete">
         <fa-icon [icon]="faTrash" />
       </div>
-      <div class="panel edit">
+      <div title="edit book" class="panel edit">
         <fa-icon [icon]="faPenToSquare" />
       </div>
+
       <div class="panel pagina">
-        <section class="cambio">< </section>
-        <section> 1 </section>
-        <section class="cambio"> ></section>
+        @if (pagina !== 1) {
+        <button title="anterior" (click)="changePage(pagina-1)" class="cambio">
+          <fa-icon [icon]="faChevronLeft" />
+        </button>
+        }
+        <section title="pagina"> {{ pagina }} </section>
+        @if (pagina !== quantity) {
+        <button title="siguiente" (click)="changePage(pagina+1)" class="cambio">
+          <fa-icon [icon]="fachevronRight" />
+        </button>
+        }
       </div>
     </div>
 

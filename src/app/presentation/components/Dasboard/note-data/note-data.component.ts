@@ -10,7 +10,7 @@ import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { DatePipe } from '@angular/common';
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
 import { LoadSaveComponent } from "../../Flotantes/load-save/load-save.component";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NoteDataService } from '../../../services/note.data.service';
 
 @Component({
@@ -47,6 +47,7 @@ export class NoteDataComponent {
 
   // Entradas en el constructor
   private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
   private service = inject(NotesUseCase);
   private auth = inject(AuthService);
@@ -60,27 +61,33 @@ export class NoteDataComponent {
 
   // inicializa las variables del formulario
   ngOnInit(): void {
-    this.loader = true;
     this.getDataNote();
+    this.loader = true;
     this.getNote();
-    this.idLibreta;
   }
 
   // llama los datos de la ruta
   getDataNote(): void {
     const response = this.noteService.getNote();
-    this.idNota = response.idNota;
-    this.idLibreta = response.idLibreta;
+
+    if(response.idNota === null) {
+      this.idNota = response.idNota
+      this.idLibreta = this.route.snapshot.paramMap.get('libreta')!;
+    }else{
+      this.idNota = this.route.snapshot.paramMap.get('id')!;
+      this.idLibreta = response.idLibreta;
+    }
   }
 
   // Llama los datos para 
   getNote(): void {
     if (this.idNota !== null) {
+      // datos de nota creada
       this.service.load(`${this.idNota}`).subscribe({
         next: (res) => {
           this.data = res;
-          this.loader = false;
           this.llenar();
+          this.loader = false;
         },
         error: (err) => {
           this.errors = err;
@@ -109,7 +116,6 @@ export class NoteDataComponent {
       title: this.data?.title,
       contenido: this.data?.contenido
     })
-
   }
 
   // cierra la pestaña de editar nota
@@ -184,7 +190,7 @@ export class NoteDataComponent {
         this.responses = res;
         this.loader = false; // termina la carga de la nota nueva
         this.closeAlert(); // cierra el modulo de notas 
-        this.service.allNotesByBook(dataInsert.idBook); // refresca las notas 
+        this.service.allNotesByBook(dataInsert.idBook, 1); // refresca las notas 
       }, error: (err) => {
         this.errors = err;
       }
@@ -210,7 +216,7 @@ export class NoteDataComponent {
       next: (res) => {
         this.responses = res;
         console.log(res)
-        this.service.allNotesByBook(dataUpdate.idBook); // refresca las notas
+        this.service.allNotesByBook(dataUpdate.idBook, 1); // refresca las notas
         this.getNote(); // se carga la nota de nuevo
         this.loader = false;
         this.spinnerDone(); // cierra el spinner

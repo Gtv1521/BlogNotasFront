@@ -22,6 +22,10 @@ export class NotesUseCase {
         @Inject(NOTES_TOKEN) private notes: INote<NoteEntity>
     ) { }
 
+    count(id: string): Observable<number> {
+        return this.notes.count(id);
+    }
+
     // Carga una sola nota 
     load(id: string): Observable<NoteEntity> {
         return this.notes.read(id).pipe(
@@ -32,10 +36,10 @@ export class NotesUseCase {
     }
 
     // carga todas las notas dee una libreta 
-    allNotesByBook(idBook: string): void {
+    allNotesByBook(idBook: string, page: number): void {
         this.loadingSubject.next(true);
         this.datosSubject.next([]); // se pone en vacio para cargar elementos
-        this.notes.readAllById(idBook, 1).pipe(
+        this.notes.readAllById(idBook, page).pipe(
             tap(() => this.loadingSubject.next(false)),
             catchError((err) => {
                 this.errorSubject.next(err);
