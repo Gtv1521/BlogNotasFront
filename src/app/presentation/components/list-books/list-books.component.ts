@@ -7,6 +7,8 @@ import { LoaderSpinnerComponent } from '../loader/loader-spinner/loader-spinner.
 import { AsyncPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronLeft, faChevronRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { BookUseCase } from '../../../aplication/use-cases/book.use-case';
+import { AuthService } from '../../../../services/utils/Auth/auth.service';
 
 @Component({
   selector: 'app-list-books',
@@ -23,23 +25,25 @@ export class ListBooksComponent {
   quantity: number = 1; // cantidad de paginas
   pagina: number = 1; // pagina actual
   onDelete: boolean = false; // accion de eliminar notas
-  
+
   // icons
   faTrash = faTrash; // delete 
   faChevronLeft = faChevronLeft // regresar
   fachevronRight = faChevronRight // avanzar
-  
+
   // estados de datos
   datos: NoteEntity[] = []; // array de notas
   arrayDelete: string[] = [];  // array de notas a eliminar
   quantityDelete: number = 0 // cantidad de notas a eliminar
 
   // entradas de otros componentes
-  @Input() idLibreta!: string
+  @Input() idLibreta!: string; // id de la libreta seleccionada
   @Output() dataNota = new EventEmitter<any>()
 
   // inyeccion de dependencias
-  private service = inject(NotesUseCase)
+  private service = inject(NotesUseCase);
+  private book = inject(BookUseCase);
+  private auth = inject(AuthService);
 
   //  estados del caso de uso 
   notas$ = this.service.notas$;
@@ -87,7 +91,7 @@ export class ListBooksComponent {
   changePage(page: number): void {
     if (page >= 1 && page <= this.quantity) {
       this.pagina = page;
-      this.service.allNotesByBook(this.idLibreta, this.pagina);
+      this.service.allNotesByBook(`${this.idLibreta}`, this.pagina);
     }
   }
 
@@ -107,5 +111,22 @@ export class ListBooksComponent {
       }
     }
     this.quantityDelete = this.arrayDelete.length;
+  }
+
+  // activa la funcion de borrar notas
+  deleted(): void {
+    this.arrayDelete.forEach(element => {
+      this.service.deleteNote(element).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.error(err)
+      });
+    });
+
+    this.arrayDelete = [];
+    this.quantityDelete = 0;
+    this.onDelete = false;
+    console.log(this.idLibreta);
+    this.book.loadAll(this.auth.getUserId()!, 1); // recarga las libretas
+    this.service.allNotesByBook(this.idLibreta, 1);
   }
 }

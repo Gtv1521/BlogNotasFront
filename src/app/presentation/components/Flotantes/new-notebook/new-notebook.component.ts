@@ -53,7 +53,6 @@ export class NewNotebookComponent {
       this.book.insert(insert).subscribe({
         next: (res) => {
           this.data = res;
-          console.log(res);
           this.loadig = false;
           this.closeNotification();
           this.book.loadAll(`${this.auth.getUserId()}`, 1); // se refrescan las notas 

@@ -10,6 +10,7 @@ import { Router } from '@angular/router'
 import { SessionUseCase } from '../../../aplication/use-cases/session.use-case'
 import { SessionEntity } from '../../../domain/models/session.model'
 import { singInput } from '../../../aplication/inputs/sing.input'
+import { AuthService } from '../../../../services/utils/Auth/auth.service'
 
 
 @Component({
@@ -31,7 +32,10 @@ export class SiginComponent {
   errors: any = {}
   data: SessionEntity | undefined
 
-  constructor(private _router: Router) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService
+  ) {}
   UsuarioForm = this.fb.group(
     {
       name: ['', [Validators.required, Validators.minLength(8)]],
@@ -83,10 +87,9 @@ export class SiginComponent {
       this.service.sigIn(User).subscribe({
         next: (response) => {
           this.data = response
-          localStorage.setItem('token', response.token)
-          
+          this.auth.setAuth(response.idUser, response.token); // inicia session 
           this.loading = false
-          this._router.navigate(['/dashboard'])
+          this.router.navigate(['/wellcome']);
 
         },
         error: (error) => {

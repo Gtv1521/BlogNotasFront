@@ -150,10 +150,20 @@
     position: absolute;
     bottom: 3%;
     right: 1%;
-    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
 
-    &:hover {
-      color: var.$cuarto;
+    .icono{
+      color: var.$tercero;
+      background-color: transparent;
+      &:hover {
+        color: var.$cuarto;
+      }
     }
   }
 }

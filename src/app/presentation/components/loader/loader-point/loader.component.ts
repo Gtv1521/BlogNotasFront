@@ -11,11 +11,14 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './loader.component.scss'
 })
 export class LoaderComponent {
-  faSpinner = faSpinner
+  // iconos
+  faSpinner = faSpinner // icono de carga
 
-  private router = inject(Router);
+  // inyecciones de servicios
+  private router = inject(Router); // inyeccion del router
 
-  ngOnInit(): void {
+  // al iniciar el componente
+  ngOnInit(): any {
     setTimeout(() => {
       this.router.navigate(['/home']);
     }, 3000);

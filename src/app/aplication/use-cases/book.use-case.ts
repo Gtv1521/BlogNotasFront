@@ -83,7 +83,7 @@ export class BookUseCase {
     }
 
     // elimina una libreta con todas las notas que contiene 
-    delete(id: string): Observable<boolean> {
+    delete(id: string): Observable<string> {
         return this.book.delete(id).pipe(
             catchError((err) => {
                 throw new Error(err.error.message);

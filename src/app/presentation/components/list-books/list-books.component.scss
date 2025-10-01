@@ -42,22 +42,49 @@
         display: flex;
         padding: 0 20px;
 
+        .icono {
+          font-size: 1.5rem;
+        }
+
         .cant_delete_note {
           width: 20px;
           height: 20px;
           border-radius: 50%;
           background-color: var.$cuarto;
+          padding: 15px;
+          font-weight: 600;
           display: flex;
           justify-content: center;
           align-items: center;
           color: var.$primero;
-          margin: 0 15px 0 5px;
-          
+          margin: 0 15px 0 5px; 
+        }
+
+        .request {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .btn_elimiar{
+            width: 80%;
+            height: 30px;
+            background-color: var.$primeroDifuminado;
+            border: none;
+            border-radius: 5px;
+            color: var.$primero;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+              background-color: var.$tercero;
+              color: var.$primero;
+            }
+          }
         }
       }
       .panel_buscar {
         width: 80%;
-
 
         .search_notes {
           width: 80%;

@@ -4,7 +4,7 @@ export class NoteDto {
         public title: string,
         public contenido: string,
         public idUser: string,
-        public idLibreta: string,
+        public idLibreta: string |null,
         public fechaCreacion: Date,
         public fechaUpdate: Date
     ) { }

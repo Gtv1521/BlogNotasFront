@@ -24,7 +24,7 @@
         <div class="options">
           <!-- Boton para nueva libreta -->
           <div class="new" (click)="goNewBook()">
-            <div class="caja">
+            <div title="Nuevo libro" class="caja">
               <fa-icon [icon]="faPlus" />
               <p>Nuevo</p>
             </div>
@@ -32,7 +32,7 @@
 
           <!-- boton configuraciones -->
           <div class="settings" (click)="goSetting()">
-            <div class="caja">
+            <div title="configuraciones" class="caja">
               <fa-icon [icon]="faGears" />
               <p>Settings</p>
             </div>
@@ -43,13 +43,15 @@
 
     <!-- Lista de las notas de la libreta cargada -->
     <div class="notes">
-      <app-list-books (dataNota)="openNote($event)" [idLibreta]="idlibreta" />
+      @if (idlibreta !== "" || idlibreta !== null) {
+        <app-list-books (dataNota)="openNote($event)" [idLibreta]="idlibreta" />
+      }
     </div>
 
     <!-- boton para agregar una nota a la libreta abierta -->
-    <div class="new_note" (click)="goNewNote()">
-      <fa-icon [icon]="faSquarePlus" />
-    </div>
+    <button [disabled]="newNote" title="nueva nota" class="new_note" (click)="goNewNote()">
+      <fa-icon class="icono" [icon]="faSquarePlus" />
+    </button>
   </div>
   <!-- } -->
 </div>

@@ -88,6 +88,10 @@ export class NotesUseCase {
         );
     }
 
+    deleteNote(id: string): Observable<string> {
+        return this.notes.delete(id);
+    }
+
     // cierra session
     logout(): void {
         // se limpian las consultas 

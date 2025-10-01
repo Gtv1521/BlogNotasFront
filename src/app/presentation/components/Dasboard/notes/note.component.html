@@ -1,22 +1,23 @@
-<div class="container" (click)="verifica()" [class.delete]="onDelete" [class.selected]="isActive">
-  @if (deleteOn) {
+<div class="container" (click)="verifica()" [class.delete]="onDelete">
 
-  <div class="delete_icon">
-    @if (onDelete) {
-    <fa-icon [icon]="faCircleCheck" />
-    }
-  </div>
-  }
   <div class="container-fluid">
 
     <!-- contenido de las notas -->
     <div class="title">
+      @if (deleteOn) {
+      <div class="delete_icon">
+        @if (onDelete) {
+        <fa-icon [icon]="faCircleCheck" />
+        }
+      </div>
+      }
+      
       <h4>
         {{ card.title }}
       </h4>
     </div>
-    <div class="content">
+    <section class="content">
       {{ card.contenido }}
-    </div>
+    </section>
   </div>
 </div>

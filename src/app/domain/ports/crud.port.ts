@@ -6,7 +6,7 @@ export interface ICrud<Model> {
     filter(filter: string): Observable<Model[]>
     write(data: Model): Observable<string>
     update(data: Model): Observable<boolean>
-    delete(id: string): Observable<boolean>
+    delete(id: string): Observable<string>
 }
 
 // interface para el inicio de session

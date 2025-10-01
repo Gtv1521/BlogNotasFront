@@ -42,8 +42,8 @@ export class BooksComponent {
   error$ = this.service.errors$;
 
   ngOnInit(): any {
-    this.id = `${this.auth.getUserId()}`
-    this.loadNoteBooks()
+    this.id = `${this.auth.getUserId()}`;
+    this.loadNoteBooks();
   }
 
   // carga los datos las libreyas

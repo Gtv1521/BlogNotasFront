@@ -26,8 +26,8 @@ export class UserHttpAdapter implements IUser<User> {
     }
 
     // borra un usuario
-    delete(id: string): Observable<boolean> {
-        return this.http.delete<boolean>(`${this.Url}/delete_user/${id}`);
+    delete(id: string): Observable<string> {
+        return this.http.delete<string>(`${this.Url}/delete_user/${id}`);
     }
 
 }

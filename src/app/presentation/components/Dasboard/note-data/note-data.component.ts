@@ -183,14 +183,13 @@ export class NoteDataComponent {
       content: `${valores.contenido}`,
       title: `${valores.title}`
     }
-    console.log(dataInsert);
 
     this.service.createNote(dataInsert).subscribe({
       next: (res) => {
         this.responses = res;
         this.loader = false; // termina la carga de la nota nueva
         this.closeAlert(); // cierra el modulo de notas 
-        this.service.allNotesByBook(dataInsert.idBook, 1); // refresca las notas 
+        this.service.allNotesByBook(`${dataInsert.idBook}`, 1); // refresca las notas 
       }, error: (err) => {
         this.errors = err;
       }
@@ -216,7 +215,7 @@ export class NoteDataComponent {
       next: (res) => {
         this.responses = res;
         console.log(res)
-        this.service.allNotesByBook(dataUpdate.idBook, 1); // refresca las notas
+        this.service.allNotesByBook(`${dataUpdate.idBook}`, 1); // refresca las notas
         this.getNote(); // se carga la nota de nuevo
         this.loader = false;
         this.spinnerDone(); // cierra el spinner

@@ -48,7 +48,7 @@ export class booksHttpAdapter implements IBook<BookEntity> {
     }
 
     // elimina una libreta  
-    delete(id: string): Observable<boolean> {
-        return this.http.delete<boolean>(`${this.Url}/remove_book/${id}`);
+    delete(id: string): Observable<string> {
+        return this.http.delete<string>(`${this.Url}/remove_book/${id}`);
     }
 }

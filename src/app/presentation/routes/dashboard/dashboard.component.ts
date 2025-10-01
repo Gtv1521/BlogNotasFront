@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, SimpleChanges } from '@angular/core';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,12 +23,13 @@ export class DashboardComponent {
   private id: string | null = null;
   idlibreta: string = "";
   loader: boolean = true;
-  modalNewNote: boolean = false;
+  newNote: boolean = false;
   modalSettings: boolean = false;
   menuActive: boolean = false;
   exit: boolean = false;
   note: boolean = false;
   noteData: any = [];
+
 
   // Estados - menejo de datos
   datos: any = [];
@@ -65,12 +66,16 @@ export class DashboardComponent {
     }
 
     this.id = this.auth.getUserId();
+  
   }
 
-  // // activa el modal new notebooks
-  // toggleModal(estado: boolean): void {
-  //   this.modalNewNote = estado
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['idlibreta'] && this.idlibreta === '') {
+      this.newNote = true;
+    }else {
+      this.newNote = false;
+    }
+  }
 
   // oculta o muestra el menu inferior
   toggleMenu(option: boolean): void {
@@ -100,6 +105,7 @@ export class DashboardComponent {
 
   // abre note nueva
   goNewNote(): void {
+    if (this.idlibreta === '') return;
     this.router.navigate([`/new_note/${this.idlibreta}`]);
     this.noteService.setNote({ idLibreta: this.idlibreta, idNota: null });
   }

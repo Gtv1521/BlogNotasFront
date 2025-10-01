@@ -39,7 +39,7 @@ export class notesHttpAdapter implements INote<NoteEntity> {
         formData.append('Title', data.title)
         formData.append('Contenido', data.contenido)
         formData.append('IdUser', data.idUser)
-        formData.append('IdLibreta', data.idLibreta)
+        formData.append('IdLibreta', `${data.idLibreta}`)
 
         return this.http.post<string>(`${this.Url}/new_nota`, formData);
     }
@@ -50,13 +50,13 @@ export class notesHttpAdapter implements INote<NoteEntity> {
         formData.append('Title', data.title);
         formData.append('IdUser', data.idUser);
         formData.append('Contenido', data.contenido);
-        formData.append('IdLibreta', data.idLibreta);
+        formData.append('IdLibreta', `${data.idLibreta}`);
 
         return this.http.patch<boolean>(`${this.Url}/update_note/${data.idNote}`, formData)
     }
 
     // elimina una nota de la base de datos 
-    delete(id: string): Observable<boolean> {
-        return this.http.delete<boolean>(`${this.Url}remove_note/${id}`)
+    delete(id: string): Observable<string> {
+        return this.http.delete<string>(`${this.Url}/remove_note/${id}`)
     }
 }
