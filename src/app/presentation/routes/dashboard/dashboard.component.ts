@@ -25,7 +25,6 @@ export class DashboardComponent {
   loader: boolean = true;
   newNote: boolean = false;
   modalSettings: boolean = false;
-  menuActive: boolean = false;
   exit: boolean = false;
   note: boolean = false;
   noteData: any = [];
@@ -36,12 +35,7 @@ export class DashboardComponent {
   errors: any = [];
 
   // Llamado iconos
-  faGears = faGears
-  faPlus = faPlus
-  faSquarePlus = faSquarePlus
-
-  faChevronUp = faChevronUp; // flecha arriba
-  faChevronDown = faChevronDown; // flecha abajo
+  faSquarePlus = faSquarePlus 
 
   // inyeccion de dependencias
   private router = inject(Router);
@@ -66,20 +60,15 @@ export class DashboardComponent {
     }
 
     this.id = this.auth.getUserId();
-  
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['idlibreta'] && this.idlibreta === '') {
       this.newNote = true;
-    }else {
+    } else {
       this.newNote = false;
     }
-  }
-
-  // oculta o muestra el menu inferior
-  toggleMenu(option: boolean): void {
-    this.menuActive = !option;
   }
 
   // obtener idLibreta
@@ -98,21 +87,11 @@ export class DashboardComponent {
     this.exit = true
   }
 
-  //  abre panel de configuraciones
-  goSetting(): void {
-    this.router.navigate(['/settings']); // te envia a configuraciones
-  }
-
   // abre note nueva
   goNewNote(): void {
     if (this.idlibreta === '') return;
     this.router.navigate([`/new_note/${this.idlibreta}`]);
     this.noteService.setNote({ idLibreta: this.idlibreta, idNota: null });
-  }
-
-  // nueva libreta
-  goNewBook(): void {
-    this.router.navigate(['/new_book'])
   }
 
   // manda mensage para abrir una nota

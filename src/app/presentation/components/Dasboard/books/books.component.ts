@@ -5,7 +5,8 @@ import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
 import { AsyncPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChevronLeft, faChevronRight, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faGears, faPenToSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-books',
@@ -21,6 +22,7 @@ export class BooksComponent {
 
   // estados
   modal: boolean = false;
+  menuActive: boolean = false;
 
   isActive: boolean = false
   selectItem: string | null = null
@@ -33,9 +35,13 @@ export class BooksComponent {
   faPenToSquare = faPenToSquare// editar 
   faChevronLeft = faChevronLeft // regresar
   fachevronRight = faChevronRight // avanzar
+  faPlus = faPlus // agregar
+  faChevronUp = faChevronUp; // flecha arriba
+  faChevronDown = faChevronDown; // flecha abajo
 
   private service = inject(BookUseCase)
   private auth = inject(AuthService)
+  private router = inject(Router)
 
   books$ = this.service.book$;
   loading$ = this.service.loading$;
@@ -84,5 +90,15 @@ export class BooksComponent {
       this.pagina = page;
       this.service.loadAll(this.id, this.pagina);
     }
+  }
+
+  // oculta o muestra el menu inferior
+  toggleMenu(option: boolean): void {
+    this.menuActive = !option;
+  }
+
+  // nueva libreta
+  goNewBook(): void {
+    this.router.navigate(['/new_book'])
   }
 }

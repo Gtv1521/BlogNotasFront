@@ -9,160 +9,56 @@
 
   .navbar {
     width: 100%;
-    height: 70px;
-    line-height: 70px;
+    height: 8vh;
   }
-}
 
+  .container-fluid {
+    width: 99%;
+    height: 92vh;
+    display: flex;
+    justify-content: space-around;
 
-.container-fluid {
-  width: 99%;
-  display: flex;
-  margin: auto;
-  justify-content: space-around;
+    .books {
+      width: 19%;
+      height: 90vh;
+      margin-top: 0;
+      margin-bottom: 0;
 
-  .books {
-    width: 19%;
-    height: 90vh;
-
-    // libretas
-    .libretas {
-      width: 100%;
-      height: 82%;
-      transition: height 0.3s;
-    }
-
-    // opciones
-    .contents {
-      margin: auto;
-      width: 100%;
-      height: 17%;
-      text-align: center;
-      font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      background-color: var.$negro-opaco;
-
-
-      .show {
-        background-color: var.$negro-opaco;
-        flex: 0 0 20px;
-
-        &:hover {
-          background-color: var.$cuarto;
-        }
-      }
-
-      .options {
-        flex: 5;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-
-        &>* {
-          transition:
-            max-height 3s ease,
-            height 3s ease
-          ;
-        }
-
-        .new {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex: 1;
-          margin-bottom: 3px;
-          border: 1px solid var.$tercero;
-
-          &:hover {
-            background-color: var.$sexto;
-          }
-
-          & .caja {
-            margin: auto;
-            width: 40%;
-            display: flex;
-            justify-content: space-evenly;
-
-            & fa-icon {
-              color: var.$tercero;
-              font-weight: 700;
-            }
-          }
-        }
-
-        .settings {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex: 1;
-          background: var.$negro-opaco;
-          border: 1px solid var.$primero;
-
-          &:hover {
-            background-color: var.$sexto;
-            border: 1px solid var.$primero;
-          }
-
-          & .caja {
-            margin: auto;
-            display: flex;
-            width: 40%;
-            justify-content: space-evenly;
-
-            & fa-icon {
-              font-weight: 700;
-              color: var.$tercero;
-            }
-          }
-        }
-      }
-    }
-
-    &.ocultar {
+      // libretas
       .libretas {
-        height: 97%; // ocupa todo
+        width: 100%;
+        height: 100%;
         transition: height 0.3s;
       }
-
-      .contents {
-        height: 0;
-
-        .options {
-          &>* {
-            height: 0;
-            max-height: 0;
-            transition: height 0.2s;
-          }
-        }
-      }
+      
     }
-  }
 
-  .notes {
-    width: 80%;
-    height: 90vh;
-    background-color: var.$negro-opaco;
+    .notes {
+      width: 80%;
+      height: 90vh;
+      background-color: var.$negro-opaco;
 
-  }
+    }
 
-  .new_note {
-    position: absolute;
-    bottom: 3%;
-    right: 1%;
-    width: 40px;
-    height: 40px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 50px;
+    .new_note {
+      position: fixed;
+      bottom: 6%;
+      right: 1%;
+      width: 40px;
+      height: 40px;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
 
-    .icono{
-      color: var.$tercero;
-      background-color: transparent;
-      &:hover {
-        color: var.$cuarto;
+      .icono {
+        color: var.$tercero;
+        background-color: transparent;
+
+        &:hover {
+          color: var.$cuarto;
+        }
       }
     }
   }
@@ -170,20 +66,48 @@
 
 
 
-@media (450px <=width <=1366px) {
-  .books {
-    height: 87vh !important;
+
+
+@media (30px <=width <=700px) {
+  .container {
+    .navbar {
+      height: 4vh !important;
+    }
+    .container-fluid {
+      flex-direction: column !important;
+      height: 100%;
+      width: 100%;
+      // margin: none !important;
+      // justify-content: none !important;
+
+      .books {
+        width: 100% !important;
+        height: 25vh !important;
+        display: flex !important;
+
+        .libretas {
+          width: 100% !important;
+          height: 70% !important;
+        }
+
+        .contents {
+          width: 10% !important;
+
+          .show {
+            display: none;
+          }
+        }
+      }
+
+      .notes {
+        width: 100% !important;
+        height: 75vh !important;
+        margin-top: 0 !important;
+      }
+    }
   }
 
   .new {
     font-size: 12px !important;
-  }
-
-  .settings {
-    font-size: 12px !important;
-  }
-
-  .notes {
-    height: 87.5vh !important;
   }
 }

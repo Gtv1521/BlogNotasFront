@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faMagnifyingGlass, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faGears, faMagnifyingGlass, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { LogoutComponent } from "../logout/logout.component";
@@ -21,10 +21,16 @@ export class TitleComponent {
   // icons
   close = faRightFromBracket
   search = faMagnifyingGlass
+  faGears = faGears // configuraciones
 
   // Dependecies
   private auth = inject(AuthService)
   private router = inject(Router)
+
+ //  abre panel de configuraciones
+  goSetting(): void {
+    this.router.navigate(['/settings']); // te envia a configuraciones
+  }
 
   // Logout
   loguot(): void {

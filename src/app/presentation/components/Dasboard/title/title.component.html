@@ -9,9 +9,17 @@
 
     <!-- actions seargh - logout -->
     <div class="actions">
+      <!-- buscar -->
       <div class="search">
         <fa-icon [icon]="search" />
       </div>
+
+      <!-- configuraciones -->
+      <div class="settings">
+        <fa-icon (click)="goSetting()" [icon]="faGears" />
+      </div>
+
+      <!-- cerrar sesion -->
       <div class="logout" (click)="loguot()">
         <fa-icon [icon]="close" />
       </div>

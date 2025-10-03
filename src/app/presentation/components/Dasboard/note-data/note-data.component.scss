@@ -3,11 +3,8 @@
 .container {
   width: 100%;
   height: 100vh;
-  position: absolute;
   display: flex;
   justify-content: center;
-  top: 0%;
-  z-index: inherit;
   background-color: var.$modal-init;
 
   .container-fluid {
@@ -56,7 +53,7 @@
       .form_container {
         flex: 7;
         padding: 0;
-        
+
         .grupo_nota {
           flex-direction: column;
           display: flex;
@@ -92,7 +89,6 @@
 
               &:focus {
                 outline: none;
-                // border-bottom: 1px solid black;
               }
             }
           }
@@ -102,7 +98,10 @@
             height: 90%;
             margin: auto !important;
 
+
             .area {
+              overflow: scroll;
+              scrollbar-width: none;
               height: 100%;
               width: 100%;
               text-align: justify;
@@ -152,7 +151,8 @@
           flex-direction: column;
           color: var.$cuarto;
           font-weight: 600;
-          &>div{
+
+          &>div {
             flex: 1;
             width: 100%;
             margin-top: 10px;
@@ -186,32 +186,75 @@
   }
 }
 
-@media (300px <=width <=1366px) {
+@media (30px <=width <=700px) {
 
-  .title-area {
-    font-size: 18px !important;
-  }
+  // de aqui 
+  .container {
 
-  .content {
-    height: 61vh !important;
-    margin: auto !important;
+    .container-fluid {
+      width: 98%;
+      height: 98%;
+      padding: 8px 2px;
 
-    .area {
-      font-size: 13px !important;
-    }
-  }
+      .actions {
+        width: 99%;
+        height: 40px;
+      }
 
-  .info {
-    margin-top: 3px !important;
-    margin: 0px auto !important;
-    padding: 10px;
+      .contenido {
+        width: 98%;
+        height: 93%;
+        margin: 2px auto 0 auto;
+        flex-direction: column;
 
-    h3 {
-      font-size: 13px !important;
-    }
+        .form_container {
+          padding: 0;
+          margin-bottom: 10px;
 
-    .contain {
-      font-size: 13px !important;
+          .grupo_nota {
+            width: 95% !important;
+            margin-bottom: 10px;
+            padding: 5px !important;
+
+            .title {
+              width: 95%;
+              height: 5%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 3px;
+              margin: 15px auto 0 auto !important;
+
+            }
+
+            .content {
+              width: 98%;
+              height: 61vh !important;
+              margin: 0 auto !important;
+
+              .area {
+                padding: 8px 8px 0 8px;
+                font-size: 14px !important;
+              }
+            }
+          }
+        }
+
+        .info {
+          margin-top: 3px !important;
+          margin: 0px auto !important;
+          padding: 10px;
+
+          h3 {
+            font-size: 13px !important;
+          }
+
+          .contain {
+            font-size: 11px !important;
+            height: auto;
+          }
+        }
+      }
     }
   }
 }

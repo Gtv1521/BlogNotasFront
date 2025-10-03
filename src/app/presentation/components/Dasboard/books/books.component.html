@@ -35,16 +35,37 @@
     </div>
     }
 
-    @if ((books$ | async)?.length === 0 && !(loading$ |async)) {
-    No hay libretas
-    }@else if((books$ | async)?.length !== 0) {
-    <ul class="list-books">
-      @for (item of books$ | async; track item.id) {
-      <li>
-        <app-target [item]='item' [isActive]="selectItem === item.id" (noteSelected)="onNoteSelected(item.id)" />
-      </li>
+    <div class="panel_libretas">
+      @if ((books$ | async)?.length === 0 && !(loading$ |async)) {
+      No hay libretas
+      }@else if((books$ | async)?.length !== 0) {
+      <ul class="list-books">
+        @for (item of books$ | async; track item.id) {
+        <li>
+          <app-target [item]='item' [isActive]="selectItem === item.id" (noteSelected)="onNoteSelected(item.id)" />
+        </li>
+        }
+      </ul>
       }
-    </ul>
-    }
+
+      <!-- add nuevo y configurations -->
+      <div class="contents">
+        <!-- boton nueva libreta -->
+        <div class="show" (click)="toggleMenu(menuActive)">
+          @if (menuActive) {
+          <fa-icon [icon]="faChevronUp" />
+          }@else {
+          <fa-icon [icon]="faChevronDown" />
+          }
+        </div>
+        <div class="options">
+          <!-- Boton para nueva libreta -->
+          <div (click)="goNewBook()" title="Nuevo libro" class="caja">
+            <fa-icon [icon]="faPlus" />
+            <p>Nuevo</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

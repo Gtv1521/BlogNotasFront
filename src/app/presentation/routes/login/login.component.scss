@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
 
-  & .container-row {
+  .container-row {
     width: 60%;
     min-height: 85%;
     height: auto;
@@ -15,11 +15,11 @@
     background-color: var.$negro-opaco;
     box-shadow: 10px 10px 10px;
 
-    & .container-fluid {
+    .container-fluid {
       width: 100%;
       margin-top: 12%;
 
-      & .title {
+      .title {
         font-size: 2rem;
         width: 40%;
         margin: auto;
@@ -28,7 +28,7 @@
         border-bottom: 1px solid var.$primero;
       }
 
-      & .formulario {
+      .formulario {
         margin: 10px auto;
         width: 70%;
         font-size: 1rem;
@@ -39,11 +39,11 @@
         align-items: center;
         padding: 35px 0;
 
-        & .form-group {
+        .form-group {
           width: 60%;
           margin: 15px auto 2px auto;
 
-          & label,
+          label,
           input {
             width: 100%;
           }
@@ -54,19 +54,19 @@
             font-weight: 600;
           }
         }
-        
-        & .form-check {
+
+        .form-check {
           margin-top: 8px;
           width: 100%;
           text-align: center;
         }
 
-        & .link-restart {
+        .link-restart {
           width: 100%;
           margin: 20px 0;
           text-align: center;
 
-          & a {
+          a {
             color: var.$primero;
             text-decoration: none;
 
@@ -76,11 +76,11 @@
           }
         }
 
-        & .btn-submit {
+        .btn-submit {
           margin-top: 10px;
           text-align: center;
 
-          & button {
+          button {
             padding: 5px 15px;
             background-color: var.$tercero;
             color: var.$primero;
@@ -114,7 +114,7 @@
   margin: 10px auto;
   background-color: var.$negro-modal;
   text-align: center;
-  padding: 15px 10px ;
+  padding: 15px 10px;
   color: var.$tercero;
   border-radius: 15px;
   font-style: italic;
@@ -123,10 +123,34 @@
 }
 
 // Responsive
-@media (650px <= width <= 1366px) {
-  .form-group {
-    font-size: 15px;
-    font-weight: 700;
+@media (30px <=width <=1366px) {
+  .container {
+
+    .container-row {
+      width: 93%;
+      // min-height: 90%;
+
+      .container-fluid {
+        margin-top: 100px;
+
+        .title {
+          width: 70%;
+          font-size: 1.5rem;
+        }
+
+        .formulario {
+          width: 90%;
+
+          .form-group {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 10px;
+            width: 90%;
+          }
+        }
+      }
+    }
+
   }
 
   input {

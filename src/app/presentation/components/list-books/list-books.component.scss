@@ -57,7 +57,7 @@
           justify-content: center;
           align-items: center;
           color: var.$primero;
-          margin: 0 15px 0 5px; 
+          margin: 0 15px 0 5px;
         }
 
         .request {
@@ -66,7 +66,7 @@
           justify-content: center;
           align-items: center;
 
-          .btn_elimiar{
+          .btn_elimiar {
             width: 80%;
             height: 30px;
             background-color: var.$primeroDifuminado;
@@ -83,6 +83,7 @@
           }
         }
       }
+
       .panel_buscar {
         width: 80%;
 
@@ -167,6 +168,64 @@
       // oculta el scrooll
       overflow-y: scroll;
       scrollbar-width: none;
+    }
+  }
+}
+
+
+@media (30px <=width <=700px) {
+  .container {
+    width: 100% !important;
+    height: 100% !important;
+    // background-color: red;
+    padding: 0 !important;
+    margin-top: 0 !important;
+
+    .title {
+      height: 2% !important;
+
+      h4 {
+        font-size: 0.7rem !important;
+        width: 50% !important;
+      }
+    }
+
+    .panel_actions {
+      height: 4% !important;
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+      justify-content: flex-start;
+      padding: 0 !important;
+
+      .actions {
+        justify-content: start;
+
+        .panel_delete {
+          width: 50% !important;
+          height: 90%;
+
+          .icono {
+            font-size: 1rem !important;
+          }
+
+          .cant_delete_note {
+            width: 1px !important;
+            height: 15px !important;
+            padding: 10px !important;
+            font-size: 12px !important;
+          }
+
+          .btn_elimiar {
+            padding: 1px !important;
+            height: 25px !important;
+          }
+        }
+
+        .panel_buscar {
+          display: none !important;
+        }
+      }
     }
   }
 }

@@ -92,20 +92,29 @@
   }
 }
 
-@media (300px <=width <=1366px) {
+@media (30px <=width <=700px) {
 
   .container {
-    width: 150px;
-    height: 200px;
+    width: 119px;
+    height: 180px;
     padding: 9px;
+    margin: 4px;
 
-    .title {
-      font-size: 0.8rem;
-    }
+    .container-fluid {
+      padding: 3px;
 
-    .content {
-      font-size: 11px;
-      -webkit-line-clamp: 10;
+      .title {
+        h4 {
+          font-size: 9px;
+          font-weight: 700 !important;
+
+        }
+      }
+
+      .content {
+        font-size: 7px;
+        -webkit-line-clamp: 10;
+      }
     }
 
   }
