@@ -12,7 +12,8 @@
     height: 100%;
 
     .loader {
-      margin-top: 10%;
+      width: 100%;
+      height: 76%;
     }
 
     .title {
@@ -39,10 +40,33 @@
 
 
       .panel {
-        text-align: center;
+        // text-align: center;
         height: 100%;
         width: 32%;
         margin: auto;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        // background-color: blue;
+
+        .icono {
+          width: 20px;
+          height: 100%;
+          padding: 15px 30px;
+          border: 2px solid transparent;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover {
+            background-color: var.$font-note;
+            border: 2px solid var.$primero ;
+            // color: var.$segundo;
+          }
+        }
+
 
         .cambio {
           background: none;
@@ -68,27 +92,16 @@
         }
       }
 
-      .btn_delete_book{
+      .btn_delete_book {
         padding: 1px 10px;
         border-radius: 5px;
         color: var.$primero;
         font-weight: 700;
         border: 1px solid var.$primero;
         background-color: var.$primeroDifuminado;
+
         &:hover {
           background-color: var.$tercero;
-        }
-      }
-
-      .delete,
-      .edit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        &:hover {
-          background-color: var.$font-note;
-          color: var.$cuarto;
         }
       }
 
@@ -118,15 +131,14 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      
+
       .list-books {
         position: relative;
         display: block;
         width: 99%;
-        // min-height: 76%;
         height: 76%;
-        margin: 5px auto 20px auto;
-        padding: 20px 1px 10px 1px;
+        margin: 5px auto 0px auto;
+        padding: 20px 1px 0px 1px;
         text-align: center;
         list-style: none;
         overflow: scroll !important;
@@ -151,10 +163,9 @@
 
       // opciones
       .contents {
-        // margin: auto;
+        margin: 0 auto;
         width: 100%;
         height: 80px;
-        // position: relative;
         bottom: 0;
         text-align: center;
         font-weight: 600;
@@ -203,75 +214,103 @@
 
 
 .delete {
-  color: red;
+  .icono {
+    background-color: var.$primeroDifuminado;
+    color: red;
+  }
+}
+
+.edit {
+  .icono {
+    background-color: var.$font-note;
+    color: var.$tercero;
+  }
 }
 
 @media (30px <=width <=700px) {
 
   .container {
-    height: 30vh !important;
-  }
+    height: 25vh !important;
+    // background-color: blue;
 
-  .title {
-    height: 5% !important;
-    width: 100% !important;
-
-    h4 {
-      font-size: 12px;
-      width: 70%;
-      line-height: 10px;
-      margin-bottom: 0;
-    }
-  }
-
-  .actions {
-    height: 10% !important;
-    margin-top: 0 !important;
-
-    &>* {
-      font-size: 12px !important;
-    }
-  }
-
-  .panel_libretas {
-    height: 68% !important;
-    flex-direction: row-reverse !important;
-
-    .list-books {
+    // titulo books
+    .title {
+      height: 5% !important;
       width: 100% !important;
-      height: 98% !important;
-      padding: 5px !important;
-      margin-top: 0 !important;
-      display: flex !important;
+
+      h4 {
+        font-size: 12px;
+        width: 70%;
+        line-height: 10px;
+        margin-bottom: 0;
+      }
     }
 
-    .contents {
-      width: 140px !important;
-      height: 98% !important;
-      padding: 5px 0 5px 5px;
-      margin-top: 0;
+    // actiones (delete, edit, page)
+    .actions {
+      height: 12% !important;
+      margin-top: 0 !important;
 
-      .show {
-        display: none !important;
+      .icono {
+        padding: 1px 30px !important;
+        border: none !important;
       }
 
-      .options {
-        height: 100% !important;
-        width: 20px;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background-color: var.$image-font !important;
-        border-radius: 12px;
+      &>* {
+        font-size: 12px !important;
+      }
+    }
 
-        .caja {
-          flex-direction: column-reverse;
-          width: 100% !important;
-          height: 20% !important;
+    .panel_libretas {
+      height: 83% !important;
+      flex-direction: row-reverse !important;
+      align-items: start !important;
+      text-align: start !important;
+      justify-content: start !important;
+
+      .list-books {
+        width: auto !important;
+        min-width: 70% !important;
+        height: 98% !important;
+        padding: 5px !important;
+        margin-top: 0 !important;
+        display: flex !important;
+        // background-color: red;
+      }
+
+      .contents {
+        // width: 340px !important;
+        max-width: 100px !important;
+        height: 98% !important;
+        padding: 5px 0 5px 5px;
+        margin-top: 0;
+        margin-left: 0;
+
+        .show {
+          display: none !important;
+        }
+
+        .options {
+          height: 100% !important;
+          width: 20px;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          background-color: var.$image-font !important;
+          border-radius: 12px;
+
+          .caja {
+            flex-direction: column-reverse;
+            width: 100% !important;
+            height: 20% !important;
+          }
         }
       }
     }
   }
+
+
+
 
   .item {
     padding: 16px !important;

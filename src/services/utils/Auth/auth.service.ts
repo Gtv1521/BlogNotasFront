@@ -23,9 +23,8 @@ export class AuthService {
   }
 
 // Limpia y destruye la session 
-  clearUserId(): void {
+  clearUser(): void {
     this.userId = null;
     localStorage.removeItem('id')
-    localStorage.removeItem('token')
   }
 }

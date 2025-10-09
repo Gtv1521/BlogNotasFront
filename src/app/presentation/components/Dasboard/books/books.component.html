@@ -7,14 +7,19 @@
 
     <!-- acciones de las notas -->
     <div class="actions">
-      <div (click)="onDelete()" title="delete book" [class.delete]="deleteBook" class="panel delete">
-        <fa-icon [icon]="faTrash" />
+      <!-- icono delete -->
+      <div (click)="onDelete()" class="panel" title="delete book" [class.delete]="deleteBook">
+        <fa-icon class="icono" [icon]="faTrash" />
       </div>
+
+      <!-- icono editar -->
       @if (!deleteBook) {
-      <div (click)="onEdit()" title="edit book" [class.edit]="edit" class="panel edit">
-        <fa-icon [icon]="faPenToSquare" />
+      <div (click)="onEdit()" class="panel" title="edit book" [class.edit]="edit">
+        <fa-icon class="icono" [icon]="faPenToSquare" />
       </div>
       }@else {
+
+      <!-- conteo delete -->
       <div class="cant_delete">
         <span>1</span>
       </div>
@@ -40,13 +45,13 @@
       </div>
     </div>
 
-    @if (loading$|async) {
-    <div class="loader">
-      <app-loader-spinner />
-    </div>
-    }
 
     <div class="panel_libretas">
+      @if (loading$|async) {
+      <div class="list-books">
+        <app-loader-spinner />
+      </div>
+      }
       @if ((books$ | async)?.length === 0 && !(loading$ |async)) {
       <div class="list-books">
         No hay libretas
@@ -71,6 +76,7 @@
           <fa-icon [icon]="faChevronDown" />
           }
         </div>
+        <!-- @if ((loading$|async) === false) { -->
         <div class="options" (click)="goNewBook()">
           <!-- Boton para nueva libreta -->
           <div title="Nuevo libro" class="caja">
@@ -78,6 +84,7 @@
             <p>Nuevo</p>
           </div>
         </div>
+        <!-- } -->
       </div>
     </div>
   </div>

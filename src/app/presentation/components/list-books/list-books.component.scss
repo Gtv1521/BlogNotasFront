@@ -34,7 +34,7 @@
     .actions {
       width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
 
       // 20%
@@ -84,6 +84,7 @@
           }
         }
       }
+
       //  60%
       .panel_buscar {
         width: 60%;
@@ -100,7 +101,7 @@
           font-size: 1rem;
         }
 
-        .btn_buscar{
+        .btn_buscar {
           position: absolute;
           right: 10px;
           top: 50%;
@@ -109,7 +110,7 @@
           color: var.$primero;
           background-color: transparent;
 
-          &:hover{
+          &:hover {
             font-weight: 600;
           }
         }
@@ -153,11 +154,7 @@
           }
         }
       }
-
     }
-
-
-
   }
 
   .active {
@@ -193,11 +190,10 @@
 }
 
 
-@media (30px <=width <=700px) {
+@media (30px <=width <=500px) {
   .container {
     width: 100% !important;
     height: 100% !important;
-    // background-color: red;
     padding: 0 !important;
     margin-top: 0 !important;
 
@@ -219,13 +215,20 @@
       padding: 0 !important;
 
       .actions {
-        justify-content: start;
+        margin: 0px  auto;
+        width: 95% !important;
+        margin-top: 5px;
+        justify-content: space-between;
 
         .panel_delete {
           width: 50% !important;
-          height: 90%;
+          height: 100%;
+          justify-content: start;
+          align-items: center;
 
           .icono {
+            width: 20px !important;
+            height: 20px !important;
             font-size: 1rem !important;
           }
 
@@ -245,6 +248,15 @@
         .panel_buscar {
           display: none !important;
         }
+
+      }
+    }
+
+    .notebooks {
+      ul {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: start;
       }
     }
   }

@@ -80,7 +80,8 @@ export class BooksComponent {
   // cambia el estado de deleteBook
   onDelete(): void {
     this.deleteBook = !this.deleteBook;
-    this.blockPage = !this.blockPage;
+    this.blockPage = false;
+    this.edit = false;
 
   }
 

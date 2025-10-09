@@ -1,7 +1,7 @@
-import { Component, inject, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleXmark, faEyeLowVision, faL } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { bookInput } from '../../../../aplication/inputs/book.input';
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
@@ -9,7 +9,6 @@ import { LoadSaveComponent } from "../load-save/load-save.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookEntity } from '../../../../domain/models/noteBooks.model';
 import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinner.component";
-import { library } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-new-notebook',

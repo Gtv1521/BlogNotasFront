@@ -96,27 +96,25 @@
   }
 }
 
-@media (30px <=width <=700px) {
+@media (30px <=width <=500px) {
 
   .container {
-    width: 135px;
+    width: 95%;
     height: 180px;
-    padding: 9px;
-    margin: 4px;
+    padding: 15px;
+    margin: 10px auto;
 
     .container-fluid {
       padding: 3px;
 
       .title {
         h4 {
-          font-size: 9px;
           font-weight: 700 !important; 
 
         }
       }
 
       .content {
-        font-size: 7px;
         -webkit-line-clamp: 10;
       }
     }

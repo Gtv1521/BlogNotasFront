@@ -4,6 +4,7 @@ import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
 import { NotesUseCase } from '../../../../aplication/use-cases/notes.use-case';
 import { Router } from '@angular/router';
 import { SessionUseCase } from '../../../../aplication/use-cases/session.use-case';
+import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 
 @Component({
   selector: 'app-logout',
@@ -19,12 +20,14 @@ export class LogoutComponent {
   private books = inject(BookUseCase); // paso a libretas
   private notes = inject(NotesUseCase); // paso a notas
   private session = inject(SessionUseCase); // paso a session
+  private auth = inject(AuthService); // paso a session
 
   ngOnInit(): void {
     // limpia las consultas antes de salir 
     this.notes.logout(); // limpia las notas
     this.books.logout(); // limpia los libros
     this.session.logout(); // orden de cerrar session
+    this.auth.clearUser(); // borra el id de navegador 
     
     setTimeout(() => {
       this.route.navigate([""]) // vuelve al inicio

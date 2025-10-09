@@ -42,10 +42,8 @@ export class TitleComponent {
   // Logout
   loguot(): void {
     this.exit = true
-    timer(2000).pipe(
-
-    ).subscribe(() => {
-      this.auth.clearUserId()
+    timer(2000).subscribe(() => {
+      this.auth.clearUser()
       this.router.navigate(['/login'])
     });
   }

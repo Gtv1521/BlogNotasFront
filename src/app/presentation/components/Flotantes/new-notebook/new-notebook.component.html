@@ -14,44 +14,50 @@
     <!-- Contendor forms -->
     <div class="content">
       @if (loader) {
-       <app-loader-spinner /> 
+      <app-loader-spinner />
       }
       @else {
-        
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-          <div class="group">
-            <!-- <label for="name">Name:</label> -->
-            <input type="text" id="nombre" autocomplete="off" formControlName="name" placeholder="Nombre de libreta ">
-          </div>
-          
-          <button class="btn" type="submit" [disabled]="formulario.invalid">
-            Guardar
-          </button>
-          
-          <div class="responses">
-            @if (loading) {
-              loading ...
-            }
-            
-          </div>
-        </form>
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="group">
+          <!-- <label for="name">Name:</label> -->
+          <input type="text" id="nombre" autocomplete="off" formControlName="name" placeholder="Nombre de libreta ">
+        </div>
+
+        <button class="btn" type="submit" [disabled]="formulario.invalid">
+          Guardar
+        </button>
+
+        <div class="responses">
+          @if (loading) {
+          loading ...
+          }
+
+        </div>
+      </form>
       }
-      </div>
+    </div>
 
     <!-- informacion de usuario -->
-    <div class="information">
-      <div class="info">
-        <div class="item">Usuario: -- </div>
-        <div class="item">Cant. libretas: -- </div>
-      </div>
-      <div class="dates">
-        <div class="item">Creation: -- </div>
-        <div class="item">Update: -- </div>
-      </div>
-    </div>
+     <div class="panel_information">
+       <div class="title_info">Informacion</div>
+
+       <div class="information">
+   
+         
+         <div class="info">
+           <div class="item">Usuario: -- </div>
+           <div class="item">Cant. libretas: -- </div>
+         </div>
+         
+         <div class="dates">
+           <div class="item">Creation: -- </div>
+           <div class="item">Update: -- </div>
+         </div>
+       </div>
+     </div>
   </div>
 </div>
 
 @if (doneSave) {
-  <app-load-save [loading]="loading" />
+<app-load-save [loading]="loading" />
 }

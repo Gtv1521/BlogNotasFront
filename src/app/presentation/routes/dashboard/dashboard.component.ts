@@ -48,13 +48,9 @@ export class DashboardComponent {
       this.loader = false
     })
 
-    //  Session
+    //  validacion de session
     if (this.auth.getUserId() === null ) {
-      // &&  localStorage.getItem('id') === null
       this.logout()
-      // timer(2000).pipe().subscribe(() => {
-      //   this.router.navigate(['/login'])
-      // });
     }
 
     this.id = this.auth.getUserId();
