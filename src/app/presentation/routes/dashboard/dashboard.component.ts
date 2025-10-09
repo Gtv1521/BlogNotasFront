@@ -2,12 +2,11 @@ import { Component, Inject, inject, SimpleChanges } from '@angular/core';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
 import { ListBooksComponent } from "../../components/list-books/list-books.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChevronDown, faChevronUp, faGears, faPlus, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-import { Router, ROUTER_CONFIGURATION } from '@angular/router';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { TitleComponent } from "../../components/Dasboard/title/title.component";
 import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
-import { CacheService } from '../../../../services/utils/cache/cache.service';
 import { AuthService } from '../../../../services/utils/Auth/auth.service';
 import { NoteDataService } from '../../services/note.data.service';
 
@@ -40,13 +39,11 @@ export class DashboardComponent {
   // inyeccion de dependencias
   private router = inject(Router);
   private auth = inject(AuthService);
-  private cache = inject(CacheService);
   private noteService = inject(NoteDataService);
 
 
   // se lanzan los requisitos para iniciar la app 
   ngOnInit(): void {
-    this.cache.clearAll()
     timer(3000).pipe().subscribe(() => {
       this.loader = false
     })

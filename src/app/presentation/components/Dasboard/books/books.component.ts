@@ -21,14 +21,15 @@ export class BooksComponent {
   @Output() getLibreta = new EventEmitter<string>();
 
   // estados
-  modal: boolean = false;
   menuActive: boolean = false;
-
-  isActive: boolean = false
-  selectItem: string | null = null
-  id: string = ''
-  quantity: number = 0 // cantidad de libretas
-  pagina: number = 1 // pagina actual
+  selectItem: string | null = null;
+  id: string = '';
+  quantity: number = 0; // cantidad de libretas
+  pagina: number = 1; // pagina actual
+  deleteBook: boolean = false; // activa panel para borrar 
+  edit: boolean = false; // activa edicion 
+  blockPage: boolean = true; // desactiva el paginado
+  alert: boolean = false; // activa alerta de delete
 
   // icons
   faTrash = faTrash; // delete
@@ -39,14 +40,15 @@ export class BooksComponent {
   faChevronUp = faChevronUp; // flecha arriba
   faChevronDown = faChevronDown; // flecha abajo
 
-  private service = inject(BookUseCase)
-  private auth = inject(AuthService)
-  private router = inject(Router)
+  private service = inject(BookUseCase); // enlace a books
+  private auth = inject(AuthService); // enlace a auth
+  private router = inject(Router); // enlace a rutas
 
-  books$ = this.service.book$;
-  loading$ = this.service.loading$;
-  error$ = this.service.errors$;
+  books$ = this.service.book$; // data
+  loading$ = this.service.loading$; // loader
+  error$ = this.service.errors$; // errores
 
+  // se lanza al unicio de componente
   ngOnInit(): any {
     this.id = `${this.auth.getUserId()}`;
     this.loadNoteBooks();
@@ -54,7 +56,6 @@ export class BooksComponent {
 
   // carga los datos las libreyas
   loadNoteBooks(): any {
-
     // consulta de todas las libretas
     this.service.loadAll(this.id, this.pagina);
     this.service.count(this.id).subscribe({
@@ -76,11 +77,31 @@ export class BooksComponent {
     });
   }
 
+  // cambia el estado de deleteBook
+  onDelete(): void {
+    this.deleteBook = !this.deleteBook;
+    this.blockPage = !this.blockPage;
+
+  }
+
+  // cambia el estado de edit
+  onEdit(): void {
+    this.alert = true; // activa mensaje
+    this.blockPage = !this.blockPage;
+    this.edit = !this.edit;
+  }
+
   // activa componente en uso 
   onNoteSelected(id: string): void {
-    if (this.selectItem !== id) {
-      this.selectItem = this.selectItem === id ? null : id;
-      this.getLibreta.emit(id)
+    if (this.edit) {
+      this.edit = false;
+      this.blockPage = false;
+      this.router.navigate([`/book/${id}`]);
+    } else {
+      if (this.selectItem !== id) {
+        this.selectItem = this.selectItem === id ? null : id;
+        this.getLibreta.emit(id)
+      }
     }
   }
 
@@ -88,7 +109,7 @@ export class BooksComponent {
   changePage(page: number): void {
     if (page >= 1 && page <= this.quantity) {
       this.pagina = page;
-      this.service.loadAll(this.id, this.pagina);
+      this.service.loadAll(this.id, page);
     }
   }
 

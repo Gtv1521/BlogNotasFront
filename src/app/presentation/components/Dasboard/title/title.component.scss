@@ -6,28 +6,131 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   .container-fluid {
     max-width: 95%;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: space-between;
 
-    .actions {
+    .name {
       height: 100%;
       display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .panel_buscar {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      .consulta {
+        position: relative;
+        width: 100%;
+
+        .salir {
+          position: absolute;
+          left: 3px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          font-size: 25px;
+          color: var.$cuarto;
+          &:hover {
+            color: var.$primero;
+          }
+
+        }
+
+        .search {
+          width: 100%;
+          box-sizing: border-box;
+          height: 30px;
+          text-align: center;
+          background-color: var.$primeroDifuminado;
+          border: none;
+          border-radius: 5px;
+          // padding-left: 10px;
+          padding: 8px 80px 8px 40px;
+          font-size: 1rem;
+        }
+
+        button {
+          position: absolute;
+          right: 2px;
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: transparent;
+          border: none;
+          color: white;
+          padding: 5px 10px;
+          cursor: pointer;
+
+          &:hover{
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .actions {
+      width: 8%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-size: 25px;
       font-weight: 800;
 
-      .search {
-        margin-right: 20px;
+      .funtions {
+        width: 60%;
+        display: flex;
+        justify-content: space-around;
 
-        &:hover {
-          color: var.$cuarto;
+        .search {
+          border: 2px solid transparent;
+          border-radius: 7px;
+          padding: 2px 4px;
+
+          &:hover {
+            color: var.$quinto;
+            background-color: var.$primero;
+            border: 2px solid var.$primero;
+          }
+
+          .vacio {
+            border: 2px solid transparent;
+            border-radius: 7px;
+            padding: 2px 4px;
+          }
+        }
+
+        .settings {
+          border: 2px solid transparent;
+          border-radius: 7px;
+          padding: 2px 4px;
+
+          &:hover {
+            color: var.$quinto;
+            background-color: var.$primero;
+            border: 2px solid var.$primero;
+          }
         }
       }
-      .logout:hover {
-        color: var.$cuarto;
+
+      .logout {
+        padding: 2px 4px;
+        border-radius: 7px;
+        border: 2px solid transparent;
+
+        &:hover {
+          background-color: var.$tercero;
+          color: var.$primero;
+        }
       }
     }
   }
@@ -36,7 +139,7 @@
 
 @media (30px <=width <=1000px) {
   .container {
-    .container-fluid > * {
+    .container-fluid>* {
       font-size: 15px !important;
     }
   }

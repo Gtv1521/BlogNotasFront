@@ -7,21 +7,32 @@
 
     <!-- acciones de las notas -->
     <div class="actions">
-      <div title="delete book" class="panel delete">
+      <div (click)="onDelete()" title="delete book" [class.delete]="deleteBook" class="panel delete">
         <fa-icon [icon]="faTrash" />
       </div>
-      <div title="edit book" class="panel edit">
+      @if (!deleteBook) {
+      <div (click)="onEdit()" title="edit book" [class.edit]="edit" class="panel edit">
         <fa-icon [icon]="faPenToSquare" />
       </div>
+      }@else {
+      <div class="cant_delete">
+        <span>1</span>
+      </div>
+      }
 
       <div class="panel pagina">
-        @if (pagina !== 1) {
+        @if (pagina !== 1 && blockPage) {
         <button title="anterior" (click)="changePage(pagina-1)" class="cambio">
           <fa-icon [icon]="faChevronLeft" />
         </button>
         }
+        @if (!deleteBook) {
         <section title="pagina"> {{ pagina }} </section>
-        @if (pagina !== quantity) {
+        }@else {
+        <button class="btn_delete_book">aceptar</button>
+        }
+
+        @if (pagina !== quantity && blockPage) {
         <button title="siguiente" (click)="changePage(pagina+1)" class="cambio">
           <fa-icon [icon]="fachevronRight" />
         </button>
@@ -37,7 +48,9 @@
 
     <div class="panel_libretas">
       @if ((books$ | async)?.length === 0 && !(loading$ |async)) {
-      No hay libretas
+      <div class="list-books">
+        No hay libretas
+      </div>
       }@else if((books$ | async)?.length !== 0) {
       <ul class="list-books">
         @for (item of books$ | async; track item.id) {
@@ -58,9 +71,9 @@
           <fa-icon [icon]="faChevronDown" />
           }
         </div>
-        <div class="options">
+        <div class="options" (click)="goNewBook()">
           <!-- Boton para nueva libreta -->
-          <div (click)="goNewBook()" title="Nuevo libro" class="caja">
+          <div title="Nuevo libro" class="caja">
             <fa-icon [icon]="faPlus" />
             <p>Nuevo</p>
           </div>

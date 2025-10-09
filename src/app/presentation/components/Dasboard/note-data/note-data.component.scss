@@ -97,10 +97,9 @@
             width: 95%;
             height: 90%;
             margin: auto !important;
-
-
+            
             .area {
-              overflow: scroll;
+              overflow-y: scroll;
               scrollbar-width: none;
               height: 100%;
               width: 100%;

@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { INotebooks } from '../../interfaces/INoteBooks';
 import { INewNote, INotes } from '../../interfaces/INotes';
 import { AuthService } from '../utils/Auth/auth.service';
-import { CacheService } from '../utils/cache/cache.service';
+import { CacheService } from '../../app/infrastructure/cache/cache.service';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Injectable({

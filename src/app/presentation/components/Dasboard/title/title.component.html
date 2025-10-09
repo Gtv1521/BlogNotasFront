@@ -7,25 +7,52 @@
       <h2>MyBloog</h2>
     </div>
 
-    <!-- actions seargh - logout -->
-    <div class="actions">
-      <!-- buscar -->
-      <div class="search">
-        <fa-icon [icon]="search" />
+    @if (buscar) {
+    <div class="panel_buscar" [class.buscar_active]="buscar">
+
+      <div class="consulta">
+        <div (click)="onToggleSearch(false)" title="cerrar busqueda" class="salir">
+          <fa-icon [icon]="faSquareXmark" />
+        </div>
+        <form>
+          <input class="search" placeholder="Search..." type="text">
+          <button value="submit">Buscar</button>
+        </form>
       </div>
 
-      <!-- configuraciones -->
-      <div class="settings">
-        <fa-icon (click)="goSetting()" [icon]="faGears" />
+    </div>
+    }
+
+    <!-- actions seargh - logout -->
+    <div class="actions">
+
+      <!-- funtions -->
+      <div class="funtions">
+        <!-- buscar -->
+        @if (!buscar) {
+        <div (click)="onToggleSearch(true)" title="buscar" class="search">
+          <fa-icon [icon]="search" />
+        </div>
+        }@else {
+        <div class="vacio">
+
+        </div>
+        }
+
+        <!-- configuraciones -->
+        <div (click)="goSetting()" title="configuraions" class="settings">
+          <fa-icon [icon]="faGears" />
+        </div>
       </div>
 
       <!-- cerrar sesion -->
-      <div class="logout" (click)="loguot()">
+      <div title="salir" class="logout" (click)="loguot()">
         <fa-icon [icon]="close" />
       </div>
+
     </div>
   </div>
 </div>
 @if (exit) {
-  <app-logout />
+<app-logout />
 }

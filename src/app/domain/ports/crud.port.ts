@@ -19,7 +19,7 @@ export interface INote<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter'> {
     count(id:string): Observable<number> // cuenta la cantidad de notas por libreta
 }
 
-export interface IBook<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter' | 'read'> { 
+export interface IBook<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter' > { 
     readAll(idUser: string, page: number): Observable<Model[]>
     count(id:string): Observable<number> // cuenta la cantidad de libretas por usuario
 }

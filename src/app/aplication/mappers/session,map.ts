@@ -12,7 +12,7 @@ export class sessionMapper {
             password: dto.password
         }
     }
-
+    
     public fromDtoSing(dto: singInput): singEntity {
         return {
             name: dto.name,
@@ -21,7 +21,7 @@ export class sessionMapper {
             role: dto.role
         }
     }
-
+    
     public toEntity(dto: sessionDto): SessionEntity {
         return {
             idUser: dto.idUser,

@@ -25,37 +25,42 @@
 
         }
       </div>
+
       <!-- panel buscar -->
       <div title="search note" class="panel_buscar">
-        <input class="search_notes" type="text" placeholder="Search note..." /> <!--(input)="searchNote($event)"-->
-      </div>
-    </div>
-    <!-- paginado -->
-    <div class="panel_pages">
-      <div title="anterior pagina" class="page">
-        @if (pagina !== 1 && quantity !== 0 && !onDelete) {
-        <button (click)="changePage(pagina-1)" class="page-button">
-          <fa-icon [icon]="faChevronLeft" />
-        </button>
-        }
+        <form>
+          <input class="search_notes" type="text" placeholder="Search note..." /> <!--(input)="searchNote($event)"-->
+          <button class="btn_buscar">Buscar</button>
+        </form>
       </div>
 
-      <div title="pagina" class="page"><b> {{pagina}} </b></div>
-
-      <div title="siguiente pagina" class="page">
-        @if (pagina !== quantity && quantity !== 0 && !onDelete) {
-        <button (click)="changePage(pagina+1)" class="page-button">
-          <fa-icon [icon]="fachevronRight" />
-        </button>
-        }
+      <!-- paginado -->
+      <div class="panel_pages">
+        <div title="anterior pagina" class="page">
+          @if (pagina !== 1 && quantity !== 0 && !onDelete) {
+          <button (click)="changePage(pagina-1)" class="page-button">
+            <fa-icon [icon]="faChevronLeft" />
+          </button>
+          }
+        </div>
+  
+        <div title="pagina" class="page"><b> {{pagina}} </b></div>
+  
+        <div title="siguiente pagina" class="page">
+          @if (pagina !== quantity && quantity !== 0 && !onDelete) {
+          <button (click)="changePage(pagina+1)" class="page-button">
+            <fa-icon [icon]="fachevronRight" />
+          </button>
+          }
+        </div>
+  
       </div>
-
     </div>
   </div>
 
   <!-- List of listbooks -->
   <div class="notebooks">
-    @if (loading$|async) {
+    @if ((loading$ | async)) {
     <div class="loader">
       <app-loader-spinner />
     </div>

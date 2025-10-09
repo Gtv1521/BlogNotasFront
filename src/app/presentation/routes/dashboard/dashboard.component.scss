@@ -30,7 +30,7 @@
         height: 100%;
         transition: height 0.3s;
       }
-      
+
     }
 
     .notes {
@@ -42,10 +42,11 @@
 
     .new_note {
       position: fixed;
-      bottom: 6%;
-      right: 1%;
+      bottom: 3%;
+      right: 1.5%;
       width: 40px;
       height: 40px;
+      background-color: transparent;
       border: none;
       display: flex;
       justify-content: center;
@@ -65,20 +66,16 @@
 }
 
 
-
-
-
 @media (30px <=width <=700px) {
   .container {
     .navbar {
       height: 4vh !important;
     }
+
     .container-fluid {
       flex-direction: column !important;
       height: 100%;
       width: 100%;
-      // margin: none !important;
-      // justify-content: none !important;
 
       .books {
         width: 100% !important;
@@ -107,7 +104,8 @@
     }
   }
 
-  .new {
-    font-size: 12px !important;
+  .new_note {
+    font-size: 35px !important;
+    bottom: 1% !important;
   }
 }

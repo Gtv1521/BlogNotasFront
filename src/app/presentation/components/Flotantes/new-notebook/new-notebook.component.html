@@ -13,24 +13,30 @@
 
     <!-- Contendor forms -->
     <div class="content">
-      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-        <div class="group">
-          <!-- <label for="name">Name:</label> -->
-          <input type="text" id="nombre" autocomplete="off" formControlName="name" placeholder="Nombre de libreta ">
-        </div>
-
-        <button class="btn" type="submit" [disabled]="formulario.invalid">
-          Guardar
-        </button>
-
-        <div class="responses">
-          @if (loadig) {
-          loading ...
-          }
-
-        </div>
-      </form>
-    </div>
+      @if (loader) {
+       <app-loader-spinner /> 
+      }
+      @else {
+        
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+          <div class="group">
+            <!-- <label for="name">Name:</label> -->
+            <input type="text" id="nombre" autocomplete="off" formControlName="name" placeholder="Nombre de libreta ">
+          </div>
+          
+          <button class="btn" type="submit" [disabled]="formulario.invalid">
+            Guardar
+          </button>
+          
+          <div class="responses">
+            @if (loading) {
+              loading ...
+            }
+            
+          </div>
+        </form>
+      }
+      </div>
 
     <!-- informacion de usuario -->
     <div class="information">
@@ -47,5 +53,5 @@
 </div>
 
 @if (doneSave) {
-  <app-load-save [loading]="loadig" />
+  <app-load-save [loading]="loading" />
 }

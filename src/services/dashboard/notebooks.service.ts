@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { INotebooks } from '../../interfaces/INoteBooks';
 import { INewNote } from '../../interfaces/INotes';
-import { CacheService } from '../utils/cache/cache.service';
+import { CacheService } from '../../app/infrastructure/cache/cache.service';
 import { AuthService } from '../utils/Auth/auth.service';
 
 @Injectable({

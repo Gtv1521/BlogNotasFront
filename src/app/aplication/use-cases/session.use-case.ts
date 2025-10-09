@@ -1,4 +1,4 @@
-import { catchError, map, Observable } from "rxjs";
+import { catchError, map, Observable, throwError } from "rxjs";
 import { ISession } from "../../domain/ports/session.port";
 import { Inject, Injectable } from "@angular/core";
 import { sessionMapper } from "../mappers/session,map";
@@ -25,10 +25,16 @@ export class SessionUseCase {
 
         return this.sesion.logIn(mapeo).pipe(
             map((res: any) => this.mapper.toEntity(res)), // se hace cambio a la respuesta 
-
             catchError(err => {
                 throw new Error(`${err.error.message} !!!`);
             })
+        );
+    }
+
+    // cierra session 
+    logout(): Observable<string> {
+        return this.sesion.logOut().pipe(
+            catchError(err => throwError(()=> new Error(err.error.message)))
         );
     }
 

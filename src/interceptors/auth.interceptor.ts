@@ -1,5 +1,6 @@
 // src/app/interceptors/auth.interceptor.ts
 import {
+  HttpClient,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -7,46 +8,52 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { AuthService } from '../services/utils/Auth/auth.service';
+import { Observable, catchError, switchMap, throwError } from 'rxjs';
+import { environment } from '../Environment/Environment';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  private auth = inject(AuthService)
+  private Url = `${environment.apiUrl}/Session`;
+  isRefreshing: boolean = false; // habilita refresh
 
-
+  private http = inject(HttpClient); // conexion con backend
+  private route = inject(Router); // Rutas de la app
+  
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
     // Clona la petición y añade el token de autenticación
-    const authReq = this.addTokenToRequest(req);
-    
+    const authReq = req.clone({ withCredentials: true });
+
     // Envía la petición modificada
     return next.handle(authReq).pipe(
       // Manejo global de errores
       catchError((error: HttpErrorResponse) => {
-        console.error('Error en la petición:', error);
+
+        if (error.status === 401 && !this.isRefreshing) {
+          this.isRefreshing = true;
+          console.warn('🔄 Token expirado, intentando refrescar...');
+
+          return this.http.get(`${this.Url}/refresh`, { withCredentials: true }).pipe(
+            switchMap(() => {
+              this.isRefreshing = false;
+              const retryReq = req.clone({ withCredentials: true })
+              return next.handle(retryReq);
+            }),
+            catchError(refreshError => {
+              this.isRefreshing = false;
+              console.error('❌ Error al refrescar el token', refreshError);
+              this.route.navigate(["/logout"]); // cierra session 
+              return throwError(() => refreshError);
+            })
+          );
+        }
         return throwError(() => error);
       })
     );
-  }
-
-
-  private addTokenToRequest(req: HttpRequest<any>): HttpRequest<any> {
-    // Obtén el token de localStorage
-    const token = this.auth.getToken()
-    
-    // Si existe el token, clona la petición y añade el header
-    if (token) {
-      return req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
-    
-    return req;
   }
 }

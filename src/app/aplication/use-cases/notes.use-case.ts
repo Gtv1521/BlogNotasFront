@@ -1,14 +1,17 @@
-import { Inject, Injectable, ResourceStatus } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { INote } from "../../domain/ports/crud.port";
 import { NOTES_TOKEN } from "../../infrastructure/tokens/notes.token";
 import { NoteEntity } from "../../domain/models/note.model";
-import { BehaviorSubject, catchError, Observable, of, tap } from "rxjs";
+import { BehaviorSubject, catchError, Observable, of, tap, throwError } from "rxjs";
 import { noteInput } from "../inputs/note,input";
+import { CacheStoreService } from "../../infrastructure/cache/cache.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 
 export class NotesUseCase {
 
+    private keyCache = 'DataNotes';
     private datosSubject = new BehaviorSubject<NoteEntity[]>([]);
     notas$ = this.datosSubject.asObservable();
 
@@ -19,19 +22,25 @@ export class NotesUseCase {
     errors$ = this.errorSubject.asObservable();
 
     constructor(
-        @Inject(NOTES_TOKEN) private notes: INote<NoteEntity>
-    ) { }
+        @Inject(NOTES_TOKEN) private notes: INote<NoteEntity>,
+        private cache: CacheStoreService
+    ) {
+        const data = this.cache.get<NoteEntity[]>(this.keyCache);
+        if (data) {
+            this.datosSubject.next(data);
+        }
+    }
 
     count(id: string): Observable<number> {
-        return this.notes.count(id);
+        return this.notes.count(id).pipe(
+            catchError(err => throwError(() => new Error(err.error.message)))
+        );
     }
 
     // Carga una sola nota 
     load(id: string): Observable<NoteEntity> {
         return this.notes.read(id).pipe(
-            catchError((err) => {
-                throw new Error(err.error.message);
-            })
+            catchError((err) => throwError(() => new Error(err.error.message)))
         );
     }
 
@@ -39,15 +48,22 @@ export class NotesUseCase {
     allNotesByBook(idBook: string, page: number): void {
         this.loadingSubject.next(true);
         this.datosSubject.next([]); // se pone en vacio para cargar elementos
-        this.notes.readAllById(idBook, page).pipe(
-            tap(() => this.loadingSubject.next(false)),
-            catchError((err) => {
-                this.errorSubject.next(err);
+        this.notes.readAllById(idBook, page).subscribe({
+            next: (res) => {
+                this.datosSubject.next(res);
+                this.cache.set(this.keyCache, res);
+                this.loadingSubject.next(false); 
+            },
+            error: (err: HttpErrorResponse) => {
+                
+                if (err.status === 404) {
+                    this.errorSubject.next(err)
+                } else {
+                    this.errorSubject.next(err);
+                }
                 this.loadingSubject.next(false);
-                return of([])
-            })
-        ).subscribe(res => {
-            this.datosSubject.next(res);
+                return throwError(() => err);
+            }
         });
     }
 
@@ -63,9 +79,14 @@ export class NotesUseCase {
             fechaUpdate: null
         }
         return this.notes.write(insert).pipe(
-            catchError((err) => {
-                throw new Error(err.error.message)
-            })
+            tap(() => {
+                // ✅ Actualiza cache automáticamente
+                const current = this.datosSubject.value;
+                const updated = [...current, insert];
+                this.datosSubject.next(updated);
+                this.cache.set(this.keyCache, updated);
+            }),
+            catchError((err) => throwError(() => new Error(err.error.message)))
         );
     }
 
@@ -82,14 +103,28 @@ export class NotesUseCase {
 
         }
         return this.notes.update(updateNote).pipe(
-            catchError((err) => {
-                throw new Error(err.error.message);
-            })
+            tap(() => {
+                const current = this.datosSubject.value.map(note =>
+                    note.idNote === idNote ? { ...note, ...updateNote } : note
+                );
+
+                this.datosSubject.next(current);
+                this.cache.set(this.keyCache, current);
+            }),
+            catchError((err) => throwError(() => new Error(err.error.message)))
         );
     }
 
+    // elimina una nota por el id
     deleteNote(id: string): Observable<string> {
-        return this.notes.delete(id);
+        return this.notes.delete(id).pipe(
+            tap(() => {
+                const filtered = this.datosSubject.value.filter(b => b.idNote !== id);
+                this.datosSubject.next(filtered);
+                this.cache.set(this.keyCache, filtered);
+            }),
+            catchError(err => throwError(() => new Error(err.error.message)))
+        );
     }
 
     // cierra session
@@ -98,5 +133,6 @@ export class NotesUseCase {
         this.datosSubject.next([]);
         this.loadingSubject.next(false);
         this.errorSubject.next([]);
+        this.cache.remove(this.keyCache);
     }
 }

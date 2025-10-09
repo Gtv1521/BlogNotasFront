@@ -29,6 +29,10 @@ export class SessionHttpAdapter implements ISession<logEntity, singEntity, sessi
         return this.http.post<sessionDto>(`${this.Url}/log_in`, formData);
     }
 
+    logOut(): Observable<string> {
+        return this.http.get<string>(`${this.Url}/log_out`);
+    }
+
     // agrega nuevo usuario
     sigIn(data: singEntity): Observable<sessionDto> {
         const formData = new FormData();

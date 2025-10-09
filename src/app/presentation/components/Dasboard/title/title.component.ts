@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGears, faMagnifyingGlass, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faGears, faMagnifyingGlass, faRightFromBracket, faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { LogoutComponent } from "../logout/logout.component";
@@ -16,12 +16,14 @@ import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 export class TitleComponent {
 
   // estados
-  exit: boolean = false
+  exit: boolean = false; // modal de salida 
+  buscar: boolean = false; // panel de busqueda
 
   // icons
-  close = faRightFromBracket
-  search = faMagnifyingGlass
+  close = faRightFromBracket // loggout
+  search = faMagnifyingGlass // buscar
   faGears = faGears // configuraciones
+  faSquareXmark = faSquareXmark // close  
 
   // Dependecies
   private auth = inject(AuthService)
@@ -30,6 +32,11 @@ export class TitleComponent {
  //  abre panel de configuraciones
   goSetting(): void {
     this.router.navigate(['/settings']); // te envia a configuraciones
+  }
+
+  // se cambia el estado
+  onToggleSearch(std: boolean): void {
+    this.buscar = std; 
   }
 
   // Logout

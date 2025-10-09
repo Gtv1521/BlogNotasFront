@@ -9,6 +9,7 @@ import { NewNotebookComponent } from "./presentation/components/Flotantes/new-no
 import { NoteDataComponent } from "./presentation/components/Dasboard/note-data/note-data.component";
 import { LoaderComponent } from "./presentation/components/loader/loader-point/loader.component";
 import { WellcomeComponent } from "./presentation/components/loader/wellcome/wellcome.component";
+import { LogoutComponent } from "./presentation/components/Dasboard/logout/logout.component";
 
 
 export const routes: Routes = [
@@ -24,10 +25,12 @@ export const routes: Routes = [
   }, // home
   { path: 'wellcome', component: WellcomeComponent }, // spiner bienvenida signin
   { path: 'loader', component: LoaderComponent }, // spiner de inicio
-  { path: 'home', component: DashboardComponent }, // home
+  { path: 'home', component: DashboardComponent },  // home
   { path: 'settings', component: SettingsComponent }, // configuraciones
   { path: 'new_book', component: NewNotebookComponent }, // nuevo libro
+  { path: 'book/:id', component: NewNotebookComponent }, // nuevo libro
   { path: 'new_note/:libreta', component: NoteDataComponent }, // nueva nota
   { path: 'note/:id', component: NoteDataComponent }, // abre nota ya creada
+  { path: 'logout', component: LogoutComponent }, // cierra session
   { path: '**', redirectTo: '/login' }, // default
 ]

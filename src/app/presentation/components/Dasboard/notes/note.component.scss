@@ -1,6 +1,7 @@
 @use "../../../../../styles/variables" as var;
 
 .delete {
+  
   background-color: rgba(208, 25, 25, 0.593) !important;
 }
 
@@ -9,7 +10,7 @@
   height: 260px;
   border: 1px solid var.$cuarto;
   background-color: var.$sexto;
-
+  position: relative;
   border-radius: 15px;
   margin: 10px;
 
@@ -31,6 +32,9 @@
     display: flex;
 
     .delete_icon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
       width: 15px;
       height: 15px;
       background-color: blue;
@@ -95,7 +99,7 @@
 @media (30px <=width <=700px) {
 
   .container {
-    width: 119px;
+    width: 135px;
     height: 180px;
     padding: 9px;
     margin: 4px;
@@ -106,7 +110,7 @@
       .title {
         h4 {
           font-size: 9px;
-          font-weight: 700 !important;
+          font-weight: 700 !important; 
 
         }
       }

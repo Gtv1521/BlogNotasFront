@@ -10,6 +10,7 @@ import { SessionEntity } from '../../../domain/models/session.model'
 import { SessionUseCase } from '../../../aplication/use-cases/session.use-case'
 import { AuthService } from '../../../../services/utils/Auth/auth.service'
 import { logInput } from '../../../aplication/inputs/log.input'
+import { runPostSignalSetFn } from '@angular/core/primitives/signals'
 
 @Component({
   selector: 'app-login',
@@ -20,11 +21,11 @@ import { logInput } from '../../../aplication/inputs/log.input'
 })
 export class LoginComponent {
   // Estados de la application
-  togglepassword: boolean = false
-  loading: boolean = false
-  errors: string | any = '' 
-  statusError: boolean = false
-  data: SessionEntity | undefined
+  togglepassword: boolean = false;
+  loading: boolean = false;
+  errors: string | any = '';
+  statusError: boolean = false;
+  data: SessionEntity | undefined;
 
   // valores del constructor
   private fb = inject(FormBuilder)
@@ -58,7 +59,7 @@ export class LoginComponent {
         mail: valoresFormulario.email!,
         password: valoresFormulario.password!,
       }
-    
+
       this.service.logIn(User).subscribe({
         next: (response) => {
           this.loading = false

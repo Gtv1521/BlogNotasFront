@@ -32,11 +32,12 @@
     justify-content: space-between;
 
     .actions {
-      width: 94%;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
 
+      // 20%
       .panel_delete {
         width: 20%;
         display: flex;
@@ -83,12 +84,13 @@
           }
         }
       }
-
+      //  60%
       .panel_buscar {
-        width: 80%;
+        width: 60%;
+        position: relative;
 
         .search_notes {
-          width: 80%;
+          width: 100%;
           height: 30px;
           text-align: center;
           background-color: var.$primeroDifuminado;
@@ -97,46 +99,64 @@
           padding-left: 10px;
           font-size: 1rem;
         }
-      }
-    }
 
-    .panel_pages {
-      width: 6%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      justify-content: space-around;
-
-      .page {
-        width: 30%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-        text-align: center;
-      }
-
-      &>div {
-        width: 25%;
-
-        button {
-          width: 100%;
+        .btn_buscar{
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
           border: none;
-          border-radius: 5px;
-          font-weight: 900;
-          font-size: 1.2rem;
-          background-color: transparent;
           color: var.$primero;
-          cursor: pointer;
+          background-color: transparent;
 
-          &:hover {
-            background-color: var.$primeroDifuminado;
-            color: var.$primero;
+          &:hover{
+            font-weight: 600;
           }
         }
       }
+
+      // 20%
+      .panel_pages {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-around;
+
+        .page {
+          width: 30%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: auto;
+          text-align: center;
+        }
+
+        &>div {
+          width: 25%;
+
+          button {
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            background-color: transparent;
+            color: var.$primero;
+            cursor: pointer;
+
+            &:hover {
+              background-color: var.$primeroDifuminado;
+              color: var.$primero;
+            }
+          }
+        }
+      }
+
     }
+
+
 
   }
 

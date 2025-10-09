@@ -214,7 +214,6 @@ export class NoteDataComponent {
     this.service.updateNote(dataUpdate, `${this.idNota}`).subscribe({
       next: (res) => {
         this.responses = res;
-        console.log(res)
         this.service.allNotesByBook(`${dataUpdate.idBook}`, 1); // refresca las notas
         this.getNote(); // se carga la nota de nuevo
         this.loader = false;
