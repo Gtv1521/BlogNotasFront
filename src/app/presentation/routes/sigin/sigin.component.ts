@@ -87,7 +87,8 @@ export class SiginComponent {
       this.service.sigIn(User).subscribe({
         next: (response) => {
           this.data = response
-          this.auth.setAuth(response.idUser, response.token); // inicia session 
+          console.log(response) // eliminar comentario 
+          this.auth.setAuth(response.idUser); // inicia session 
           this.loading = false
           this.router.navigate(['/wellcome']);
 

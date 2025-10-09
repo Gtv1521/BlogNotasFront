@@ -49,15 +49,15 @@ export class DashboardComponent {
     })
 
     //  Session
-    if (localStorage.getItem('id') === null && this.auth.getUserId() === null) {
+    if (this.auth.getUserId() === null ) {
+      // &&  localStorage.getItem('id') === null
       this.logout()
-      timer(2000).pipe().subscribe(() => {
-        this.router.navigate(['/login'])
-      });
+      // timer(2000).pipe().subscribe(() => {
+      //   this.router.navigate(['/login'])
+      // });
     }
 
     this.id = this.auth.getUserId();
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {

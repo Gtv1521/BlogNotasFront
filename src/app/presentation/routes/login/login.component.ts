@@ -62,15 +62,15 @@ export class LoginComponent {
 
       this.service.logIn(User).subscribe({
         next: (response) => {
-          this.loading = false
-          this.data = response
-          this.auth.setAuth(response.idUser, response.token) /* se hace inicio de session por medio de variables */
-          this.router.navigate(['/loader']) /* se arranca la session en el dashboard */
+          this.loading = false;
+          this.data = response;
+          this.auth.setAuth(response.idUser); /* se hace inicio de session por medio de variables */
+          this.router.navigate(['/loader']); /* se arranca la session en el dashboard */
         },
         error: (error) => {
-          this.loading = false
-          this.errors = error
-          this.statusError = true
+          this.loading = false;
+          this.errors = error;
+          this.statusError = true;
         },
       })
     }
