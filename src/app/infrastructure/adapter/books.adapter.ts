@@ -1,9 +1,9 @@
 import { map, Observable } from "rxjs";
 import { BookEntity } from "../../domain/models/noteBooks.model";
 import { IBook } from "../../domain/ports/crud.port";
-import { Injectable, ResourceStatus } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { envDev, environment } from "../../../Environment/Environment";
+import { environment } from "../../../Environment/Environment";
 import { BookDto } from "../../aplication/dtos/libreta.dto";
 import { bookMapper } from "../../aplication/mappers/book,map";
 
