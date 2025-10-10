@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { TargetComponent } from "../../utils/target/target.component";
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { BookUseCase } from '../../../../aplication/use-cases/book.use-case';
@@ -7,11 +7,12 @@ import { AsyncPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faGears, faPenToSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { RequestDeleteComponent } from "../../Flotantes/request-delete/request-delete.component";
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe, FontAwesomeModule],
+  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe, FontAwesomeModule, RequestDeleteComponent],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
@@ -31,6 +32,9 @@ export class BooksComponent {
   blockPage: boolean = true; // desactiva el paginado
   alert: boolean = false; // activa alerta de delete
 
+  // onDelete: boolean = false;
+
+  listDelete: string[] = [];
   // icons
   faTrash = faTrash; // delete
   faPenToSquare = faPenToSquare// editar 
@@ -72,36 +76,77 @@ export class BooksComponent {
       if (books && books.length > 0) {
         const firstBookId = books[0].id;
         this.getLibreta.emit(firstBookId);
-        this.onNoteSelected(firstBookId);
+        this.onNoteSelected(firstBookId, false);
       }
     });
   }
 
+  requestDelete(): void {
+    if (!this.edit && !this.deleteBook ) {
+      this.alert = true
+    }else{
+      this.goDelete(false);
+    }
+  }
   // cambia el estado de deleteBook
-  onDelete(): void {
-    this.deleteBook = !this.deleteBook;
-    this.blockPage = false;
-    this.edit = false;
-
+  goDelete(response: boolean): void {
+    console.log(response)
+    if (response === false) {
+      this.alert = false;
+      this.deleteBook = false;
+    } else {
+      this.alert = false;
+      this.deleteBook = !this.deleteBook;
+      this.blockPage = !this.blockPage;
+      this.edit = false;
+      this.listDelete = []
+    }
   }
 
   // cambia el estado de edit
-  onEdit(): void {
-    this.alert = true; // activa mensaje
-    this.blockPage = !this.blockPage;
-    this.edit = !this.edit;
+  goEdit(): void {
+    if (!this.deleteBook) {
+      this.alert = true; // activa mensaje
+      this.edit = !this.edit;
+      this.blockPage = !this.blockPage;
+
+    }
   }
 
   // activa componente en uso 
-  onNoteSelected(id: string): void {
-    if (this.edit) {
-      this.edit = false;
-      this.blockPage = false;
-      this.router.navigate([`/book/${id}`]);
+  onNoteSelected(id: string, estado: boolean): void {
+
+    let action: string = "";
+    if (this.edit) action = "editar";
+    if (this.deleteBook) action = "borrar";
+
+    switch (action) {
+      case "borrar":
+        this.goSelectDelete(id, estado);
+        break;
+      case "editar":
+        this.edit = false;
+        this.blockPage = false;
+        this.router.navigate([`/book/${id}`]);
+        break;
+
+      default:
+        if (this.selectItem !== id) {
+          this.selectItem = this.selectItem === id ? null : id;
+          this.getLibreta.emit(id)
+        }
+        break;
+    }
+  }
+
+  // lista de elementos a borrar
+  goSelectDelete(id: string, estado: boolean): void {
+    if (estado) {
+      this.listDelete.push(id)
     } else {
-      if (this.selectItem !== id) {
-        this.selectItem = this.selectItem === id ? null : id;
-        this.getLibreta.emit(id)
+      const index = this.listDelete.indexOf(id);
+      if (index > -1) {
+        this.listDelete.splice(index, 1);
       }
     }
   }

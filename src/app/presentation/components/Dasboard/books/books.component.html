@@ -8,20 +8,20 @@
     <!-- acciones de las notas -->
     <div class="actions">
       <!-- icono delete -->
-      <div (click)="onDelete()" class="panel" title="delete book" [class.delete]="deleteBook">
-        <fa-icon class="icono" [icon]="faTrash" />
+      <div class="panel" title="delete book" [class.delete]="deleteBook">
+        <fa-icon (click)="requestDelete()" class="icono" [icon]="faTrash" />
       </div>
 
       <!-- icono editar -->
       @if (!deleteBook) {
-      <div (click)="onEdit()" class="panel" title="edit book" [class.edit]="edit">
-        <fa-icon class="icono" [icon]="faPenToSquare" />
+      <div class="panel" title="edit book" [class.edit]="edit">
+        <fa-icon (click)="goEdit()" class="icono" [icon]="faPenToSquare" />
       </div>
       }@else {
 
       <!-- conteo delete -->
       <div class="cant_delete">
-        <span>1</span>
+        <span><b>{{ listDelete.length }}</b></span>
       </div>
       }
 
@@ -60,7 +60,8 @@
       <ul class="list-books">
         @for (item of books$ | async; track item.id) {
         <li>
-          <app-target [item]='item' [isActive]="selectItem === item.id" (noteSelected)="onNoteSelected(item.id)" />
+          <app-target [item]='item' [deleteOn]="deleteBook" [isActive]="selectItem === item.id"
+            (noteSelected)="onNoteSelected(item.id, $event)" />
         </li>
         }
       </ul>
@@ -89,3 +90,8 @@
     </div>
   </div>
 </div>
+
+@if (alert) {
+<app-request-delete [request]='"Al eliminar un libro se borran todas las notas que contiene"'
+  (response)="goDelete($event)" />
+}

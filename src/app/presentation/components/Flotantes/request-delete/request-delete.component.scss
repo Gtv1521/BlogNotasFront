@@ -1,0 +1,57 @@
+@use '../../../../../styles/variables' as var;
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background-color: var.$primeroDifuminado;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container-fluid {
+        width: 40%;
+        height: 30%;
+        padding: 30px;
+        border-radius: 20px;
+        background-color: var.$modal-font;
+
+        .panel_alert {
+            margin-top: 30px;
+
+            .title {
+                width: 100%;
+                font-size: 2rem;
+                font-weight: 700;
+                text-align: center;
+            }
+            .panel_request {
+                width: 100%;
+                margin-top: 20px;
+                text-align: center;
+                font-weight: 550;
+            }
+            .responses {
+                width: 100%;
+                display: flex; 
+                margin-top: 30px;
+                justify-content: space-evenly;
+
+                button {
+                    padding: 8px 45px;
+                    border-radius: 10px;
+                    background-color: var.$primeroDifuminado;
+                    color: var.$primero;
+                    border:1px solid var.$primero;
+                    font-weight: 700;
+                    &:hover{
+                        background-color: var.$tercero;
+                    }
+                }
+            }
+        }
+    }
+}

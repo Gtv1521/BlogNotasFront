@@ -1,8 +1,15 @@
-<div class="container" (click)="handleActive()" [class.selected]="isActive">
+<div class="container" (click)="handleActive()" [class.delete]="onDelete" [class.selected]="isActive">
   <div class="container-fliud">
+    @if (deleteOn) {
+    <div class="panel_delete">
+      @if (onDelete) {
+      <fa-icon class="icono" [icon]="faCircleCheck"></fa-icon>
+      }
+    </div>
+    }
     <div class="name">
       {{ item.nameBook }}
     </div>
-    <div class="cantidad"> <i>{{ item.notesCount}}</i> </div>
+    <div class="cantidad"> <i>{{ item.notesCount }}</i> </div>
   </div>
 </div>

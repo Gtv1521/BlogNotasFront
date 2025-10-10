@@ -40,7 +40,6 @@
 
 
       .panel {
-        // text-align: center;
         height: 100%;
         width: 32%;
         margin: auto;
@@ -48,7 +47,6 @@
         justify-content: center;
         text-align: center;
 
-        // background-color: blue;
 
         .icono {
           width: 20px;
@@ -63,7 +61,6 @@
           &:hover {
             background-color: var.$font-note;
             border: 2px solid var.$primero ;
-            // color: var.$segundo;
           }
         }
 
@@ -86,9 +83,20 @@
         font-weight: 700;
 
         span {
+          position: relative;
+          width: 32px;
+          height: 100%;
           padding: 1px 8px;
           background-color: var.$cuarto;
           border-radius: 50%;
+
+          b {
+            position: absolute;
+            // text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
       }
 

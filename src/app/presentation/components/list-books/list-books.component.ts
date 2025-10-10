@@ -100,6 +100,7 @@ export class ListBooksComponent {
     this.arrayDelete = [];
     this.quantityDelete = 0;
   }
+  
   // selecciona las notas a eliminar
   selectNote(id: string, isChecked: boolean): void {
     if (isChecked) {
@@ -125,7 +126,6 @@ export class ListBooksComponent {
     this.arrayDelete = [];
     this.quantityDelete = 0;
     this.onDelete = false;
-    console.log(this.idLibreta);
     this.book.loadAll(this.auth.getUserId()!, 1); // recarga las libretas
     this.service.allNotesByBook(this.idLibreta, 1);
   }
