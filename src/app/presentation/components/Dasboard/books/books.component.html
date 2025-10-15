@@ -22,26 +22,30 @@
       <!-- conteo delete -->
       <div class="cant_delete">
         <span><b>{{ listDelete.length }}</b></span>
+
       </div>
       }
 
       <div class="panel pagina">
-        @if (pagina !== 1 && blockPage) {
-        <button title="anterior" (click)="changePage(pagina-1)" class="cambio">
-          <fa-icon [icon]="faChevronLeft" />
-        </button>
-        }
+        <div class="cambio">
+          @if (pagina !== 1 && blockPage) {
+          <button title="anterior" class="btn" (click)="changePage(pagina-1)">
+            <fa-icon class="icon" [icon]="faChevronLeft" />
+          </button>
+          }
+        </div>
         @if (!deleteBook) {
         <section title="pagina"> {{ pagina }} </section>
         }@else {
-        <button class="btn_delete_book">aceptar</button>
+        <button (click)="onDeleteConf()" [disabled]="listDelete.length === 0" class="btn_delete_book">Aceptar</button>
         }
-
-        @if (pagina !== quantity && blockPage) {
-        <button title="siguiente" (click)="changePage(pagina+1)" class="cambio">
-          <fa-icon [icon]="fachevronRight" />
-        </button>
-        }
+        <div class="cambio">
+          @if (pagina !== quantity && blockPage) {
+          <button title="siguiente" class="btn" (click)="changePage(pagina+1)">
+            <fa-icon class="icon" [icon]="fachevronRight" />
+          </button>
+          }
+        </div>
       </div>
     </div>
 
@@ -94,4 +98,13 @@
 @if (alert) {
 <app-request-delete [request]='"Al eliminar un libro se borran todas las notas que contiene"'
   (response)="goDelete($event)" />
+}
+
+@if (alertConf) {
+<app-request-delete [request]='"¿ Seguro quiere eliminar <strong>" +listDelete.length + " libros </strong> con las notas que contienen ?"'
+  (response)="goDeleteBooks($event)" />
+}
+
+@if (deleteActive) {
+  <app-load-save [loading]="loadDelete" /> 
 }

@@ -8,11 +8,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faGears, faPenToSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { RequestDeleteComponent } from "../../Flotantes/request-delete/request-delete.component";
+import { LoadSaveComponent } from "../../Flotantes/load-save/load-save.component";
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe, FontAwesomeModule, RequestDeleteComponent],
+  imports: [TargetComponent, LoaderSpinnerComponent, AsyncPipe, FontAwesomeModule, RequestDeleteComponent, LoadSaveComponent],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
@@ -31,6 +33,11 @@ export class BooksComponent {
   edit: boolean = false; // activa edicion 
   blockPage: boolean = true; // desactiva el paginado
   alert: boolean = false; // activa alerta de delete
+  alertConf: boolean = false; // activa el modal de confirmacion de delete
+  confDelete: boolean = false; // respuesta del alert cofirma delete
+
+  deleteActive: boolean = false; // abre el modal de carga de borrar
+  loadDelete: boolean = false; // estado del espinner de carga del modal delete
 
   // onDelete: boolean = false;
 
@@ -44,13 +51,13 @@ export class BooksComponent {
   faChevronUp = faChevronUp; // flecha arriba
   faChevronDown = faChevronDown; // flecha abajo
 
-  private service = inject(BookUseCase); // enlace a books
+  private book = inject(BookUseCase); // enlace a books
   private auth = inject(AuthService); // enlace a auth
   private router = inject(Router); // enlace a rutas
 
-  books$ = this.service.book$; // data
-  loading$ = this.service.loading$; // loader
-  error$ = this.service.errors$; // errores
+  books$ = this.book.book$; // data
+  loading$ = this.book.loading$; // loader
+  error$ = this.book.errors$; // errores
 
   // se lanza al unicio de componente
   ngOnInit(): any {
@@ -61,8 +68,8 @@ export class BooksComponent {
   // carga los datos las libreyas
   loadNoteBooks(): any {
     // consulta de todas las libretas
-    this.service.loadAll(this.id, this.pagina);
-    this.service.count(this.id).subscribe({
+    this.book.loadAll(this.id, this.pagina);
+    this.book.count(this.id).subscribe({
       next: (count) => {
         this.quantity = Math.ceil(count / 10); // redondea hacia arriba
       },
@@ -72,7 +79,7 @@ export class BooksComponent {
     });
 
     // se invoca la primera nota 
-    this.service.book$.subscribe((books) => {
+    this.book.book$.subscribe((books) => {
       if (books && books.length > 0) {
         const firstBookId = books[0].id;
         this.getLibreta.emit(firstBookId);
@@ -82,22 +89,23 @@ export class BooksComponent {
   }
 
   requestDelete(): void {
-    if (!this.edit && !this.deleteBook ) {
-      this.alert = true
-    }else{
+    if (!this.edit && !this.deleteBook) {
+      this.alert = true;
+      this.blockPage = false;
+    } else {
       this.goDelete(false);
     }
   }
   // cambia el estado de deleteBook
   goDelete(response: boolean): void {
-    console.log(response)
     if (response === false) {
-      this.alert = false;
-      this.deleteBook = false;
+      this.alert = false;  // cierra el alert
+      this.deleteBook = false; // cambia el estado del boton 
+      this.blockPage = true; // regresa el estado de bloquear pagina
     } else {
-      this.alert = false;
+      this.alert = false;  // cierra el alert 
       this.deleteBook = !this.deleteBook;
-      this.blockPage = !this.blockPage;
+      this.blockPage = false;
       this.edit = false;
       this.listDelete = []
     }
@@ -106,10 +114,9 @@ export class BooksComponent {
   // cambia el estado de edit
   goEdit(): void {
     if (!this.deleteBook) {
-      this.alert = true; // activa mensaje
+      // this.alert = true; // activa mensaje
       this.edit = !this.edit;
       this.blockPage = !this.blockPage;
-
     }
   }
 
@@ -151,11 +158,39 @@ export class BooksComponent {
     }
   }
 
+  // activa el modal de confirmacion el numero de libros a eliminar
+  onDeleteConf(): void {
+    this.alertConf = true; // activa modal de confDelete 
+  }
+
+  //  borra los libros seleccionados y las notas que contienen
+  goDeleteBooks(response: boolean): void {
+    if (response) {
+      this.alertConf = false; // apaga el alert de ConfDelete
+      this.deleteActive = true; // activa el delete del modal (spinner de carga)
+      this.listDelete.forEach(item => {
+        this.book.delete(item).subscribe({
+          next: (res) => console.log(res),
+        })
+      })
+      this.loadDelete = false;
+      setTimeout(() => {
+        this.loadNoteBooks();
+        this.deleteActive = false;
+        this.deleteBook = false; // cambia el estado del boton 
+        this.blockPage = true; // regresa el estado de bloquear pagina
+      }, 700);
+    }
+    else {
+      this.alertConf = false; //apaga el modal de ConfDelete
+    }
+  }
+
   // cambia de pagina
   changePage(page: number): void {
     if (page >= 1 && page <= this.quantity) {
       this.pagina = page;
-      this.service.loadAll(this.id, page);
+      this.book.loadAll(this.id, page);
     }
   }
 

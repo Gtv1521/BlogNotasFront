@@ -8,9 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
+    background-color: var.$primeroDifuminado;
+    z-index: 3;
 
-    .container{
+    .container {
         width: 25%;
         height: fit-content;
         padding: 20px 0;
@@ -18,7 +19,6 @@
         color: var.$primero;
         text-align: center;
         border-radius: 20px;
-
         font-weight: 500;
         font-size: 2rem;
     }
@@ -31,5 +31,11 @@
     .done {
         font-size: 4rem;
         color: var.$cuarto;
+    }
+}
+
+@media (30px <=width<=500px) {
+    .container {
+        width: 90% !important;
     }
 }

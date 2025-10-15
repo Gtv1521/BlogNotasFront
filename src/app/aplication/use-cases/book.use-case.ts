@@ -70,7 +70,9 @@ export class BookUseCase {
             id: '',
             nameBook: input.name,
             idUser: input.idUser,
-            notesCount: 0
+            notesCount: 0, 
+            updateDate: null,
+            createDate: null,
         }
 
         // pasa la libreta nueva al adapter
@@ -94,7 +96,9 @@ export class BookUseCase {
             id: id,
             idUser: input.idUser,
             nameBook: input.name,
-            notesCount: 0
+            notesCount: 0,
+            updateDate: null,
+            createDate: null
         }
 
         // actualiza datos en el adapter

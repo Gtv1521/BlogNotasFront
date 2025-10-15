@@ -95,6 +95,12 @@
         display: flex;
         justify-content: space-around;
 
+        strong {
+          color: var.$primero;
+        }
+        span {
+          color: var.$primeroOpaco;
+        }
       }
     }
   }
@@ -120,8 +126,9 @@
 
         .info,
         .dates {
-          width: 45%;
-          
+          width: 95%;
+          margin: auto;
+
           .item {
             padding: 8px;
             width: 100% !important;

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faChevronLeft, faEllipsis, faL, faRotateRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +38,7 @@ export class NoteDataComponent {
   hoy: Date = new Date();
   alert: boolean = false;
   loader: boolean = true;
+  load: boolean = false; // estado para modales de carga
   saveLoader: boolean = false;
   doneSave: boolean = false;
   data: NoteEntity | null = null; // recibe datos de actualizacion 
@@ -133,7 +134,7 @@ export class NoteDataComponent {
   requestResponse(estado: boolean): void {
     if (estado) {
       this.save(this.idNota);
-      this.loader = true;
+      this.load = true;
       this.alert = false; // cierra modal de alerta
       this.doneSave = true; // carga spiner guarda nota
       this.closeAlert()// cierra modal nota
@@ -146,8 +147,8 @@ export class NoteDataComponent {
   // cierra el alert
   closeAlert(): void {
     setTimeout(() => {
-      this.goHome()
-    }, 800)
+      if (this.load === false) this.goHome(); else this.closeAlert();
+    }, 1000)
   }
   // salida al home
   goHome(): void {
@@ -201,7 +202,7 @@ export class NoteDataComponent {
 
   // actualiza datos de una nota
   onUpdate(): void {
-    this.loader = true;
+    this.load = true;
     const valores = this.dataForm.value
 
     const dataUpdate: noteInput = {
@@ -216,7 +217,7 @@ export class NoteDataComponent {
         this.responses = res;
         this.service.allNotesByBook(`${dataUpdate.idBook}`, 1); // refresca las notas
         this.getNote(); // se carga la nota de nuevo
-        this.loader = false;
+        this.load = false;
         this.spinnerDone(); // cierra el spinner
       },
       error: (err) => {

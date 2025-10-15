@@ -3,31 +3,29 @@
   <div class="container-fluid">
 
     <!-- name of applicattion -->
-    <div class="name">
+    <div class="name" [class.ocultar]="buscar">
       <h2>MyBloog</h2>
     </div>
 
     @if (buscar) {
     <div class="panel_buscar" [class.buscar_active]="buscar">
 
-      <div class="consulta">
-        <div (click)="onToggleSearch(false)" title="cerrar busqueda" class="salir">
-          <fa-icon [icon]="faSquareXmark" />
-        </div>
-        <form>
-          <input class="search" placeholder="Search..." type="text">
-          <button value="submit">Buscar</button>
+        <form class="consulta">
+          <div (click)="onToggleSearch(false)" title="cerrar busqueda" class="salir">
+            <fa-icon [icon]="faSquareXmark" />
+          </div>
+          <input class="search" placeholder="Search" type="text">
+          <button class="btn_busca" value="submit">Buscar</button>
         </form>
-      </div>
 
     </div>
     }
 
     <!-- actions seargh - logout -->
-    <div class="actions">
+    <div class="actions" [class.ocultar]="buscar">
 
       <!-- funtions -->
-      <div class="funtions">
+      <div class="funtions" >
         <!-- buscar -->
         @if (!buscar) {
         <div (click)="onToggleSearch(true)" title="buscar" class="search">

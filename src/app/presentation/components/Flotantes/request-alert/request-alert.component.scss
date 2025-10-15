@@ -5,7 +5,7 @@
   height: 100vh;
   position: absolute;
   top: 0;
-  background-color: var.$negro-modal;
+  background-color: var.$primeroDifuminado;
   z-index: inherit;
   display: flex;
   justify-content: center;
@@ -29,6 +29,7 @@
         font-size: 25px;
       }
     }
+
     .request {
       padding-top: 15px;
       text-align: center;
@@ -49,30 +50,32 @@
   }
 }
 
-@media (300px <= width <= 1366px) {
+@media (300px <=width <=500px) {
 
   .container-fluid {
     height: 18vh !important;
-  }
+    width: 90% !important;
+    padding: 10px;
 
-  .request {
-    padding-top: 0% !important;
-    margin-top: 0 !important;
-    margin-bottom: 4px !important;
-  }
+    .request {
+      padding-top: 0% !important;
+      margin-top: 10px !important;
+      margin-bottom: 4px !important;
+    }
 
-  fa-icon {
-    font-size: 20px !important;
-  }
+    fa-icon {
+      font-size: 20px !important;
+    }
 
-  .icono {
-    height: 35px !important;
-  }
+    .icono {
+      height: 35px !important;
+    }
 
-  .responses {
-    width: 75%;
-    margin: auto;
-    justify-content: space-between !important;
-    padding-top: 15px !important;
+    .responses {
+      width: 75%;
+      margin: 10px auto 0 auto;
+      justify-content: space-between !important;
+      padding-top: 15px !important;
+    }
   }
 }

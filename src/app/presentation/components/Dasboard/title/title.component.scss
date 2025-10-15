@@ -12,66 +12,76 @@
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     .name {
+      width: 15%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+
     }
 
     .panel_buscar {
+      // position: relative;
       width: 50%;
+      height: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-
-
+      // background-color: red;
+      
       .consulta {
         position: relative;
         width: 100%;
-
+        height: 100%;
+        
         .salir {
           position: absolute;
-          left: 3px;
-          top: 50%;
-          transform: translateY(-50%);
+          height: 100%;
           cursor: pointer;
-          font-size: 25px;
-          color: var.$cuarto;
+          
           &:hover {
-            color: var.$primero;
+            color: var.$tercero;
           }
-
+          
+          fa-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+          }
+          
         }
-
+        
         .search {
           width: 100%;
+          height: 100%;
           box-sizing: border-box;
-          height: 30px;
           text-align: center;
           background-color: var.$primeroDifuminado;
           border: none;
           border-radius: 5px;
-          // padding-left: 10px;
-          padding: 8px 80px 8px 40px;
           font-size: 1rem;
         }
 
-        button {
+        .btn_busca {
           position: absolute;
-          right: 2px;
+          right: 4px;
           top: 50%;
           transform: translateY(-50%);
+          padding: 2px 10px;
           background-color: transparent;
           border: none;
           color: white;
-          padding: 5px 10px;
+          font-weight: 600;
           cursor: pointer;
 
-          &:hover{
-            font-weight: 600;
+          &:hover {
+            color: var.$tercero;
+
           }
         }
       }
@@ -80,10 +90,10 @@
     .actions {
       width: 8%;
       height: 100%;
-      display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 25px;
+      display: flex;
       font-weight: 800;
 
       .funtions {
@@ -137,10 +147,76 @@
 }
 
 
-@media (30px <=width <=1000px) {
+@media (30px <=width <=700px) {
+
   .container {
-    .container-fluid>* {
-      font-size: 15px !important;
+    width: 100% !important;
+
+    .container-fluid {
+      height: 100%;
+      max-width: 97% !important;
+      flex-direction: row;
+
+      .name {
+        width: 25% !important;
+        font-size: 14px ;
+      }
+
+      .panel_buscar {
+        width: 100%;
+        height: 100%;
+
+        .consulta {
+          width: 100% !important;
+        }
+      }
+
+      .panel_buscar {
+        // background-color: blue;
+        position: relative;
+        width: 100% !important;
+        height: 100% !important;
+        // background-color: green;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        // line-height: 100% !important;
+
+        .consulta {
+          width: 100% !important;
+          height: 90% !important;
+
+          .salir {
+
+            fa-icon {
+              height: 20px;
+              margin-top: -3px !important;
+              font-size: 1.6rem !important;
+
+            }
+
+          }
+        }
+
+      }
+
+      .actions {
+        width: 27% !important;
+        font-size: 16px !important;
+
+        .funtions {
+          width: 50% !important;
+        }
+
+        .logout {
+          width: 30% !important;
+        }
+      }
     }
+
+    .ocultar {
+      display: none !important;
+    }
+
   }
 }

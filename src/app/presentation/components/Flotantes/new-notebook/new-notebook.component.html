@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="exit">
       <span (click)="goHome()">
-        <fa-icon [icon]="faCircleXmark"></fa-icon>
+        <fa-icon [icon]="faCircleXmark" />
       </span>
     </div>
 
@@ -14,7 +14,9 @@
     <!-- Contendor forms -->
     <div class="content">
       @if (loader) {
-      <app-loader-spinner />
+        <span>
+          <app-loader-spinner />
+        </span>
       }
       @else {
       <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
@@ -27,34 +29,50 @@
           Guardar
         </button>
 
-        <div class="responses">
-          @if (loading) {
-          loading ...
-          }
-
-        </div>
       </form>
       }
     </div>
 
     <!-- informacion de usuario -->
-     <div class="panel_information">
-       <div class="title_info">Informacion</div>
+    <div class="panel_information">
+      <div class="title_info">Informacion</div>
 
-       <div class="information">
-   
-         
-         <div class="info">
-           <div class="item">Usuario: -- </div>
-           <div class="item">Cant. libretas: -- </div>
-         </div>
-         
-         <div class="dates">
-           <div class="item">Creation: -- </div>
-           <div class="item">Update: -- </div>
-         </div>
-       </div>
-     </div>
+      @if (loadInfo) {
+        <span>
+          <app-loader-spinner />
+        </span>
+      } @else {
+      <div class="information">
+        <div class="info">
+          <div class="item">
+            <strong>Usuario: </strong>
+            <span> {{userData.name}} </span>
+          </div>
+          <div class="item">
+            <strong>Cant. libretas: </strong>
+            <span> {{countBooks}}</span>
+          </div>
+        </div>
+
+        <div class="dates">
+          <div class="item">
+            <strong>Creation: </strong>
+            <span> {{ idLibreta === null ?
+              (hoy | date: 'EEEE, d MMMM yyyy HH:mm')
+              :
+              (respuesta.createDate | date:'EEEE, d MMMM yyyy HH:mm') }}
+            </span>
+          </div>
+          <div class="item">
+            <strong>
+              Update:
+            </strong>
+            <span> {{ idLibreta === null ? "---" : (respuesta.updateDate | date: 'EEEE, d MMMM yyyy HH:mm') }} </span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
   </div>
 </div>
 

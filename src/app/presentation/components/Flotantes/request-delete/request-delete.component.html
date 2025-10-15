@@ -5,7 +5,7 @@
             <div class="title"> Warning !!! </div>
 
             <div class="panel_request">
-                <div class="request"> {{ request }} </div>
+                <div [innerHTML]="request" class="request"></div>
             </div>
             <div class="responses">
                 <button (click)="goAcept()">Aceptar</button>

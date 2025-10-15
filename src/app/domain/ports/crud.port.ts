@@ -10,7 +10,9 @@ export interface ICrud<Model> {
 }
 
 // interface para el inicio de session
-export default interface IUser<Model> extends Omit<ICrud<Model>, 'readAll' | 'write' | 'filter'> { }
+export default interface IUser<Model> extends Omit<ICrud<Model>, 'readAll' | 'write' | 'filter' | 'delete'> {
+    delete(id: string): Observable<boolean>
+ }
 
 //  interface para las notas 
 export interface INote<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter'> {

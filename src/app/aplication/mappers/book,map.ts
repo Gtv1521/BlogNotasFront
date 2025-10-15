@@ -7,7 +7,9 @@ export class bookMapper {
             id: dto.idLibreta,
             idUser: dto.idUser,
             nameBook: dto.nombre,
-            notesCount: dto.notesCount
+            notesCount: dto.notesCount,
+            updateDate: dto.updateBook,
+            createDate: dto.createBook
         }
     } 
 
@@ -16,7 +18,9 @@ export class bookMapper {
             idLibreta: dto.id,
             idUser: dto.idUser,
             nombre: dto.nameBook,
-            notesCount: dto.notesCount
+            notesCount: dto.notesCount,
+            createBook: dto.createDate,
+            updateBook: dto.updateDate,
         }
     }
 }

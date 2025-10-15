@@ -42,10 +42,10 @@
 
                 button {
                     padding: 8px 45px;
-                    border-radius: 10px;
+                    border-radius: 5px;
                     background-color: var.$primeroDifuminado;
                     color: var.$primero;
-                    border:1px solid var.$primero;
+                    border: none;
                     font-weight: 700;
                     &:hover{
                         background-color: var.$tercero;
@@ -53,5 +53,11 @@
                 }
             }
         }
+    }
+}
+
+@media (30px <= width <= 500px) {
+    .container-fluid {
+        width: 95% !important;
     }
 }

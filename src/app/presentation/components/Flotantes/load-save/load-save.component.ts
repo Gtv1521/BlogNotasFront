@@ -13,7 +13,7 @@ export class LoadSaveComponent {
 
   // estados
  @Input() loading: boolean = true;
-
+ 
   // iconos
   faCircleCheck = faCircleCheck; // done
 }
