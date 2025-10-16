@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faChevronLeft, faEllipsis, faL, faRotateRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -12,11 +12,13 @@ import { LoaderSpinnerComponent } from "../../loader/loader-spinner/loader-spinn
 import { LoadSaveComponent } from "../../Flotantes/load-save/load-save.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoteDataService } from '../../../services/note.data.service';
+import { OptionsComponent } from "../../Flotantes/options/options.component";
+import { RequestDeleteComponent } from "../../Flotantes/request-delete/request-delete.component";
 
 @Component({
   selector: 'app-note-data',
   standalone: true,
-  imports: [DatePipe, FontAwesomeModule, ReactiveFormsModule, RequestAlertComponent, LoaderSpinnerComponent, LoadSaveComponent],
+  imports: [DatePipe, FontAwesomeModule, ReactiveFormsModule, RequestAlertComponent, LoaderSpinnerComponent, LoadSaveComponent, OptionsComponent, RequestDeleteComponent],
   templateUrl: './note-data.component.html',
   styleUrl: './note-data.component.scss'
 })
@@ -38,12 +40,14 @@ export class NoteDataComponent {
   hoy: Date = new Date();
   alert: boolean = false;
   loader: boolean = true;
+  options: boolean = false; // abre opciones de nota
   load: boolean = false; // estado para modales de carga
   saveLoader: boolean = false;
   doneSave: boolean = false;
   data: NoteEntity | null = null; // recibe datos de actualizacion 
   errors: any = '';
   responses: string | boolean = false;
+  reqDelete: boolean = false; // muestra panel de seguro borrar 
   Request: string = 'Quiere guardar antes de salir ?';
 
   // Entradas en el constructor
@@ -71,10 +75,10 @@ export class NoteDataComponent {
   getDataNote(): void {
     const response = this.noteService.getNote();
 
-    if(response.idNota === null) {
+    if (response.idNota === null) {
       this.idNota = response.idNota
       this.idLibreta = this.route.snapshot.paramMap.get('libreta')!;
-    }else{
+    } else {
       this.idNota = this.route.snapshot.paramMap.get('id')!;
       this.idLibreta = response.idLibreta;
     }
@@ -130,6 +134,11 @@ export class NoteDataComponent {
     }
   }
 
+  // abre opciones
+  openClose(): void {
+    this.options = !this.options;
+  }
+
   // respuesta del alert
   requestResponse(estado: boolean): void {
     if (estado) {
@@ -150,9 +159,29 @@ export class NoteDataComponent {
       if (this.load === false) this.goHome(); else this.closeAlert();
     }, 1000)
   }
+
   // salida al home
   goHome(): void {
     this.router.navigate(['/home'])
+  }
+
+  // espera para cambiar el estado de guardado
+  spinnerDone(): void {
+    setTimeout(() => {
+      this.doneSave = false;
+    }, 700);
+  }
+
+  // abre / cierra modal de delete
+  onDelete(): void {
+    this.openClose(); // cierra el modal de opciones
+    this.reqDelete = !this.reqDelete;
+  }
+
+  delete(estado: boolean): void {
+    if (!estado) {
+      this.reqDelete = false; // cierra modal confDelete
+    }
   }
 
   // controla si guarda una nueva nota o si actualiza una ya creada dependiendo
@@ -164,13 +193,6 @@ export class NoteDataComponent {
       this.onUpdate();
     }
     this.doneSave = true;
-  }
-
-  // espera para cambiar el estado de guardado
-  spinnerDone(): void {
-    setTimeout(() => {
-      this.doneSave = false;
-    }, 700);
   }
 
   // crea una nueva nota

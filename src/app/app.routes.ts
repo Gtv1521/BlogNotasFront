@@ -10,6 +10,8 @@ import { NoteDataComponent } from "./presentation/components/Dasboard/note-data/
 import { LoaderComponent } from "./presentation/components/loader/loader-point/loader.component";
 import { WellcomeComponent } from "./presentation/components/loader/wellcome/wellcome.component";
 import { LogoutComponent } from "./presentation/components/Dasboard/logout/logout.component";
+import { CompartirNoteComponent } from "./presentation/routes/compartir-note/compartir-note.component";
+import { CambiarLibretaComponent } from "./presentation/routes/cambiar-libreta/cambiar-libreta.component";
 
 
 export const routes: Routes = [
@@ -30,6 +32,8 @@ export const routes: Routes = [
   { path: 'new_book', component: NewNotebookComponent }, // nuevo libro
   { path: 'book/:id', component: NewNotebookComponent }, // nuevo libro
   { path: 'new_note/:libreta', component: NoteDataComponent }, // nueva nota
+  { path: 'change_lib/:nota', component: CambiarLibretaComponent }, // cambiar libreta
+  { path: 'compartir/:nota', component: CompartirNoteComponent }, // nueva nota
   { path: 'note/:id', component: NoteDataComponent }, // abre nota ya creada
   { path: 'logout', component: LogoutComponent }, // cierra session
   { path: '**', redirectTo: '/login' }, // default

@@ -14,9 +14,12 @@
         </div>
       </div>
       <div class="config">
-        <div class="icono">
+        <!-- opciones -->
+        @if (idNota !== null) {
+        <div class="icono" (click)="openClose()">
           <fa-icon [icon]="faEllipsis" />
         </div>
+        }
       </div>
     </div>
 
@@ -35,7 +38,7 @@
             <textarea class="title_area" formControlName="title"></textarea>
           </div>
           <div class="content">
-              <textarea class="area" formControlName="contenido"> </textarea>
+            <textarea class="area" formControlName="contenido"> </textarea>
           </div>
         </div>
       </form>
@@ -63,6 +66,15 @@
 @if (alert) {
 <app-request-alert [Request]="Request" (closeAlert)="closeAlert()" (Response)="requestResponse($event)" />
 }
+
 @if (doneSave) {
 <app-load-save [loading]="load" />
+}
+
+@if (options) {
+<app-options (openClose)="openClose()" (deleteOn)="onDelete()" />
+}
+
+@if (reqDelete) {
+<app-request-delete [request]="'¿ Seguro quiere eliminar la nota <strong>'+ data?.title +'</strong> ?'" (response)="delete($event)" />
 }

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="container-fluid">
+        
+        <div class="option" (click)="goCompartirNote()">
+            <section class="panel_item">
+                <fa-icon [icon]="faLink" />
+                <span>Compartir</span>
+            </section>
+        </div>
+
+        <div class="option" (click)="goChangeBook()">
+            <section class="panel_item ">
+                <fa-icon [icon]="faCodeCompare" />
+                <span>Cambiar libro</span>
+            </section>
+        </div>
+
+        <div class="option" (click)="deleteOk()">
+            <section class="panel_item">
+                <fa-icon [icon]="faTrash" />
+                <span>Borrar</span>
+            </section>
+        </div>
+
+        <div class="option cancelar" (click)="closeOption()">
+            <span>Cancelar</span>
+        </div>
+    </div>
+</div>
