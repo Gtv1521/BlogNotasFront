@@ -1,57 +1,64 @@
-@use '../../../../../styles/variables' as var;
+@use "../../../../../styles/variables" as var;
 
 .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var.$sexto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var.$sexto;
 
-    .container-fluid {
-        width: 25%;
-        height: auto;
-        padding: 10px;
-        border-radius: 15px;
-        text-align: center;
-        background-color: var.$fondo-oscuro;
+  .container-fluid {
+    width: 25%;
+    height: auto;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: var.$fondo-oscuro;
 
-        .option {
-            margin: 1px 0;
-            padding: 10px;
-            font-weight: 700;
-            color: var.$primero;
-            border-radius: 6px;
+    .option {
+      margin: 1px 0;
+      padding: 10px;
+      font-weight: 700;
+      color: var.$primero;
+      border-radius: 6px;
 
-            .panel_item {
-                width: 38%;
-                margin: auto;
-                display: flex;
-                justify-content: space-around;
-            }
+      .panel_item {
+        width: 38%;
+        margin: auto;
+        display: flex;
+        justify-content: space-around;
+      }
 
-            span {
-                width: 70%;
+      span {
+        width: 70%;
+      }
 
-            }
-
-            &:hover {
-                background-color: var.$cuarto;
-            }
-        }
-
-        .cancelar {
-            color: var.$primeroOpaco;
-            background-color: var.$onDelete;
-
-            &:hover {
-                color: var.$primero;
-            }
-        }
+      &:hover {
+        background-color: var.$cuarto;
+      }
     }
 
+    .cancelar {
+      color: var.$primeroOpaco;
+      background-color: var.$onDelete;
 
+      &:hover {
+        color: var.$primero;
+      }
+    }
+  }
+}
+
+@media (30px <= width <= 500px) {
+  .container-fluid {
+    width: 80% !important;
+
+    .panel_item {
+      width: 50% !important;
+    }
+  }
 }
