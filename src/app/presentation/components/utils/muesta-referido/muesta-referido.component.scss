@@ -1,0 +1,94 @@
+@use "../../../../../styles/variables" as var;
+
+.container {
+  width: 250px;
+  height: 180px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var.$fondo-oscuro;
+
+  .container-fluid {
+    height: 100%;
+    padding: 5px;
+
+    .panel_data {
+      width: 100%;
+      height: 35%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .title {
+        font-weight: 700;
+        width: 100%;
+        text-align: center;
+        color: var.$primeroOpaco;
+      }
+    }
+
+    .permisos {
+      height: 50%;
+      width: 100%;
+
+      .title {
+        text-align: center;
+        width: 95%;
+        margin: auto;
+        font-weight: 600;
+      }
+      .panel_edit {
+        margin-top: 5px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        button {
+          background-color: var.$fondo-oscuro;
+          color: var.$primero;
+          border: none;
+          border-radius: 5px;
+          padding: 1px 7px;
+          font-size: 15px;
+
+          &:hover {
+            cursor: pointer;
+            background-color: var.$primeroDifuminado;
+            // color: var.$;
+          }
+        }
+      }
+    }
+
+    .panel_button {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        border-radius: 10px;
+        padding: 5px;
+        margin-top: 5px;
+        width: 100%;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        color: var.$primero;
+        background-color: var.$font-note;
+
+        &:hover {
+          background-color: var.$tercero;
+        }
+      }
+    }
+  }
+}
+
+.select {
+  background-color: var.$septimo;
+}
+
+.remove {
+  background-color: var.$onDelete !important;
+}

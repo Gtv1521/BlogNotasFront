@@ -20,6 +20,11 @@ import { throwError } from 'rxjs';
 })
 export class BooksComponent {
 
+  // data constructor
+  private book = inject(BookUseCase); // enlace a books
+  private auth = inject(AuthService); // enlace a auth
+  private router = inject(Router); // enlace a rutas
+
   // datos de componente padre
   @Output() getLibreta = new EventEmitter<string>();
 
@@ -51,9 +56,6 @@ export class BooksComponent {
   faChevronUp = faChevronUp; // flecha arriba
   faChevronDown = faChevronDown; // flecha abajo
 
-  private book = inject(BookUseCase); // enlace a books
-  private auth = inject(AuthService); // enlace a auth
-  private router = inject(Router); // enlace a rutas
 
   books$ = this.book.book$; // data
   loading$ = this.book.loading$; // loader

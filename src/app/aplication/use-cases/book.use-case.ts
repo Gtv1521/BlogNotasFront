@@ -29,6 +29,18 @@ export class BookUseCase {
             this.datosSubject.next(data);
         }
     }
+    filter(filter: string,id: string): void {
+        this.loadingSubject.next(true);
+        this.book.filter(filter, id).subscribe({
+            next:res => {
+                this.datosSubject.next(res);
+                this.loadingSubject.next(false);
+            }, 
+            error: err => {
+                this.errorSubject.next(err);
+            }
+        })
+    }
 
     // lee una libreta 
     load(id: string | null): Observable<BookEntity> {

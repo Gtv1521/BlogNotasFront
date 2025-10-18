@@ -19,7 +19,6 @@ export class RequestDeleteComponent {
 
   // boton cancelar
   goCancel(): void {
-    console.log(false)
     this.response.emit(false);
   }
 }

@@ -1,1 +1,50 @@
-<p>compartir-note works!</p>
+<div class="container">
+  <div class="container-fluid">
+    <div class="panel_title">
+      <div class="options" (click)="volver()">
+        <fa-icon [icon]="faChevronLeft" /> <span>Regresar</span>
+      </div>
+
+      <div class="title">Compatir nota</div>
+
+      <button class="confirmation">Compartir</button>
+    </div>
+
+    <div class="panel_contenido">
+      <form class="panel_buscar" [formGroup]="fomulario" (ngSubmit)="search()">
+        <input class="search" formControlName="search" type="text" placeholder="Search" name="" id="" />
+        <input class="btn_busca" type="submit" value="Buscar" />
+      </form>
+      <div class="panel_information">
+        <label>Nota: </label> <span> {{ nameNote }} </span>
+      </div>
+      <div class="panel_muestra">
+        <h3>Resultados</h3>
+        <div class="buscados">
+
+          @if (loadSearch) {
+          <app-loader-spinner />
+          }@else {
+            @for (item of dataUser; track item.id) {
+              <app-muesta-referido [modo]="'add'" [user]="item" (dataSelect)="response($event)" />
+            }
+          }
+
+        </div>
+
+      </div>
+      <div class="panel_referidos">
+        <h3>Referidos</h3>
+        <div class="referidos">
+          @if (load) {
+            <app-loader-spinner />
+          }@else {
+            @for (item of listReferidos; track item.id) {
+              <app-muesta-referido [referido]="item" [modo]="'show'" />
+            }
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

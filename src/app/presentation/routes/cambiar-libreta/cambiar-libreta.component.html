@@ -1,1 +1,75 @@
-<p>cambiar-libreta works!</p>
+<div class="container">
+  <div class="container-fluid">
+    <div class="options">
+      <span (click)="goNote()">
+        <fa-icon class="icon" [icon]="faChevronLeft" /> Volver</span
+      >
+      <!-- titulo -->
+      <div class="title">Cambiar nota a otra libreta</div>
+
+      <button
+        class="btn_confirmar"
+        (click)="onChangeNote()"
+        [disabled]="!bookName"
+      >
+        Cambiar
+      </button>
+    </div>
+    <div class="panel_contenedor">
+      <div class="panel_buscador">
+        <!-- buscador -->
+        <form [formGroup]="filtros" (ngSubmit)="onSubmit()" class="consultar">
+          <input
+            class="search"
+            type="search"
+            placeholder="Search"
+            formControlName="filter"
+            id="filtro"
+            autocomplete="off"
+          />
+          <input class="btn_busca" type="submit" value="Buscar" />
+        </form>
+        <!-- respuestas de la consulta -->
+      </div>
+      <div class="information">
+        <span class="note">
+          <label for=""> Nota: </label> {{ title ? title : "---" }}
+        </span>
+        <fa-icon [icon]="faRightLong" />
+        <span class="book">
+          <label for="">Libro: </label> {{ bookName ? bookName : "---" }}
+        </span>
+      </div>
+
+      <div class="responses">
+        @if ($load|async) {
+        <app-loader-spinner />
+        } @else { @switch (($book|async)?.length) { @case (0) {
+        <div class="books">No hay libretas</div>
+        } @default { @for (book of ($book | async); track book.id) { @if
+        (book.id !== idBook) {
+        <app-target
+          [isActive]="active === book.id"
+          (noteSelected)="onSelect(book.id)"
+          [item]="book"
+        />
+        } } } } }
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (activeReq) {
+<app-request-delete
+  [request]="
+    '¿ Seguro quiere cambiar la nota <strong>' +
+    title +
+    '</strong> al libro <strong>' +
+    bookName +
+    '</strong> ?'
+  "
+  (response)="response($event)"
+/>
+} @if (onSave) {
+<app-load-save [loading]="load" />
+}

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class OptionsComponent {
 
   // estados del padre
-  @Input() idNote!: string;
+  @Input() idNote!: string | null;
   @Output() openClose = new EventEmitter<void>();
   @Output() deleteOn = new EventEmitter<boolean>();
 
@@ -34,11 +34,11 @@ export class OptionsComponent {
   }
 
   goChangeBook(): void {
-    this.router.navigate([`change_lib/${this.idNote}`])
+    this.router.navigate([`/change_lib/${this.idNote}`])
   }
 
   goCompartirNote(): void {
-     this.router.navigate([`compartir/${this.idNote}`])
+     this.router.navigate([`/compartir/${this.idNote}`])
   }
 
 }

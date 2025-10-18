@@ -1,0 +1,61 @@
+<div class="container" [class.select]="selected">
+  <div class="container-fluid">
+    <div class="panel_data">
+      <!-- <div class="title">Referido</div> -->
+      <div class="title"> {{ user.name }} </div>
+    </div>
+    @switch (modo) { @case ('add') {
+
+    <div class="permisos">
+      <div class="title">Permisos</div>
+      <div class="panel_edit">
+        <div class="group">
+          <label>Editar
+            <input type="checkbox" [checked]="editar" (change)="onchangeEdit($event)" class="permiso" id="check1"
+              name="option" />
+          </label>
+        </div>
+        <div class="group">
+          <label>Leer
+            <input [disabled]="editar" (change)="onChangeLeer($event)" type="checkbox" [checked]="leer" class="permiso"
+              id="check2" name="option" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="panel_button">
+      @if (selected) {
+        <button [class.remove]="selected" (click)="onRemove()" title="">Remover</button> 
+      } @else {
+        <button (click)="addList()" title="">Agregar</button> 
+      }  
+    </div>
+
+    }@case ('show') {
+    <div class="permisos">
+      <div class="title">Permisos</div>
+      <div class="panel_edit">
+        <label for="">
+          <strong>Editar </strong>
+          <span><fa-icon [icon]="faSquareXmark" /> </span>
+        </label>
+        <label for="">
+          <strong>Leer </strong>
+          <span> <fa-icon [icon]="faSquareCheck" /> </span>
+        </label>
+        <button><fa-icon [icon]="faFilePen" /></button>
+      </div>
+    </div>
+    <div class="panel_button">
+      <button>Olvidar</button>
+    </div>
+    } }
+  </div>
+</div>
+
+
+@if (alert) {
+<app-alert [warning]="'No puede agregar usuarios sin permisos'" (aceptar)="openCloseModal()" />
+}

@@ -72,7 +72,7 @@
 }
 
 @if (options) {
-<app-options (openClose)="openClose()" (deleteOn)="onDelete()" />
+<app-options [idNote]="idNota" (openClose)="openClose()" (deleteOn)="onDelete()" />
 }
 
 @if (reqDelete) {

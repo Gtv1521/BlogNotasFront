@@ -1,0 +1,176 @@
+@use "../../../../styles/variables" as var;
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: var.$modal-init;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var.$primero;
+
+  .container-fluid {
+    width: 80%;
+    height: 96%;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: var.$negro-modal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+
+    .panel_title {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 8%;
+      padding: 10px 20px;
+      // background-color: red;
+      .options {
+        padding: 10px 40px;
+        border-radius: 5px;
+        background-color: var.$font-note;
+        display: flex;
+        font-weight: 600;
+
+        fa-icon {
+          margin-right: 5px;
+        }
+
+        &:hover {
+          background-color: var.$tercero;
+        }
+      }
+
+      .title {
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      .confirmation {
+        padding: 10px 40px;
+        border-radius: 5px;
+        background-color: var.$font-note;
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        color: var.$primero;
+        &:hover {
+          background-color: var.$tercero;
+        }
+      }
+    }
+
+    .panel_contenido {
+      width: 98%;
+      height: 88%;
+      padding: 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var.$modal-init;
+
+      .panel_buscar {
+        position: relative;
+        width: 80%;
+        height: 5%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .search {
+          background-color: var.$font-note;
+          width: 100%;
+          height: 90%;
+          border: none;
+          border-radius: 8px;
+          text-align: center;
+          font-weight: 600;
+        }
+
+        .btn_busca {
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          border: none;
+          padding: 0 20px;
+          font-weight: 500;
+          height: 90%;
+          border-radius: 0 8px 8px 0;
+          &:hover {
+            background-color: var.$tercero;
+          }
+        }
+      }
+
+      .panel_information {
+        width: 100%;
+        height: 5%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        font-size: 18px;
+
+        label {
+          width: 50%;
+          text-align: right;
+          padding-right: 10px;
+          color: var.$primeroOpaco;
+        }
+        span {
+          width: 50%;
+        }
+      }
+
+      .panel_muestra {
+        width: 100%;
+        height: 39%;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: var.$sexto;
+        
+        .buscados {
+          width: 100%;
+          height: 90%;
+          padding: 5px;
+          display: flex;
+          gap: 10px;
+          overflow-y: scroll;
+          flex-wrap: wrap;
+          scrollbar-color: var.$primero transparent;
+        }
+      }
+
+      .panel_referidos {
+        width: 100%;
+        height: 40%;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var.$septimo;
+
+        .referidos {
+          width: 100%;
+          height: 90%;
+          padding: 5px;
+          overflow-y: scroll;
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          scrollbar-color: var.$primero transparent;
+        }
+      }
+    }
+  }
+}
