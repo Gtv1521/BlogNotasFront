@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
-import { environment } from '../Environment/Environment';
+import { environment } from '@environments/environments';
 import { Router } from '@angular/router';
 
 @Injectable()

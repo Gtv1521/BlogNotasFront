@@ -4,7 +4,7 @@ export interface ICrud<Model> {
   read(id: string | null): Observable<Model>; // marca los datos asincronos de un usuario
   readAll(page: number): Observable<Model[]>; // marca lista de usuarios (asincrono)
   filter(filter: string, id: string): Observable<Model[]>; // hace filtro de las libretas
-//   filter(filter: string): Observable<Model[]>;
+  //   filter(filter: string): Observable<Model[]>;
   write(data: Model): Observable<string>;
   update(data: Model): Observable<boolean>;
   delete(id: string): Observable<string>;
@@ -13,6 +13,7 @@ export interface ICrud<Model> {
 // interface para el inicio de session
 export default interface IUser<Model>
   extends Omit<ICrud<Model>, 'readAll' | 'write' | 'filter' | 'delete'> {
+  readXEmail(email: string): Observable<Model[]>;
   delete(id: string): Observable<boolean>;
 }
 
@@ -26,5 +27,14 @@ export interface INote<Model> extends Omit<ICrud<Model>, 'readAll' | 'filter'> {
 
 export interface IBook<Model> extends Omit<ICrud<Model>, 'readAll'> {
   readAll(idUser: string, page: number): Observable<Model[]>;
+  // filter(filter: string, id: string): Observable<Model[]>;
   count(id: string): Observable<number>; // cuenta la cantidad de libretas por usuario
+}
+
+export interface IReference<Model, Reference> extends Omit<ICrud<Model>, 'readAll' | 'filter'> {
+  // readAllByNote(idNote: string): Observable<Model[]>;
+  // readAllByUser(idUser: string): Observable<Model[]>;
+  
+  readAll(idUser: string, page: number): Observable<Reference[]>;
+  filter(idUser: string, filter: string): Observable<Reference[]>;
 }

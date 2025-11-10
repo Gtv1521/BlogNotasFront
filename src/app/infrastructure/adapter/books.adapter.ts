@@ -3,7 +3,7 @@ import { BookEntity } from '../../domain/models/noteBooks.model';
 import { IBook } from '../../domain/ports/crud.port';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../Environment/Environment';
+import { environment } from '@environments/environments';
 import { BookDto } from '../../aplication/dtos/libreta.dto';
 import { bookMapper } from '../../aplication/mappers/book,map';
 

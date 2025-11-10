@@ -1,11 +1,9 @@
-export class NoteEntity {
-    constructor(
-        public idNote: string | null,
-        public title: string,
-        public contenido: string,
-        public idUser: string,
-        public idLibreta: string | null,
-        public fechaCreacion: Date | null,
-        public fechaUpdate: Date | null
-    ) { }
+export interface NoteEntity {
+    readonly idNote: string | null,
+    title: string,
+    contenido: string,
+    idUser: string,
+    idLibreta: string | null,
+    fechaCreacion: Date | null,
+    fechaUpdate: Date | null
 }

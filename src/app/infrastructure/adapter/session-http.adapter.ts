@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { ISession } from "../../domain/ports/session.port";
-import { environment } from "../../../Environment/Environment";
+import { environment } from '@environments/environments';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { sessionDto } from "../../aplication/dtos/session.dto";
 import { logEntity, singEntity } from "../../domain/models/log.model";

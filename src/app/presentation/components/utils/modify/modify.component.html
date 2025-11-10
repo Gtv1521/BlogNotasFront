@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="container-fluid">
+    <div class="title">Modificar permisos</div>
+    <div class="panel_user">
+      <div class="note">{{ note }}</div>
+      <div class="name">{{ user.name }}</div>
+      <div class="mail">{{ user.email }}</div>
+    </div>
+    <div class="panel_edit">
+      <h3>Permisos</h3>
+
+      <div class="permits">
+        <label>
+          Editar
+          <input type="checkbox" (change)="onChangesEdit($event)" [checked]="editar" name="" id="" />
+        </label>
+        <label>
+          Leer
+          <input type="checkbox" (change)="onChangeRead($event)" [checked]="leer" [disabled]="editar" name="" id="" />
+        </label>
+      </div>
+    </div>
+    <div class="panel_actions">
+      <button (click)="onCancelar()" class="btn cancel">Cancelar</button>
+      <button (click)="onUpdate()" class="btn enviar">Modificar</button>
+    </div>
+  </div>
+</div>

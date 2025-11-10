@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MuestaReferidoComponent } from './muesta-referido.component';
+import { ModifyComponent } from './modify.component';
 
-describe('MuestaReferidoComponent', () => {
-  let component: MuestaReferidoComponent;
-  let fixture: ComponentFixture<MuestaReferidoComponent>;
+describe('ModifyComponent', () => {
+  let component: ModifyComponent;
+  let fixture: ComponentFixture<ModifyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MuestaReferidoComponent]
+      imports: [ModifyComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MuestaReferidoComponent);
+    fixture = TestBed.createComponent(ModifyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

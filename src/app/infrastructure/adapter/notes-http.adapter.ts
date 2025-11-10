@@ -1,15 +1,19 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { NoteEntity } from '../../domain/models/note.model';
 import { INote } from '../../domain/ports/crud.port';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../Environment/Environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environments';
+import { notesMapper } from '@app/aplication/mappers/notes.map';
+import { NoteDto } from '@app/aplication/dtos/notes.dto';
 
 @Injectable({ providedIn: 'root' })
 export class notesHttpAdapter implements INote<NoteEntity> {
   private Url = `${environment.apiUrl}/Notes`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private mapper: notesMapper
+  ) {}
 
   // Cambia la libreta de una nota
   changeBook(idNote: string, idLibreta: string): Observable<boolean> {
@@ -28,7 +32,9 @@ export class notesHttpAdapter implements INote<NoteEntity> {
 
   // lee toadas la notas por el id de la libreta
   readAllById(id: string, page: number): Observable<NoteEntity[]> {
-    return this.http.get<NoteEntity[]>(`${this.Url}/all_notes/${id}/${page}`);
+    return this.http.get<NoteDto[]>(`${this.Url}/all_notes/${id}/${page}`).pipe(
+      map((res: NoteDto[]) => res.map((dto) => this.mapper.fromDto(dto)))
+    );
   }
 
   // lee una nota

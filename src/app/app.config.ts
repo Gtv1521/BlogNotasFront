@@ -15,6 +15,10 @@ import { booksHttpAdapter } from './infrastructure/adapter/books.adapter';
 import { NOTES_TOKEN } from './infrastructure/tokens/notes.token';
 import { notesHttpAdapter } from './infrastructure/adapter/notes-http.adapter';
 import { NoteDataService } from './presentation/services/note.data.service';
+import { UserMapper } from './aplication/mappers/user.map';
+import { REFERENCE_TOKEN } from './infrastructure/tokens/reference.token';
+import { ShareNoteAdapter } from './infrastructure/adapter/share.http.adapter';
+import { MapperShare } from './aplication/mappers/share.map';
 
 export const appConfig: ApplicationConfig = {
   providers:
@@ -41,11 +45,16 @@ export const appConfig: ApplicationConfig = {
       {
         provide: NOTES_TOKEN,
         useClass: notesHttpAdapter
+      },{
+        provide: REFERENCE_TOKEN,
+        useClass: ShareNoteAdapter
       },
       provideRouter(routes),
       sessionMapper,
       notesMapper,
       bookMapper,
+      UserMapper,
+      MapperShare,
 
       // services
       NoteDataService,

@@ -7,12 +7,19 @@
 
       <div class="title">Compatir nota</div>
 
-      <button class="confirmation">Compartir</button>
+      <button [disabled]="listAdd.length === 0" (click)="referirUsuarios()" class="confirmation">
+        Compartir
+      </button>
     </div>
 
     <div class="panel_contenido">
       <form class="panel_buscar" [formGroup]="fomulario" (ngSubmit)="search()">
-        <input class="search" formControlName="search" type="text" placeholder="Search" name="" id="" />
+        <input
+          class="search"
+          formControlName="search"
+          type="text"
+          placeholder="Search email"
+        />
         <input class="btn_busca" type="submit" value="Buscar" />
       </form>
       <div class="panel_information">
@@ -21,30 +28,46 @@
       <div class="panel_muestra">
         <h3>Resultados</h3>
         <div class="buscados">
-
           @if (loadSearch) {
           <app-loader-spinner />
-          }@else {
-            @for (item of dataUser; track item.id) {
-              <app-muesta-referido [modo]="'add'" [user]="item" (dataSelect)="response($event)" />
+          } @else { @for (item of dataUser; track item.id) {
+
+            @if (item.id !== iduser) {
+              <app-muesta-referido
+                [modo]="'add'"
+                [blocked]="isBlocked(item.id)"
+                [list]="listAdd"
+                [user]="item"
+                (dataSelect)="response($event)"
+              />
             }
-          }
-
+          } @empty {
+          <div class="no_hay">
+            <span>No hay datos encontrados</span>
+          </div>
+          }}
         </div>
-
       </div>
       <div class="panel_referidos">
         <h3>Referidos</h3>
         <div class="referidos">
           @if (load) {
-            <app-loader-spinner />
-          }@else {
-            @for (item of listReferidos; track item.id) {
-              <app-muesta-referido [referido]="item" [modo]="'show'" />
-            }
-          }
+          <app-loader-spinner />
+          }@else { @for (item of listReferidos; track item.id) {
+          <app-muesta-referido
+            [user]="pasUser(item.userDetails)"
+            [referido]="item"
+            [modo]="'show'"
+          />
+          } @empty {
+          <div class="no_hay">No hay referidos</div>
+          } }
         </div>
       </div>
     </div>
   </div>
 </div>
+
+@if (loadSave) {
+<app-load-save [loading]="loaderState" />
+}

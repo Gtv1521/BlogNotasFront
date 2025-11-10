@@ -1,11 +1,9 @@
-export class NoteDto {
-    constructor(
-        public idNote: string,
-        public title: string,
-        public contenido: string,
-        public idUser: string,
-        public idLibreta: string |null,
-        public fechaCreacion: Date,
-        public fechaUpdate: Date
-    ) { }
+export interface NoteDto {
+  readonly idNote: string;
+  title: string;
+  contenido: string;
+  idUser: string;
+  idLibreta: string | null;
+  fechaCreacion: Date;
+  fechaUpdate: Date;
 }

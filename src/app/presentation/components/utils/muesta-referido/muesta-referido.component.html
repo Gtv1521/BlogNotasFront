@@ -1,8 +1,9 @@
-<div class="container" [class.select]="selected">
+<div class="container" [class.select]="selected" [class.bloqued]="blocked">
   <div class="container-fluid">
     <div class="panel_data">
       <!-- <div class="title">Referido</div> -->
-      <div class="title"> {{ user.name }} </div>
+      <div class="title">{{ user ? user.name : "Usuario" }}</div>
+      <div class="mail">{{ user ? user.email : "Email" }}</div>
     </div>
     @switch (modo) { @case ('add') {
 
@@ -10,52 +11,102 @@
       <div class="title">Permisos</div>
       <div class="panel_edit">
         <div class="group">
-          <label>Editar
-            <input type="checkbox" [checked]="editar" (change)="onchangeEdit($event)" class="permiso" id="check1"
-              name="option" />
+          <label
+            >Editar
+            <input
+              type="checkbox"
+              [disabled]="blocked"
+              [checked]="editar"
+              (change)="onchangeEdit($event)"
+              class="permiso"
+              id="check1"
+              name="option"
+            />
           </label>
         </div>
         <div class="group">
-          <label>Leer
-            <input [disabled]="editar" (change)="onChangeLeer($event)" type="checkbox" [checked]="leer" class="permiso"
-              id="check2" name="option" />
+          <label
+            >Leer
+            <input
+              [disabled]="editar || blocked"
+              (change)="onChangeLeer($event)"
+              type="checkbox"
+              [checked]="leer"
+              class="permiso"
+              id="check2"
+              name="option"
+            />
           </label>
         </div>
       </div>
     </div>
 
-
+    @if (!blocked) {
     <div class="panel_button">
       @if (selected) {
-        <button [class.remove]="selected" (click)="onRemove()" title="">Remover</button> 
+      <button [class.remove]="selected" (click)="onRemove()" title="">
+        Remover
+      </button>
       } @else {
-        <button (click)="addList()" title="">Agregar</button> 
-      }  
+      <button (click)="addList()" title="">Agregar</button>
+      }
     </div>
-
-    }@case ('show') {
+    } @else {
+    <div class="panel_button">
+      <strong>Ya esta agregado</strong>
+    </div>
+    } }@case ('show') {
     <div class="permisos">
       <div class="title">Permisos</div>
       <div class="panel_edit">
         <label for="">
           <strong>Editar </strong>
-          <span><fa-icon [icon]="faSquareXmark" /> </span>
+          <span>
+            @if (editar) {
+            <fa-icon class="on" [icon]="faSquareCheck" />
+            } @else {
+            <fa-icon class="off" [icon]="faSquareXmark" />
+            }
+          </span>
         </label>
         <label for="">
           <strong>Leer </strong>
-          <span> <fa-icon [icon]="faSquareCheck" /> </span>
+          <span>
+            @if (leer) {
+            <fa-icon class="on" [icon]="faSquareCheck" />
+            } @else {
+            <fa-icon class="off" [icon]="faSquareXmark" />
+            }
+          </span>
         </label>
-        <button><fa-icon [icon]="faFilePen" /></button>
+        <button (click)="onModify()"><fa-icon [icon]="faFilePen" /></button>
       </div>
     </div>
     <div class="panel_button">
-      <button>Olvidar</button>
+      <button (click)="deleteReferido()">Revocar</button>
     </div>
     } }
   </div>
 </div>
 
-
 @if (alert) {
-<app-alert [warning]="'No puede agregar usuarios sin permisos'" (aceptar)="openCloseModal()" />
+<app-alert
+  [warning]="'No puede agregar usuarios sin permisos'"
+  (aceptar)="openCloseModal()"
+/>
+
+} @if (alertDelete) {
+<app-request-delete
+  [request]="'¿Desea eliminar el referido <strong>' + user.name + '</strong> ?'"
+  (response)="responseDelete($event)"
+/>
+
+} @if (modifyPermits) {
+<app-modify
+  [user]="user"
+  [editar]="editar"
+  [leer]="leer"
+  (cancelar)="onModify()"
+  (modifyPermits)="updatePermits($event)"
+/>
 }

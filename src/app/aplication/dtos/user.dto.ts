@@ -1,8 +1,6 @@
-export class userDto{
-    constructor(
-        public idUser: string,
-        public name: string,
-        public email: string,
-        public role: string
-    ) {}
+export interface userDto {
+  readonly idUser: string;
+  name: string;
+  email: string;
+  role: string;
 }
