@@ -1,57 +1,57 @@
-import { Observable } from "rxjs";
-import { ISession } from "../../domain/ports/session.port";
+import { Observable } from 'rxjs';
+import { ISession } from '../../domain/ports/session.port';
 import { environment } from '@environments/environments';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { sessionDto } from "../../aplication/dtos/session.dto";
-import { logEntity, singEntity } from "../../domain/models/log.model";
-import { Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { sessionDto } from '../../aplication/dtos/session.dto';
+import { logEntity, singEntity } from '../../domain/models/log.model';
+import { Injectable } from '@angular/core';
+import { NotificationHubService } from '../hubs/notifications-hub.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
+export class SessionHttpAdapter
+  implements ISession<logEntity, singEntity, sessionDto>
+{
+  private Url = `${environment.apiUrl}/Session`;
 
-export class SessionHttpAdapter implements ISession<logEntity, singEntity, sessionDto> {
+  constructor(private http: HttpClient) {}
 
-    private Url = `${environment.apiUrl}/Session`
+  // inicia session con el usuario
+  logIn(data: logEntity): Observable<sessionDto> {
+    const formData = new FormData();
 
-    constructor(
-        private http: HttpClient
-    ) { }
+    // Agregar cada campo al FormData
+    formData.append('Email', data.mail);
+    formData.append('Password', data.password);
 
-    // inicia session con el usuario
-    logIn(data: logEntity): Observable<sessionDto> {
-        const formData = new FormData();
+    return this.http.post<sessionDto>(`${this.Url}/log_in`, formData);
+  }
 
-        // Agregar cada campo al FormData
-        formData.append('Email', data.mail);
-        formData.append('Password', data.password);
+  logOut(): Observable<string> {
+    var response = this.http.get<any>(`${this.Url}/log_out`);
+    return response;
+  }
 
-        return this.http.post<sessionDto>(`${this.Url}/log_in`, formData);
-    }
+  // agrega nuevo usuario
+  sigIn(data: singEntity): Observable<sessionDto> {
+    const formData = new FormData();
 
-    logOut(): Observable<string> {
-        return this.http.get<string>(`${this.Url}/log_out`);
-    }
+    formData.append('Email', data.mail);
+    formData.append('Name', data.name);
+    formData.append('Password', data.password);
+    formData.append('Role', data.role);
 
-    // agrega nuevo usuario
-    sigIn(data: singEntity): Observable<sessionDto> {
-        const formData = new FormData();
+    return this.http.post<sessionDto>(`${this.Url}/sign_in`, formData);
+  }
 
-        formData.append('Email', data.mail);
-        formData.append('Name', data.name);
-        formData.append('Password', data.password);
-        formData.append('Role', data.role);
+  // se envia email con token para cambiar pass
+  resetPass(mail: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.Url}/reset_password/${mail}`);
+  }
 
-        return this.http.post<sessionDto>(`${this.Url}/sign_in`, formData);
-    }
-
-    // se envia email con token para cambiar pass
-    resetPass(mail: string): Observable<boolean> {
-        return this.http.get<boolean>(`${this.Url}/reset_password/${mail}`);
-    }
-
-    // verica que email exista
-    verifyMail(mail: string): Observable<boolean> {
-        return this.http.get<boolean>(`${this.Url}/check_mail/${mail}`);
-    }
+  // verica que email exista
+  verifyMail(mail: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.Url}/check_mail/${mail}`);
+  }
 }

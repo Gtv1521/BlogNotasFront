@@ -1,7 +1,6 @@
 <!--Templeate title -->
 <div class="container">
   <div class="container-fluid">
-
     <!-- name of applicattion -->
     <div class="name" [class.ocultar]="buscar">
       <h2>MyBloog</h2>
@@ -9,48 +8,86 @@
 
     @if (buscar) {
     <div class="panel_buscar" [class.buscar_active]="buscar">
-
-        <form class="consulta">
-          <div (click)="onToggleSearch(false)" title="cerrar busqueda" class="salir">
-            <fa-icon [icon]="faSquareXmark" />
-          </div>
-          <input class="search" placeholder="Search" type="text">
-          <button class="btn_busca" value="submit">Buscar</button>
-        </form>
-
+      <form class="consulta">
+        <div
+          (click)="onToggleSearch(false)"
+          title="cerrar busqueda"
+          class="salir"
+        >
+          <fa-icon [icon]="faSquareXmark" />
+        </div>
+        <input class="search" placeholder="Search" type="text" />
+        <button class="btn_busca" value="submit">Buscar</button>
+      </form>
     </div>
     }
 
     <!-- actions seargh - logout -->
     <div class="actions" [class.ocultar]="buscar">
-
       <!-- funtions -->
-      <div class="funtions" >
+      <div class="funtions">
         <!-- buscar -->
         @if (!buscar) {
-        <div (click)="onToggleSearch(true)" title="buscar" class="search">
+        <div (click)="onToggleSearch(true)" title="buscar" class="icono search">
           <fa-icon [icon]="search" />
         </div>
         }@else {
-        <div class="vacio">
-
-        </div>
+        <div class="vacio"></div>
         }
 
+        <div (click)="openNotifications()" class="icono notifications">
+          <fa-icon [icon]="faBell" />
+
+          @if (count$ | async; as count$) { @if (count$ > 0) {
+          <div class="quantity">
+            {{ count$.toString() }}
+          </div>
+          } }
+        </div>
+
         <!-- configuraciones -->
-        <div (click)="goSetting()" title="configuraions" class="settings">
-          <fa-icon [icon]="faGears" />
+        <div
+          (click)="goPanelUser()"
+          title="configuraions"
+          [class.active]="UserSettings"
+          class="icono settings"
+        >
+          <fa-icon [icon]="faCircleUser" />
         </div>
       </div>
 
       <!-- cerrar sesion -->
-      <div title="salir" class="logout" (click)="loguot()">
+      <!-- <div title="salir" class="logout" (click)="loguot()">
         <fa-icon [icon]="close" />
-      </div>
-
+      </div> -->
     </div>
   </div>
 </div>
 @if (exit) {
 <app-logout />
+} @if (UserSettings) {
+<div class="panel_user">
+  <h4 class="title">Configuraciones</h4>
+  <ul class="options">
+    <li class="item" (click)="goSetting()">
+      <article>
+        Settings <span> <fa-icon [icon]="faGears" /></span>
+      </article>
+    </li>
+    <li class="item">
+      <article>
+        Theme <span> <fa-icon [icon]="faCircleHalfStroke" /> </span>
+      </article>
+    </li>
+    <li class="item" (click)="loguot()">
+      <article>
+        Log Out <span> <fa-icon [icon]="close" /></span>
+      </article>
+    </li>
+  </ul>
+</div>
+}
+
+@if (openNotify) {
+  <app-notifications />
 }

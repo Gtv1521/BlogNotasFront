@@ -6,6 +6,7 @@ import { SessionEntity } from '../../../domain/models/session.model';
 import { SessionUseCase } from '../../../aplication/use-cases/session.use-case';
 import { AuthService } from '../../../../services/utils/Auth/auth.service';
 import { logInput } from '../../../aplication/inputs/log.input';
+import { NotificationHubService } from '@app/infrastructure/hubs/notifications-hub.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent {
   private service = inject(SessionUseCase);
   private auth = inject(AuthService);
   private router = inject(Router);
+  private notify = inject(NotificationHubService);
 
   //  declaracion de valisacion de formulario
   userForm = this.fb.group({
@@ -59,6 +61,7 @@ export class LoginComponent {
         next: (response) => {
           this.loading = false;
           this.data = response;
+          this.notify.OnConnect(); // inicia signalR
           this.auth.setAuth(
             response.idUser
           ); /* se hace inicio de session por medio de variables */
