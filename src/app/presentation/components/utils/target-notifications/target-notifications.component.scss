@@ -1,0 +1,31 @@
+@use "../../../../../styles/variables" as var;
+
+.container {
+  width: 300px;
+  background-color: var.$septimo;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px var.$primeroOpaco;
+
+  .container-fluid {
+    color: var.$primero;
+
+    .title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .message {
+      padding: 3px 0;
+      font-size: 13px;
+    }
+  }
+
+  .exit {
+    color: var.$primero;
+    pointer-events: painted;
+    cursor: pointer;
+  }
+}

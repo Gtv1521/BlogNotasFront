@@ -1,8 +1,5 @@
 import {
-  APP_INITIALIZER,
   ApplicationConfig,
-  inject,
-  provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
@@ -29,13 +26,13 @@ import { UserMapper } from './aplication/mappers/user.map';
 import { REFERENCE_TOKEN } from './infrastructure/tokens/reference.token';
 import { ShareNoteAdapter } from './infrastructure/adapter/share.http.adapter';
 import { MapperShare } from './aplication/mappers/share.map';
-import { NotificationHubService } from './infrastructure/hubs/notifications-hub.service';
-import { NotificationStore } from './presentation/store/notification.store';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi()),  
+    provideAnimations(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

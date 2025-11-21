@@ -1,0 +1,10 @@
+<div @sliderRigth class="container">
+    <div class="container-fluid">
+        <div class="title"> {{datos.title}} </div>
+        <div [innerHTML]="datos.message" class="message"></div>
+        <!-- <div class="message"> {{datos.message}} </div> -->
+    </div>
+    <div (click)="terminar()" class="exit">
+        <fa-icon [icon]="faXmarkCircle" />
+    </div>
+</div>

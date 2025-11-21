@@ -1,26 +1,37 @@
 import { Component, Inject, inject, SimpleChanges } from '@angular/core';
 import { BooksComponent } from '../../components/Dasboard/books/books.component';
-import { ListBooksComponent } from "../../components/list-books/list-books.component";
+import { ListBooksComponent } from '../../components/list-books/list-books.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
-import { TitleComponent } from "../../components/Dasboard/title/title.component";
-import { LogoutComponent } from "../../components/Dasboard/logout/logout.component";
+import { TitleComponent } from '../../components/Dasboard/title/title.component';
+import { LogoutComponent } from '../../components/Dasboard/logout/logout.component';
 import { AuthService } from '../../../../services/utils/Auth/auth.service';
 import { NoteDataService } from '../../services/note.data.service';
+import { AsyncPipe } from '@angular/common';
+import { NotificationStore } from '@app/presentation/store/notification.store';
+import { TargetNotificationsComponent } from "@app/presentation/components/utils/target-notifications/target-notifications.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BooksComponent, ListBooksComponent, FontAwesomeModule, TitleComponent, LogoutComponent],
+  imports: [
+    BooksComponent,
+    ListBooksComponent,
+    FontAwesomeModule,
+    TitleComponent,
+    LogoutComponent,
+    AsyncPipe,
+    TargetNotificationsComponent
+],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  // estados 
+  // estados
   private id: string | null = null;
-  idlibreta: string = "";
+  idlibreta: string = '';
   loader: boolean = true;
   newNote: boolean = false;
   modalSettings: boolean = false;
@@ -28,29 +39,33 @@ export class DashboardComponent {
   note: boolean = false;
   noteData: any = [];
 
-
   // Estados - menejo de datos
   datos: any = [];
   errors: any = [];
 
   // Llamado iconos
-  faSquarePlus = faSquarePlus 
+  faSquarePlus = faSquarePlus;
 
   // inyeccion de dependencias
   private router = inject(Router);
   private auth = inject(AuthService);
   private noteService = inject(NoteDataService);
+  private notify = inject(NotificationStore);
 
+  $notify = this.notify.notifications$
 
-  // se lanzan los requisitos para iniciar la app 
+  // se lanzan los requisitos para iniciar la app
   ngOnInit(): void {
-    timer(3000).pipe().subscribe(() => {
-      this.loader = false
-    })
+
+    timer(3000)
+      .pipe()
+      .subscribe(() => {
+        this.loader = false;
+      });
 
     //  validacion de session
-    if (this.auth.getUserId() === null ) {
-      this.logout()
+    if (this.auth.getUserId() === null) {
+      this.logout();
     }
 
     this.id = this.auth.getUserId();
@@ -66,18 +81,22 @@ export class DashboardComponent {
 
   // obtener idLibreta
   getLibreta(id: string): void {
-    this.idlibreta = id
+    this.idlibreta = id;
   }
 
   // trae el id de usuario
   getUserId(): string | null {
-    return this.id
+    return this.id;
   }
 
   //  cierre de session
   logout(): void {
-    this.loader = false
-    this.exit = true
+    this.loader = false;
+    this.exit = true;
+  }
+
+  deleteNotify(id: string): void {
+    this.notify.removeNotify(id);
   }
 
   // abre note nueva
@@ -90,8 +109,9 @@ export class DashboardComponent {
   // manda mensage para abrir una nota
   openNote(data: any): void {
     this.router.navigate([`/note/${data.idNote}`]);
-    this.noteService.setNote({ idLibreta: data.idLibreta, idNota: data.idNote });
+    this.noteService.setNote({
+      idLibreta: data.idLibreta,
+      idNota: data.idNote,
+    });
   }
-
-
 }

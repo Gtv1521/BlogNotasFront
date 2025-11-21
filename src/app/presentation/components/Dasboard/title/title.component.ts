@@ -15,15 +15,23 @@ import { LogoutComponent } from '../logout/logout.component';
 import { AuthService } from '../../../../../services/utils/Auth/auth.service';
 import { NotificationStore } from '@app/presentation/store/notification.store';
 import { AsyncPipe } from '@angular/common';
-import { NotificationsComponent } from "../../Flotantes/notifications/notifications.component";
-
+import { NotificationsComponent } from '../../Flotantes/notifications/notifications.component';
+import { slideAnimation } from '@app/presentation/animations/sliderDown';
 @Component({
   selector: 'app-title',
   standalone: true,
-  imports: [FontAwesomeModule, LogoutComponent, AsyncPipe, NotificationsComponent],
+  imports: [
+    FontAwesomeModule,
+    LogoutComponent,
+    AsyncPipe,
+    NotificationsComponent,
+  ],
   templateUrl: './title.component.html',
   styleUrl: './title.component.scss',
+  animations: [slideAnimation],
 })
+
+
 export class TitleComponent {
   // estados
   exit: boolean = false; // modal de salida
@@ -63,11 +71,14 @@ export class TitleComponent {
 
   // abre / cierra las notificaciones
   openNotifications() {
+    this.UserSettings = false;
     this.openNotify = !this.openNotify;
+    this.resetCountNotify();
   }
 
   goPanelUser() {
     this.UserSettings = !this.UserSettings;
+    this.openNotify = false;
   }
 
   // Logout

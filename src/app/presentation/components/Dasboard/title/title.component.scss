@@ -126,7 +126,6 @@
             font-weight: 600;
             padding: 3px 5px;
             border-radius: 50%;
-            
           }
         }
 
@@ -182,7 +181,6 @@
 }
 
 //  estilos de panel usuarios
-
 .panel_user {
   position: absolute;
   top: 70px;
@@ -192,7 +190,7 @@
   max-height: 30%;
   background-color: var.$septimo;
   z-index: 3;
-  padding: 20px 15px;
+  padding: 20px 0 0 0;
   border-radius: 15px;
   box-shadow: 0 0 5px var.$cuarto;
 
@@ -225,6 +223,25 @@
       }
     }
   }
+  .name {
+    text-align: center;
+    padding: 8px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: var.$quinto;
+    color: var.$primeroOpaco;
+    border-radius: 0 0 15px 15px;
+  }
+}
+
+.panel_notificatios {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  width: 20%;
+  height: 50%;
+  z-index: 3;
 }
 
 @media (30px <=width <=700px) {

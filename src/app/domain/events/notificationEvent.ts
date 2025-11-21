@@ -1,9 +1,9 @@
 export interface NotificationEvent {
-  TargetId: string;
-  UserRefId: string;
-  Type: number;
-  Message: string;
-  Title: string;
+  targetId: string;
+  userRefId: string;
+  type: number;
+  message: string;
+  title: string;
   IsRead: boolean,
   Data: object;
 }

@@ -1,1 +1,39 @@
-<p>notifications works!</p>
+<div @slideAnimation class="container">
+  <div class="container-fluid">
+    <div class="title">Notifications</div>
+    <div class="panel_notifications">
+      <ul class="lista">
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+        <li class="item">item</li>
+      </ul>
+    </div>
+    <div class="options">
+      <div class="diabled">desactive notify</div>
+      <div class="actions">
+        <div (click)="initDelete()" class="opt" [class.activa]="onClear" title="limpiar">
+          <fa-icon [icon]="faBroom" />
+        </div>
+        <div (click)="initDelete()" class="opt" [class.activa]="onDelete" title="eliminar">
+          <fa-icon [icon]="faTrashArrowUp" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

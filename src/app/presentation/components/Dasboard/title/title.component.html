@@ -35,13 +35,15 @@
         <div class="vacio"></div>
         }
 
-        <div (click)="openNotifications()" class="icono notifications">
+        <div (click)="openNotifications()" [class.active]="openNotify" class="icono notifications">
           <fa-icon [icon]="faBell" />
 
           @if (count$ | async; as count$) { @if (count$ > 0) {
           <div class="quantity">
-            {{ count$.toString() }}
+            {{ count$ }}
           </div>
+          } @else {
+            <div class=""></div>
           } }
         </div>
 
@@ -85,9 +87,10 @@
       </article>
     </li>
   </ul>
+  <div class="name">Gustavo Bernal</div>
 </div>
-}
-
-@if (openNotify) {
-  <app-notifications />
+} @if (openNotify) {
+<div class="panel_notificatios">
+  <app-notifications @slideAnimation/>
+</div>
 }

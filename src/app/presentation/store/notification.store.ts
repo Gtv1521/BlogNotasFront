@@ -17,15 +17,22 @@ export class NotificationStore {
     this._notification.next([...current, event]);
     this._count.next(cantidad + 1);
 
-    console.log(this.count$)
+    console.log(this.notifications$);
   }
 
   markReadNotify(id: string) {
-    var notify = this._notification.value.find((x) => x.TargetId === id);
+    var notify = this._notification.value.find((x) => x.targetId === id);
     notify?.IsRead === true;
   }
 
-  //  limpia la cuenta de las notificaciones 
+  removeNotify(id: string) {
+    const filtered = this._notification.value.filter((b) => b.targetId !== id);
+    this._notification.next(filtered);
+
+    console.log(this.notifications$)
+  }
+
+  //  limpia la cuenta de las notificaciones
   clearCount() {
     this._count.next(0);
   }

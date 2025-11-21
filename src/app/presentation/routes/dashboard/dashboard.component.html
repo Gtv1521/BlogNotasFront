@@ -1,5 +1,4 @@
 <div class="container">
-  <!-- @if (loader) { <app-loader /> } @else if(loader == false) { -->
   <!-- titulo -->
   <div class="navbar">
     <app-title />
@@ -16,16 +15,31 @@
     <!-- Lista de las notas de la libreta cargada -->
     <div class="notes">
       @if (idlibreta !== "" || idlibreta !== null) {
-        <app-list-books (dataNota)="openNote($event)" [idLibreta]="idlibreta" />
+      <app-list-books (dataNota)="openNote($event)" [idLibreta]="idlibreta" />
       }
     </div>
 
     <!-- boton para agregar una nota a la libreta abierta -->
-    <button [disabled]="newNote" title="nueva nota" class="new_note" (click)="goNewNote()">
+    <button
+      [disabled]="newNote"
+      title="nueva nota"
+      class="new_note"
+      (click)="goNewNote()"
+    >
       <fa-icon class="icono" [icon]="faSquarePlus" />
     </button>
   </div>
-  <!-- } -->
+</div>
+
+<div class="notifications-container">
+  @for (notify of $notify | async; track notify.targetId) {
+  <app-target-notifications
+    (salir)="deleteNotify(notify.targetId)"
+    [datos]="notify"
+  />
+  } @empty {
+  <div class=""></div>
+  }
 </div>
 
 <!-- cierra sesion -->

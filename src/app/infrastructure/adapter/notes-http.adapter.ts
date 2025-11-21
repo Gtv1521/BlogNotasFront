@@ -33,7 +33,8 @@ export class notesHttpAdapter implements INote<NoteEntity> {
   // lee toadas la notas por el id de la libreta
   readAllById(id: string, page: number): Observable<NoteEntity[]> {
     return this.http.get<NoteDto[]>(`${this.Url}/all_notes/${id}/${page}`).pipe(
-      map((res: NoteDto[]) => res.map((dto) => this.mapper.fromDto(dto)))
+      map((res: NoteDto[]) => {
+        return res.map((dto) => this.mapper.fromDto(dto))})
     );
   }
 
